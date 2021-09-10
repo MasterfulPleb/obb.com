@@ -9,7 +9,20 @@ app.set('view engine', 'pug');
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-    res.render('index', { message: 'Derp' });
+    mariadb.createConnection({
+        socketPath: '/var/run/mysqld/mysqld.sock',
+        user: 'root',
+        database: 'bee_movie'
+    })
+    .then(conn => {
+        conn.query('SELECT author, COUNT(2) AS "totalComments"' +
+            ' FROM comments GROUP BY author ORDER BY COUNT(2) DESC;')
+        .catch(err => {
+            console.error('mariadb query error:');
+            console.error(err);
+        });
+    })
+    .then(arr => res.render('index', { array: arr }));
 });
 
 app.get('*', (req, res) => res.redirect('/'));
