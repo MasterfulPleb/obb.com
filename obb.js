@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', function (req, res) {
-    res.send('hello world')
-})
+    res.sendFile('/obb/content/index.html', {root: __dirname});
+});
 
-app.listen(3000)
+app.listen(3000);
