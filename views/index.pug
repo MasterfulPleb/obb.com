@@ -3,6 +3,10 @@ html
     title= 'Welcome to ouijabeederboard.com'
     link(rel="stylesheet", href="/public/styles/index.css")
   body
-    h1= array[0].author
-
-    
+    table#leaderboard
+        tr#headers
+            th User
+            th Comments
+        //new row for each user
+        - for (i = 0; i < array.length; i++)
+          tr array[i].author
