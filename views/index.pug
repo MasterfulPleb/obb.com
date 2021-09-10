@@ -9,4 +9,8 @@ html
             th Comments
         //new row for each user
         - for (i = 0; i < array.length; i++)
-          tr array[i].author
+          - var a = array[i].author
+          - var c = array[i].totalComments
+          tr#a
+            td= a
+            td= c 
