@@ -17,12 +17,10 @@ app.get('/', (req, res) => {
     .then(conn => {
         conn.query('SELECT author, COUNT(2) AS "totalComments"' +
             ' FROM comments GROUP BY author ORDER BY COUNT(2) DESC;')
-        .catch(err => {
-            console.error('mariadb query error:');
-            console.error(err);
-        });
+        .then(arr => res.render('index', { array: arr }))
+        .catch(err => console.error('mariadb query error: ' + err));
     })
-    .then(arr => res.render('index', { array: arr }));
+    .catch(err => console.error('mariadb connection error: ' + err));
 });
 
 app.get('*', (req, res) => res.redirect('/'));
