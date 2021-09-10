@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 //load resources
-app.use('/public', express.static('public'))
+app.use('/public', express.static('public'));
 
 //send the actual page
 app.get('/', function (req, res) {
@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
 
 //redirects bad paths
 app.get('*', function(req, res) {
-    res.redirect('/')
-})
+    res.redirect('/');
+});
 
 app.listen(3000);

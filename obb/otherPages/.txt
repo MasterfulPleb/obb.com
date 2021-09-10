@@ -1,6 +1,6 @@
 ouijabeederboard.com/otherPages
 
-rename dir 'otherPages', add content, configure address in obb.js
+rename dir 'otherPages', add HTML, configure address in obb.js
 
 restart obb in pm2
 
