@@ -4,8 +4,6 @@ rename dir 'otherPages', add content, configure address in obb.js
 
 restart obb in pm2
 
-might need to mess with domain records?
-
 ???
 
 profit

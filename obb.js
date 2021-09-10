@@ -2,13 +2,7 @@
 const express = require('express');
 const app = express();
 
-app.get('/public/styles', function (req, res) {
-    res.sendFile('/obb/public/styles/index.css', {root: __dirname});
-});
-
-app.get('/public/', function (req, res) {
-    res.sendFile('/obb/public/test.html', {root: __dirname});
-});
+app.use('/public', express.static('public'))
 
 app.get('/', function (req, res) {
     res.sendFile('/obb/index.html', {root: __dirname});
