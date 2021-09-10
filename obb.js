@@ -2,17 +2,15 @@
 const express = require('express');
 const app = express();
 
-//load resources
+app.set('view engine', 'pug');
+
 app.use('/public', express.static('public'));
 
-//send the actual page
-app.get('/', function (req, res) {
-    res.sendFile('/obb/index.html', {root: __dirname});
+app.get('/', (req, res) => {
+    res.render('index', { message: 'Derp' })
+    //res.sendFile('/obb/index.html', {root: __dirname});
 });
 
-//redirects bad paths
-app.get('*', function(req, res) {
-    res.redirect('/');
-});
+app.get('*', (req, res) => res.redirect('/'));
 
 app.listen(3000);
