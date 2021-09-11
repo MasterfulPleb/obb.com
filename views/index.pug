@@ -6,11 +6,11 @@ html
     #leaderboard.table
         #headers.row
             h1.author User
-            h1.comment Comments
+            h1.comments Comments
         - for (i = 0; i < array.length; i++)
           .row
             p.author= array[i].author
-            p.comment= array[i].totalComments
+            p.comments= array[i].totalComments
 
     //-table#leaderboard
         tr#headers

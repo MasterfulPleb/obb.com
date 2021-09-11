@@ -2,16 +2,17 @@ body {
     background-color: rgb(41, 41, 41);
     color: whitesmoke;
 }
-.table {
+#leaderboard {
     display: flex;
     flex-direction: column;
+    width: 20%;
 }
 .row {
     display: flex;
 }
 .row.author {
-
+    flex: 5;
 }
-.row.comment {
-
+.row.comments {
+    flex: 1
 }
