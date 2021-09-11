@@ -8,6 +8,8 @@ body {
     display: flex;
     flex-direction: column;
     width: 20%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .row {
     display: flex;
@@ -17,13 +19,15 @@ body {
 }
 .place {
     flex: 1;
+    text-align: right;
 }
 .author {
-    flex: 15;
+    flex: 10;
 }
 .comments {
     flex: 3;
+    text-align: right;
 }
 #headers .author, #headers .comments {
-    font-size: revert
+    font-size: revert;
 }
