@@ -1,6 +1,8 @@
 body {
     background-color: rgb(41, 41, 41);
     color: whitesmoke;
+    font-size: larger;
+    font-family: sans-serif;
 }
 #leaderboard {
     display: flex;
@@ -10,9 +12,18 @@ body {
 .row {
     display: flex;
 }
-.row.author {
-    flex: 5;
+.row p {
+    
 }
-.row.comments {
-    flex: 1
+.place {
+    flex: 1;
+}
+.author {
+    flex: 15;
+}
+.comments {
+    flex: 3;
+}
+#headers .author, #headers .comments {
+    font-size: revert
 }

@@ -9,17 +9,6 @@ html
             h1.comments Comments
         - for (i = 0; i < array.length; i++)
           .row
+            p.place= (i+1) + '.'
             p.author= array[i].author
             p.comments= array[i].totalComments
-
-    //-table#leaderboard
-        tr#headers
-            th User
-            th Comments
-        //new row for each user
-        - for (i = 0; i < array.length; i++)
-          - var a = array[i].author
-          - var c = array[i].totalComments
-          tr
-            td= a
-            td= c
