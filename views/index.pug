@@ -3,7 +3,16 @@ html
     title= 'Welcome to ouijabeederboard.com'
     link(rel="stylesheet", href="/public/styles/index.css")
   body
-    table#leaderboard
+    #leaderboard.table
+        #headers.row
+            h1.author User
+            h1.comment Comments
+        - for (i = 0; i < array.length; i++)
+          .row
+            p.author= array[i].author
+            p.comment= array[i].totalComments
+
+    //-table#leaderboard
         tr#headers
             th User
             th Comments
@@ -11,6 +20,6 @@ html
         - for (i = 0; i < array.length; i++)
           - var a = array[i].author
           - var c = array[i].totalComments
-          tr#a
+          tr
             td= a
-            td= c 
+            td= c
