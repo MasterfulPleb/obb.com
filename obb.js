@@ -13,7 +13,7 @@ const pool = mariadb.createPool({
 
 app.set('view engine', 'pug');
 
-app.use(favicon('/public/favicon.ico'));
+app.use(favicon('./public/favicon.ico'));
 
 app.use('/public', express.static('public'));
 
@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
         'COUNT(*) AS "comments" FROM comments ' +
         'GROUP BY author ORDER BY COUNT(*) DESC;')
     .then(arr => {
-        console.log(arr);
         res.render('index', { leaderboard: arr });
     })
     .catch(err => console.error('mariadb query error: ' + err));
