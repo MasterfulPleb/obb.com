@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const app = express();
+const favicon = require('serve-favicon');
 const pug = require('pug');
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
@@ -11,6 +12,8 @@ const pool = mariadb.createPool({
 });
 
 app.set('view engine', 'pug');
+
+app.use(favicon('/public/favicon.ico'));
 
 app.use('/public', express.static('public'));
 

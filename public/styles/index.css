@@ -7,7 +7,9 @@ body {
     font-size: larger;
     font-family: sans-serif;
 }
-#latest-comment {margin-top: 0;}
+#latest-comment {
+    margin-top: 0;
+}
 #source {
     /* z-index: -1; */
     position: sticky;
