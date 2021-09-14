@@ -3,15 +3,18 @@ html
         title= 'Welcome to ouijabeederboard.com'
         link(rel="stylesheet", href="/public/styles/index.css")
     body
-    p wanna see some source code?
-    a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
-    #leaderboard.table
-        //#headers.row
-            h1.place #
-            h1.author User
-            h1.comments Comments
-        - for (i = 0; i < leaderboard.length; i++)
-          .row
-            p.place= (i+1) + '.'
-            p.author= leaderboard[i].author
-            p.comments= leaderboard[i].comments
+        #leaderboard.table
+            //#headers.row
+                h1.place #
+                h1.author User
+                h1.comments Comments
+            - for (i = 0; i < leaderboard.length; i++)
+            .row
+                p.place= (i+1) + '.'
+                p.author= leaderboard[i].author
+                p.comments= leaderboard[i].comments
+        #content
+            #sc Wanna see some source code?
+                a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
+            #latest-comment Latest comment:
+                a(href=latestComment) https://github.com/MasterfulPleb/obb.com
