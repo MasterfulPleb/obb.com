@@ -4,11 +4,12 @@ const app = express();
 const pug = require('pug');
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
-        socketPath: '/var/run/mysqld/mysqld.sock',
-        user: 'root',
-        database: 'bee_movie',
-        connectionLimit: 5,
-}).catch(err => console.error('mariadb pool error: ' + err));
+    socketPath: '/var/run/mysqld/mysqld.sock',
+    user: 'root',
+    database: 'bee_movie',
+    connectionLimit: 5,
+});
+console.log(pool)
 
 app.set('view engine', 'pug');
 
