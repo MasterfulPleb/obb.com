@@ -7,10 +7,9 @@ body {
     font-size: larger;
     font-family: sans-serif;
 }
-#latest-comment {
-}
+#latest-comment {margin-top: 0;}
 #source {
-    z-index: -1;
+    /* z-index: -1; */
     position: sticky;
     top: calc(100% - 2em);
     left: calc(100% - 3em);
@@ -30,6 +29,9 @@ body {
     flex: 1;
     min-height: 7em;
     margin: .8em;
+}
+
+#content p {
 }
 #leaderboard {
     flex: 2;
