@@ -8,7 +8,7 @@ const pool = mariadb.createPool({
         user: 'root',
         database: 'bee_movie',
         connectionLimit: 5,
-});
+}).catch(err => console.error('mariadb pool error: ' + err));
 
 app.set('view engine', 'pug');
 
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
         'COUNT(*) AS "comments" FROM comments ' +
         'GROUP BY author ORDER BY COUNT(*) DESC;')
     .then(arr => res.render('index', { leaderboard: arr }))
-    .catch(err => console.error('mariadb error: ' + err));
+    .catch(err => console.error('mariadb query error: ' + err));
 });
 
 app.get('*', (req, res) => res.redirect('/'));
