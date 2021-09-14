@@ -7,24 +7,38 @@ body {
 #leaderboard {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    max-width: 400px;
+    min-width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    border: 4px solid rgb(200, 200, 200);
+    border-radius: 1em;
 }
 .row {
     display: flex;
 }
 .place {
-    flex: 1;
+    flex: 10;
     text-align: right;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    padding-right: .5em;
 }
+
+.row:nth-child(even) {
+    background-color: rgb(49, 49, 49);
+    /* overflow: hidden; */
+    border-radius: 1em;
+}
+
+.row p {margin-top: .6em;margin-bottom: .6em;}
 .author {
-    flex: 3;
+    flex: 60;
+    overflow: hidden;
 }
 .comments {
-    flex: 1;
+    flex: 12;
     text-align: right;
+    padding-right: .5em;
 }
 #headers .author, #headers .comments {
     font-size: revert;
