@@ -22,15 +22,16 @@ app.get('/', async function (req, res) {
     const conn = await pool.getConnection();
     var written = await fs.readFile('/home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'});
     var remaining = await fs.readFile('/home/justin/scraper/bee-movie-comment-updater/remaining.txt', {encoding: 'utf8'});
-    var temp = written.slice(written.length - 10);
+    var temp = written.slice(written.length - 9);
     var lastWritten = '';
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 9; i++) {
         lastWritten += temp.slice(i, i+1);
         lastWritten += ' ';
     }
-    temp = remaining.slice(0, 10);
+    temp = remaining.slice(0, 11);
+    lastWritten += temp.slice(0, 1)
     var firstRemaining = '';
-    for (let i = 0; i < 10; i++) {
+    for (let i = 1; i < 11; i++) {
         firstRemaining += temp.slice(i, i+1);
         if (i != 9) firstRemaining += ' ';
     }
