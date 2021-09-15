@@ -10,8 +10,8 @@ html
                 p.author= leaderboard[i].author
                 p.comments= leaderboard[i].comments
         #content
-            p#latest-comment Latest comment:
-                -//a(href=latestComment) latestComment
+            p#latest-comment Latest comment: 
+                a(href=lastCommentURL)= lastCommentURL
             p#source Want some source code? 
                 a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
         #welcome
