@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const favicon = require('serve-favicon');
 const pug = require('pug');
+const fs = require('fs/promises');
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
@@ -19,6 +20,10 @@ app.use('/public', express.static('public'));
 
 app.get('/', async function (req, res) {
     const conn = await pool.getConnection();
+    var written = await fs.readFile('~/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'});
+    var remaining = await fs.readFile('~/scraper/bee-movie-comment-updater/remaining.txt', {encoding: 'utf8'});
+    var lastWritten = written.slice(written.length - 10);
+    var firstRemaining = remaining.slice(0, 10);
     try {
         var leaderboard = await conn.query('SELECT author, ' +
             'COUNT(*) AS "comments" FROM comments ' +
@@ -35,7 +40,9 @@ app.get('/', async function (req, res) {
     res.render('index', {
         leaderboard: leaderboard,
         lastCommentURL: lastCommentURL,
-        lastCommentOld: lastCommentOld
+        lastCommentOld: lastCommentOld,
+        lastWritten: lastWritten,
+        firstRemaining: firstRemaining
     });
 });
 
