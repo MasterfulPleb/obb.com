@@ -25,7 +25,7 @@ app.get('/', async function (req, res) {
             'GROUP BY author ORDER BY COUNT(*) DESC;');
         var lastCommentPerma = await conn.query('SELECT permalink ' +
             'FROM comments ORDER BY timestamp DESC LIMIT 1;');
-        lastCommentURL = 'https://www.reddit.com' + lastCommentPerma + '?context=3';
+        var lastCommentURL = 'https://www.reddit.com' + lastCommentPerma + '?context=3';
     } catch (err) {
         console.error('mariadb query error: ' + err);
     }
