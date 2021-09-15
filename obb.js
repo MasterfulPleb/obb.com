@@ -29,6 +29,8 @@ app.get('/', async function (req, res) {
         var lastCommentOld = 'https://old.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
     } catch (err) {
         console.error('mariadb query error: ' + err);
+    } finally {
+        conn.release();
     }
     res.render('index', {
         leaderboard: leaderboard,
