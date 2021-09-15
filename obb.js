@@ -28,7 +28,6 @@ app.get('/', async function (req, res) {
         lastWritten += temp.slice(i, i+1);
         lastWritten += ' ';
     }
-    lastWritten += 'ʌ '
     temp = remaining.slice(0, 10);
     var firstRemaining = '';
     for (let i = 0; i < 10; i++) {
