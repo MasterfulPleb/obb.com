@@ -11,7 +11,9 @@ html
                 p.comments= leaderboard[i].comments
         #content
             p#latest-comment Latest comment: 
-                a(href=lastCommentURL)= lastCommentURL
+                a(href=lastCommentURL, target='_blank') https://www.reddit.com/.../?context=3
+            p#latest-comment-old Latest comment (old Reddit): 
+                a(href=lastCommentOld, target='_blank') https://old.reddit.com/.../?context=3
             p#source Want some source code? 
                 a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
         #welcome

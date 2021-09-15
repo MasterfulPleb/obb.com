@@ -26,10 +26,15 @@ app.get('/', async function (req, res) {
         var lastCommentPerma = await conn.query('SELECT permalink ' +
             'FROM comments ORDER BY timestamp DESC LIMIT 1;');
         var lastCommentURL = 'https://www.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
+        var lastCommentOld = 'https://old.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
     } catch (err) {
         console.error('mariadb query error: ' + err);
     }
-    res.render('index', { leaderboard: leaderboard, lastCommentURL: lastCommentURL });
+    res.render('index', {
+        leaderboard: leaderboard,
+        lastCommentURL: lastCommentURL,
+        lastCommentOld: lastCommentOld
+    });
 });
 
 app.get('*', (req, res) => res.redirect('/'));
