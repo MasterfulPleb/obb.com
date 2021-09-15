@@ -22,8 +22,18 @@ app.get('/', async function (req, res) {
     const conn = await pool.getConnection();
     var written = await fs.readFile('/home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'});
     var remaining = await fs.readFile('/home/justin/scraper/bee-movie-comment-updater/remaining.txt', {encoding: 'utf8'});
-    var lastWritten = written.slice(written.length - 10);
-    var firstRemaining = remaining.slice(0, 10);
+    var temp = written.slice(written.length - 10);
+    var lastWritten = ''
+    for (let i = 0; i < 10; i++) {
+        lastWritten += temp.slice(i, i+1)
+        if (i != 9) lastWritten =+ ' '
+    }
+    temp = remaining.slice(0, 10);
+    var firstRemaining = ''
+    for (let i = 0; i < 10; i++) {
+        firstRemaining += temp.slice(i, i+1)
+        if (i != 9) firstRemaining =+ ' '
+    }
     try {
         var leaderboard = await conn.query('SELECT author, ' +
             'COUNT(*) AS "comments" FROM comments ' +
