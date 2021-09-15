@@ -20,8 +20,8 @@ app.use('/public', express.static('public'));
 
 app.get('/', async function (req, res) {
     const conn = await pool.getConnection();
-    var written = await fs.readFile('home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'});
-    var remaining = await fs.readFile('home/justin/scraper/bee-movie-comment-updater/remaining.txt', {encoding: 'utf8'});
+    var written = await fs.readFile('/home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'});
+    var remaining = await fs.readFile('/home/justin/scraper/bee-movie-comment-updater/remaining.txt', {encoding: 'utf8'});
     var lastWritten = written.slice(written.length - 10);
     var firstRemaining = remaining.slice(0, 10);
     try {
