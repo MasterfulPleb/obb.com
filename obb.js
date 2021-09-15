@@ -26,13 +26,13 @@ app.get('/', async function (req, res) {
     var lastWritten = ''
     for (let i = 0; i < 10; i++) {
         lastWritten += temp.slice(i, i+1)
-        if (i != 9) lastWritten =+ ' '
+        if (i != 9) lastWritten += ' '
     }
     temp = remaining.slice(0, 10);
     var firstRemaining = ''
     for (let i = 0; i < 10; i++) {
         firstRemaining += temp.slice(i, i+1)
-        if (i != 9) firstRemaining =+ ' '
+        if (i != 9) firstRemaining += ' '
     }
     try {
         var leaderboard = await conn.query('SELECT author, ' +
