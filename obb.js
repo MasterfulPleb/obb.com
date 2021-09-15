@@ -33,7 +33,7 @@ app.get('/', async function (req, res) {
     var firstRemaining = '';
     for (let i = 1; i < 11; i++) {
         firstRemaining += temp.slice(i, i+1);
-        if (i != 9) firstRemaining += ' ';
+        if (i != 10) firstRemaining += ' ';
     }
     try {
         var leaderboard = await conn.query('SELECT author, ' +
