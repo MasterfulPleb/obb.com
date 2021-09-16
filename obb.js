@@ -33,11 +33,11 @@ app.get('/', async function (req, res) {
     var firstRemaining = '';
     for (let i = 1; i < 11; i++) {
         firstRemaining += temp.slice(i, i+1);
-        if (i != 10) firstRemaining += ' ';
+        if (i != 10) firstRemaining += ' '
     }
-    written += remaining.slice(0, 1)
-    remaining = remaining.slice(1)
-    var percent = parseInt(written.length * 10000 / (written.length + remaining.length)) / 100
+    written += remaining.slice(0, 1);
+    remaining = remaining.slice(1);
+    var percent = parseInt(written.length * 10000 / (written.length + remaining.length)) / 100;
     try {
         var leaderboard = await conn.query('SELECT author, ' +
             'COUNT(*) AS "comments" FROM comments ' +
@@ -46,6 +46,10 @@ app.get('/', async function (req, res) {
             'FROM comments ORDER BY timestamp DESC LIMIT 1;');
         var lastCommentURL = 'https://www.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
         var lastCommentOld = 'https://old.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
+        var percent24 = await conn.query('SELECT COUNT(*) ' +
+            'AS comments24h FROM comments ' +
+            'WHERE timestamp > (UNIX_TIMESTAMP() - 86400);');
+        percent24 = parseInt(percent24[0].comments24h * 10000 / (written.length + remaining.length)) / 100;
     } catch (err) {
         console.error('mariadb query error: ' + err);
     } finally {
@@ -59,7 +63,8 @@ app.get('/', async function (req, res) {
         firstRemaining: firstRemaining,
         written: written,
         remaining: remaining,
-        percent: percent
+        percent: percent,
+        percent24: percent24
     });
 });
 

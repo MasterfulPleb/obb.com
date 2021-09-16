@@ -2,7 +2,7 @@ body {
     flex-wrap: wrap-reverse;
     display: flex;
     margin: 0 1em 1em 1em;
-    background-color: rgb(41, 41, 41);
+    background-color: rgb(40, 40, 40);
     color: whitesmoke;
     font-size: larger;
     font-family: sans-serif;
@@ -105,5 +105,8 @@ a {
     /* max-width: 1%; */
 }
 #progress span {
-    font-size: small;
+    font-size: .6em;
+}
+#progress .remaining {
+    color: grey;
 }
