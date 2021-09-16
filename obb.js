@@ -35,6 +35,8 @@ app.get('/', async function (req, res) {
         firstRemaining += temp.slice(i, i+1);
         if (i != 10) firstRemaining += ' ';
     }
+    written += remaining.slice(0, 1)
+    remaining = remaining.slice(1)
     try {
         var leaderboard = await conn.query('SELECT author, ' +
             'COUNT(*) AS "comments" FROM comments ' +
@@ -53,7 +55,9 @@ app.get('/', async function (req, res) {
         lastCommentURL: lastCommentURL,
         lastCommentOld: lastCommentOld,
         lastWritten: lastWritten,
-        firstRemaining: firstRemaining
+        firstRemaining: firstRemaining,
+        written: written,
+        remaining: remaining
     });
 });
 

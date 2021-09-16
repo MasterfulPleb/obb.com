@@ -10,19 +10,21 @@ html
                 p.author= leaderboard[i].author
                 p.comments= leaderboard[i].comments
         #content
-            p#latest-comment Latest comment: 
-                a(href=lastCommentURL, target='_blank') https://www.reddit.com/.../?context=3
-            p#latest-comment-old Latest comment (old Reddit): 
-                a(href=lastCommentOld, target='_blank') https://old.reddit.com/.../?context=3
-            p#last-letters We are here:  
-                span.written= lastWritten
-                span.mark  ʌ 
-                span.remaining= firstRemaining
-            p#source Want some source code? 
-                a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
+            #metrics
+                p#latest-comment Latest comment: 
+                    a(href=lastCommentURL, target='_blank') https://www.reddit.com/.../?context=3
+                p#latest-comment-old Latest comment (old Reddit): 
+                    a(href=lastCommentOld, target='_blank') https://old.reddit.com/.../?context=3
+                p#last-letters We are here:  
+                    span.written= lastWritten
+                    span.mark  ʌ 
+                    span.remaining= firstRemaining
+                p#source Want some source code? 
+                    a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
+            #progress
+                - for (i = 0; i < written.length; i++)
+                  span.written= written.slice(i, i+1)
+                - for (i = 0; i < remaining.length; i++)
+                  span.remaining= remaining.slice(i, i+1)
         #welcome
             h1 Welcome to oiujabeederboard.com!
-            -//p#last-letters Latest letters: 
-                -//span.written= lastWritten
-            -//p#next-letters Next letters: 
-                -//span.remaining= firstRemaining

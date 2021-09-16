@@ -83,6 +83,14 @@ a {
     color: royalblue;
 }
 .mark {
+    position: relative;
+    top: .6em;
     color: yellow;
     font-size: small;
+}
+#metrics {
+
+}
+#progress {
+    
 }
