@@ -63,6 +63,22 @@ app.get('/', async function (req, res) {
     });
 });
 
+app.get('/newest', async function (req, res) {
+    var lastCommentPerma = await pool.query('SELECT permalink ' +
+            'FROM comments ORDER BY timestamp DESC LIMIT 1;')
+        .catch(err => console.error('mariadb query error: ' + err));
+    var lastCommentURL = 'https://www.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
+    res.redirect(lastCommentURL);
+});
+
+app.get('/old.newest', async function (req, res) {
+    var lastCommentPerma = await pool.query('SELECT permalink ' +
+            'FROM comments ORDER BY timestamp DESC LIMIT 1;')
+        .catch(err => console.error('mariadb query error: ' + err));
+    var lastCommentOld = 'https://old.reddit.com' + lastCommentPerma[0].permalink + '?context=3';
+    res.redirect(lastCommentOld);
+});
+
 app.get('*', (req, res) => res.redirect('/'));
 
 app.listen(3000);
