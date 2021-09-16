@@ -9,7 +9,7 @@ body {
 }
 
 .remaining {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
 }
 #latest-comment {
     margin-top: 0;
@@ -36,6 +36,7 @@ body {
     /* display: flex; */
     min-height: 7em;
     margin: .8em;
+    max-width: calc(100% - 20em);
 }
 
 #content p {
@@ -86,7 +87,7 @@ a {
 }
 .written {
     color: royalblue;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
 }
 .mark {
     position: relative;
@@ -98,4 +99,5 @@ a {
 #progress {
     flex: 1;
     /* overflow-wrap: break-word; */
+    /* max-width: 1%; */
 }
