@@ -95,9 +95,15 @@ a {
     color: yellow;
     font-size: small;
 }
-#metrics {flex: 1;min-height: 50em;}
+#metrics {
+    flex: 1;
+    min-height: 50em;
+}
 #progress {
     flex: 1;
     /* overflow-wrap: break-word; */
     /* max-width: 1%; */
+}
+#progress span {
+    font-size: small;
 }
