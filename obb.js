@@ -37,7 +37,7 @@ app.get('/', async function (req, res) {
     }
     written += remaining.slice(0, 1)
     remaining = remaining.slice(1)
-    var percent = written.length * 100 / (written.length + remaining.length)
+    var percent = parseInt(written.length * 10000 / (written.length + remaining.length)) / 100
     try {
         var leaderboard = await conn.query('SELECT author, ' +
             'COUNT(*) AS "comments" FROM comments ' +
