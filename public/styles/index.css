@@ -4,7 +4,7 @@ body {
     margin: 0 1em 1em 1em;
     background-color: rgb(40, 40, 40);
     color: whitesmoke;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     font-family: sans-serif;
 }
 .remaining {
@@ -103,7 +103,7 @@ a {
     /* max-width: 1%; */
 }
 #progress span {
-    font-size: .6em;
+    font-size: .6rem;
 }
 #progress .remaining {
     color: grey;
