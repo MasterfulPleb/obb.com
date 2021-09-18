@@ -14,19 +14,15 @@ const pool = mariadb.createPool({
 const { getData } = require('./get-data.js');
 
 app.set('view engine', 'pug');
-
 app.use(favicon('./public/favicon.ico'));
-
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
     getData(pool).then(data => res.render('index', data));
 });
-
 app.get('/charts', (req, res) => {
-
+    res.render('charts')
 });
-
 app.get('/newest', (req, res) => {
     pool.query('SELECT permalink ' +
         'FROM comments ORDER BY timestamp DESC LIMIT 1;')
@@ -35,7 +31,6 @@ app.get('/newest', (req, res) => {
         res.redirect(link);
     });
 });
-
 app.get('/old.newest', (req, res) => {
     pool.query('SELECT permalink ' +
         'FROM comments ORDER BY timestamp DESC LIMIT 1;')
@@ -44,7 +39,6 @@ app.get('/old.newest', (req, res) => {
         res.redirect(link);
     });
 });
-
 app.get('*', (req, res) => res.redirect('/'));
 
 app.listen(3000);
