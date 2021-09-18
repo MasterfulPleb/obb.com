@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
   const app = express();
-const helmet = require('helmet')
+const helmet = require('helmet');
 const favicon = require('serve-favicon');
 const pug = require('pug');
 const Chart = require('chart.js');
@@ -14,9 +14,8 @@ const mariadb = require('mariadb');
   });
 const { getData } = require('./get-data.js');
 
-app.use(helmet());
-app.use(helmet.hidePoweredBy());
 app.set('view engine', 'pug');
+app.use(helmet());
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
