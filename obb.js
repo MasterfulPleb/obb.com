@@ -1,16 +1,18 @@
 'use strict';
 const express = require('express');
-const app = express();
+  const app = express();
+const helmet = require('helmet')
+  app.use(helmet());
 const favicon = require('serve-favicon');
 const pug = require('pug');
 const Chart = require('chart.js');
 const mariadb = require('mariadb');
-const pool = mariadb.createPool({
+  const pool = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
     user: 'root',
     database: 'bee_movie',
     connectionLimit: 5,
-});
+  });
 const { getData } = require('./get-data.js');
 
 app.set('view engine', 'pug');
