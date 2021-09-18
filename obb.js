@@ -11,7 +11,7 @@ const pool = mariadb.createPool({
     database: 'bee_movie',
     connectionLimit: 5,
 });
-const getData = require('./get-data.js');
+const { getData } = require('./get-data.js');
 
 app.set('view engine', 'pug');
 
