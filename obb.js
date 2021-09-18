@@ -72,7 +72,7 @@ async function getData() {
     const querys = await query;
     conn.release();
     var leaderboard = querys[0];
-    var percent24 = parseInt(querys[1].comments24h * 10000 / (written.length + remaining.length)) / 100;
+    var percent24 = parseInt(querys[1][0].comments24h * 10000 / (written.length + remaining.length)) / 100;
     return {
         leaderboard: leaderboard,
         lastWritten: lastWritten,
