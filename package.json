@@ -11,9 +11,11 @@
   "dependencies": {
     "chart.js": "^3.5.1",
     "express": "^4.17.1",
+    "express-ws": "^5.0.2",
     "helmet": "^4.6.0",
     "mariadb": "^2.5.4",
     "pug": "^3.0.2",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "ws": "^8.2.2"
   }
 }

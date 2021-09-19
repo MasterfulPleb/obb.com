@@ -1,12 +1,14 @@
 'use strict';
-const express = require('express');
-  const app = express();
-const helmet = require('helmet');
-const favicon = require('serve-favicon');
-const pug = require('pug');
-const Chart = require('chart.js');
-const mariadb = require('mariadb');
-  const pool = mariadb.createPool({
+const express     = require('express');
+  const app       = express();
+const expressWs   = require('express-ws')(express()); 
+  const wsapp       = expressWs.app;
+const helmet      = require('helmet');
+const favicon     = require('serve-favicon');
+const pug         = require('pug');
+const Chart       = require('chart.js');
+const mariadb     = require('mariadb');
+  const pool      = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
     user: 'root',
     database: 'bee_movie',
@@ -42,5 +44,19 @@ app.get('/old.newest', (req, res) => {
     });
 });
 app.get('*', (req, res) => res.redirect('/'));
+
+
+var wss = expressWs.getWss('/ws');
+wsapp.ws('/ws', function(ws, req) {
+    console.log('socket connected');
+    ws.on('message', function(msg) {
+        console.log(msg.data);
+        wss.clients.forEach(function (client) {
+            client.send(msg.data);
+        });
+    });
+});
+
+wsapp.listen(3002);
 
 app.listen(3000);
