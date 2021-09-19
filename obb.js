@@ -2,7 +2,8 @@
 const express     = require('express');
   const app       = express();
 const expressWs   = require('express-ws')(express()); 
-  const wsapp       = expressWs.app;
+  const wsapp     = expressWs.app;
+  const wss       = expressWs.getWss('/ws');
 const helmet      = require('helmet');
 const favicon     = require('serve-favicon');
 const pug         = require('pug');
@@ -45,16 +46,21 @@ app.get('/old.newest', (req, res) => {
 });
 app.get('*', (req, res) => res.redirect('/'));
 
-
-var wss = expressWs.getWss('/ws');
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
-    ws.on('message', function(msg) {
-        console.log(msg.data);
+    test();
+    function test() {
         wss.clients.forEach(function (client) {
-            client.send(msg.data);
+            client.send('insert data here');
         });
-    });
+        setTimeout(test, 5000)
+    }
+    /*ws.on('message', function(msg) {
+        console.log(msg);
+        wss.clients.forEach(function (client) {
+            client.send(msg);
+        });
+    });*/
 });
 
 wsapp.listen(3002);
