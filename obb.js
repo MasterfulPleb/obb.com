@@ -58,10 +58,11 @@ wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
     setTimeout(sendData, 10000);
     function sendData() {
+        let d = JSON.stringify(data)
         wss.clients.forEach(function (client) {
-            client.send(data);
+            client.send(d);
         });
-        setTimeout(test, 10000);
+        setTimeout(sendData, 10000);
     }
     /*ws.on('message', function(msg) {
         console.log(msg);
