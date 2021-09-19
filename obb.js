@@ -17,13 +17,21 @@ const mariadb     = require('mariadb');
   });
 const { getData } = require('./get-data.js');
 
+var data = {};
+refreshData();
+function refreshData() {
+    getData(pool)
+      .then(d => data = d)
+      .finally(setTimeout(refreshData, 10000))
+}
+
 app.set('view engine', 'pug');
 app.use(helmet());
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-    getData(pool).then(data => res.render('index', data));
+    res.render('index', data);
 });
 app.get('/charts', (req, res) => {
     res.render('charts')
@@ -48,12 +56,12 @@ app.get('*', (req, res) => res.redirect('/'));
 
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
-    test();
-    function test() {
+    setTimeout(sendData, 10000);
+    function sendData() {
         wss.clients.forEach(function (client) {
-            client.send('insert data here');
+            client.send(data);
         });
-        setTimeout(test, 5000)
+        setTimeout(test, 10000);
     }
     /*ws.on('message', function(msg) {
         console.log(msg);
