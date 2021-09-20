@@ -6,8 +6,8 @@ ws.onopen = (ev) => {
     console.log('websocket connected');
 };
 ws.onmessage = (msg) => {
-    if (msg == 'ping') return
-    else if (msg == 'pong') console.log('pong')
+    if (msg.data == 'ping') console.log('ping')
+    else if (msg.data == 'pong') console.log('pong')
     else {
         const data = JSON.parse(msg.data);
         console.log(data);
