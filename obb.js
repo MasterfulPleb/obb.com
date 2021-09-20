@@ -56,32 +56,42 @@ app.get('*', (req, res) => res.redirect('/'));
 
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
-
-    /*let sendData = setInterval(function sendData() {
-        console.log(wss.clients.size);
-        if (wss.clients.size == 0) clearInterval(si);
-    }, 5000);*/
-    /*ws.on('message', function(msg) {
-        console.log(msg);
-        wss.clients.forEach(function (client) {
-            client.send(msg);
-        });
-    });*///
+    ws.on('message', (msg) => {
+        if (msg == 'ping') ws.send('pong')
+        else if (msg == 'update') {
+            let d = formatData();
+            ws.send(d);
+        }
+    })
 });
 
-setInterval(streamData, 10000)
+var lastSent = {};
+setInterval(streamData, 10000);
 function streamData() {
     if (wss.clients.size == 0) return
-    console.log(wss.clients.size);
-    let wsdata = Object.assign({}, data)
-    wsdata.progress = data.written.length
-    delete wsdata.written
-    delete wsdata.remaining
-    let d = JSON.stringify(wsdata);
-    wss.clients.forEach((client) => {
-        client.send(d);
-    });
+    if (lastSent == data) {
+        console.log('no new data, sending ping to ' + wss.clients.size + ' clients');
+        wss.clients.forEach((client) => {
+            client.send('ping');
+        });
+    } else {
+        lastSent = data;
+        console.log('new data, sending to ' + wss.clients.size + ' clients');
+        let d = formatData();
+        wss.clients.forEach((client) => {
+            client.send(d);
+        });
+    }
 }
+function formatData() {
+    let wsdata = Object.assign({}, data);
+    wsdata.progress = data.written.length;
+    delete wsdata.written;
+    delete wsdata.remaining;
+    let d = JSON.stringify(wsdata);
+    return wsdata
+}
+
 
 wsapp.listen(3002);
 
