@@ -56,11 +56,11 @@ app.get('*', (req, res) => res.redirect('/'));
 
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
-    let si = setInterval(function timeout() {
-        ws.ping('heartbeat');
+
+    /*let sendData = setInterval(function sendData() {
         console.log(wss.clients.size);
         if (wss.clients.size == 0) clearInterval(si);
-    }, 5000);
+    }, 5000);*/
     /*ws.on('message', function(msg) {
         console.log(msg);
         wss.clients.forEach(function (client) {
@@ -69,7 +69,14 @@ wsapp.ws('/ws', function(ws, req) {
     });*/
 });
 
-
+setInterval(streamData, 10000)
+function streamData() {
+    if (wss.clients.size == 0) return
+    console.log(wss.clients.size);
+    wss.clients.forEach((client) => {
+        client.send(data)
+    });
+}
 
 
 wsapp.listen(3002);
