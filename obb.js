@@ -73,8 +73,9 @@ setInterval(streamData, 10000)
 function streamData() {
     if (wss.clients.size == 0) return
     console.log(wss.clients.size);
+    let d = JSON.stringify(data);
     wss.clients.forEach((client) => {
-        client.send(data)
+        client.send(d);
     });
 }
 
