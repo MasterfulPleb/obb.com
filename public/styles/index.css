@@ -10,7 +10,7 @@ body {
 .remaining {
     overflow-wrap: break-word;
 }
-#latest-comment {
+#metrics p:first-child {
     margin-top: 0;
 }
 #source {
