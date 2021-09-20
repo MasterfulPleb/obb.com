@@ -65,8 +65,11 @@ wsapp.ws('/ws', function(ws, req) {
     })
 });
 
-var oldProgress = formatData().progress;
-setTimeout(setInterval(streamData, 10000), 5000);
+var oldProgress;
+setTimeout(() => {
+    oldProgress = formatData().progress;
+    setInterval(streamData, 10000);
+}, 5000);
 function streamData() {
     if (wss.clients.size == 0) return
     else if (oldProgress == formatData().progress) {
