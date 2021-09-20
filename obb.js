@@ -56,14 +56,9 @@ app.get('*', (req, res) => res.redirect('/'));
 
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
-    setTimeout(sendData, 10000);
-    function sendData() {
-        let d = JSON.stringify(data)
-        wss.clients.forEach(function (client) {
-            client.send(d);
-        });
-        setTimeout(sendData, 10000);
-    }
+    setInterval(function timeout() {
+        ws.ping('heartbeat');
+    }, 5000);
     /*ws.on('message', function(msg) {
         console.log(msg);
         wss.clients.forEach(function (client) {
@@ -71,6 +66,9 @@ wsapp.ws('/ws', function(ws, req) {
         });
     });*/
 });
+
+
+
 
 wsapp.listen(3002);
 
