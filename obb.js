@@ -73,12 +73,15 @@ setInterval(streamData, 10000)
 function streamData() {
     if (wss.clients.size == 0) return
     console.log(wss.clients.size);
-    let d = JSON.stringify(data);
+    let wsdata = Object.assign({}, data)
+    wsdata.progress = data.written.length
+    delete wsdata.written
+    delete wsdata.remaining
+    let d = JSON.stringify(wsdata);
     wss.clients.forEach((client) => {
         client.send(d);
     });
 }
-
 
 wsapp.listen(3002);
 
