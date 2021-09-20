@@ -22,7 +22,7 @@ refreshData();
 function refreshData() {
     getData(pool)
       .then(d => data = d)
-      .finally(setTimeout(refreshData, 10000))
+      .finally(setTimeout(refreshData, 1000))
 }
 
 app.set('view engine', 'pug');
@@ -68,18 +68,18 @@ wsapp.ws('/ws', function(ws, req) {
 var oldProgress;
 setTimeout(() => {
     oldProgress = formatData().progress;
-    setInterval(streamData, 10000);
+    setInterval(streamData, 1000);
 }, 5000);
 function streamData() {
     if (wss.clients.size == 0) return
     else if (oldProgress == formatData().progress) {
-        console.log('no new data, sending ping to ' + wss.clients.size + ' clients');
+        console.log('no new data, sending ping to ' + wss.clients.size + ' client' + (wss.clients.size > 1 ? 's' : ''));
         wss.clients.forEach((client) => {
             client.send('ping');
         });
     } else {
         oldProgress = formatData().progress;
-        console.log('new data, sending to ' + wss.clients.size + ' clients');
+        console.log('new data, sending to ' + wss.clients.size + ' client' + (wss.clients.size > 1 ? 's' : ''));
         let d = JSON.stringify(formatData());
         wss.clients.forEach((client) => {
             client.send(d);
