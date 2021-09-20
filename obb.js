@@ -59,25 +59,25 @@ wsapp.ws('/ws', function(ws, req) {
     ws.on('message', (msg) => {
         if (msg == 'ping') ws.send('pong')
         else if (msg == 'update') {
-            let d = formatData();
+            let d = JSON.stringify(formatData());
             ws.send(d);
         }
     })
 });
 
-var lastSent = {};
+var oldProgress = formatData().progress;
 setInterval(streamData, 10000);
 function streamData() {
     if (wss.clients.size == 0) return
-    else if (lastSent == data) {
+    else if (oldProgress == formatData().progress) {
         console.log('no new data, sending ping to ' + wss.clients.size + ' clients');
         wss.clients.forEach((client) => {
             client.send('ping');
         });
     } else {
-        lastSent = data;
+        oldProgress = formatData().progress;
         console.log('new data, sending to ' + wss.clients.size + ' clients');
-        let d = formatData();
+        let d = JSON.stringify(formatData());
         wss.clients.forEach((client) => {
             client.send(d);
         });
@@ -88,7 +88,6 @@ function formatData() {
     wsdata.progress = data.written.length;
     delete wsdata.written;
     delete wsdata.remaining;
-    wsdata = JSON.stringify(wsdata);
     return wsdata
 }
 
