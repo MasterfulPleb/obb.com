@@ -76,7 +76,8 @@ function streamData() {
     if (wss.clients.size == 0) return
     else if (oldProgress == d.progress) {
         pingTimer++;
-        if (pingTimer > 60) {
+        console.log(pingTimer)
+        if (pingTimer > 30) {
             pingTimer = 0;
             console.log('no new data, sending ping to ' + wss.clients.size +
                 ' client' + (wss.clients.size > 1 ? 's' : ''));
@@ -106,6 +107,7 @@ function streamData() {
             }
             keepGoing = false;
         }
+        oldLeaderboard = d.leaderboard;
         d.leaderboard = leaderboardChanges;
         console.log('new data, sending to ' + wss.clients.size +
             ' client' + (wss.clients.size > 1 ? 's' : ''));
