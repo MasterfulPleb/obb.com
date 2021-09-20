@@ -58,6 +58,7 @@ wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
     setInterval(function timeout() {
         ws.ping('heartbeat');
+        console.log(wss.clients.size)
     }, 5000);
     /*ws.on('message', function(msg) {
         console.log(msg);
