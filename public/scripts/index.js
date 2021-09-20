@@ -7,6 +7,7 @@ ws.onopen = (ev) => {
 };
 
 ws.onmessage = (msg) => {
-    let data = JSON.parse(msg)
-    console.log(data)
+    console.log(msg)
+    //let data = JSON.parse(msg)
+    //console.log(data)
 }
