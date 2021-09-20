@@ -56,9 +56,10 @@ app.get('*', (req, res) => res.redirect('/'));
 
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
-    setInterval(function timeout() {
+    let si = setInterval(function timeout() {
         ws.ping('heartbeat');
-        console.log(wss.clients.size)
+        console.log(wss.clients.size);
+        if (wss.clients.size == 0) clearInterval(si);
     }, 5000);
     /*ws.on('message', function(msg) {
         console.log(msg);
