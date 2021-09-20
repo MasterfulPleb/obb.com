@@ -6,7 +6,7 @@ html
     body
         #leaderboard.table
             - for (i = 0; i < leaderboard.length; i++)
-              .row
+              div.row(id=leaderboard[i].author)
                 p.place= (i+1) + '.'
                 p.author= leaderboard[i].author
                 p.comments= leaderboard[i].comments

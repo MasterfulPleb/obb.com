@@ -28,4 +28,7 @@ function updatePage(data) {
     document.getElementById('percent24').innerHTML = data.percent24;
     document.getElementById('last-written').innerHTML = data.lastWritten;
     document.getElementById('first-remaining').innerHTML = data.firstRemaining;
+    for (let update of data.leaderboard) {
+        document.getElementById(update.author).children[2].innerHTML = update.comments
+    }
 }
