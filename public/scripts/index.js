@@ -17,11 +17,11 @@ ws.onmessage = (msg) => {
 
 function updatePage(data) {
     const written = document.getElementById('written');
+    const remaining = document.getElementById('remaining');
     const oldLength = written.innerHTML.length;
     const newLength = data.progress;
     const diff = newLength - oldLength;
-    console.log(diff + ' new comments, updating page');
-    const remaining = document.getElementById('remaining');
+    console.log(diff + ' new comment' + (diff > 1 ? 's' : '') + ', updating page');
     written.innerHTML += remaining.innerHTML.slice(0, diff);
     remaining.innerHTML = remaining.innerHTML.slice(diff);
     document.getElementById('percent').innerHTML = data.percent;

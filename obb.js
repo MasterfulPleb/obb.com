@@ -58,29 +58,58 @@ wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
     ws.on('message', (msg) => {
         if (msg == 'ping') ws.send('pong')
-        else if (msg == 'update') {
-            let d = JSON.stringify(formatData());
-            ws.send(d);
-        }
+        else if (msg == 'update') ws.send(JSON.stringify(formatData()))
     })
 });
 
 var oldProgress;
+var oldLeaderboard;
+var pingTimer = 0;
 setTimeout(() => {
-    oldProgress = formatData().progress;
+    let d = formatData()
+    oldProgress = d.progress;
+    oldLeaderboard = d.leaderboard;
     setInterval(streamData, 1000);
 }, 5000);
 function streamData() {
+    let d = formatData();
     if (wss.clients.size == 0) return
-    else if (oldProgress == formatData().progress) {
-        console.log('no new data, sending ping to ' + wss.clients.size + ' client' + (wss.clients.size > 1 ? 's' : ''));
-        wss.clients.forEach((client) => {
-            client.send('ping');
-        });
+    else if (oldProgress == d.progress) {
+        pingTimer++;
+        if (pingTimer > 60) {
+            pingTimer = 0;
+            console.log('no new data, sending ping to ' + wss.clients.size +
+                ' client' + (wss.clients.size > 1 ? 's' : ''));
+            wss.clients.forEach((client) => {
+                client.send('ping');
+            });
+        }
     } else {
-        oldProgress = formatData().progress;
-        console.log('new data, sending to ' + wss.clients.size + ' client' + (wss.clients.size > 1 ? 's' : ''));
-        let d = JSON.stringify(formatData());
+        pingTimer = 0;
+        const diff = d.progress - oldProgress;
+        oldProgress = d.progress;
+        var changes = 0;
+        var keepGoing = true;
+        var leaderboardChanges = [];
+        while (keepGoing) {
+            for (let entry of d.leaderboard) {
+                for (let oldEntry of oldLeaderboard) {
+                    if (oldEntry.author == entry.author) {
+                        if (oldEntry.comments != entry.comments) {
+                            leaderboardChanges.push(entry);
+                            changes++;
+                            if (changes == diff) keepGoing = false
+                        }
+                        break
+                    }
+                }
+            }
+            keepGoing = false;
+        }
+        d.leaderboard = leaderboardChanges;
+        console.log('new data, sending to ' + wss.clients.size +
+            ' client' + (wss.clients.size > 1 ? 's' : ''));
+        d = JSON.stringify(d);
         wss.clients.forEach((client) => {
             client.send(d);
         });
@@ -91,7 +120,7 @@ function formatData() {
     wsdata.progress = data.written.length;
     delete wsdata.written;
     delete wsdata.remaining;
-    delete wsdata.leaderboard;
+    //delete wsdata.leaderboard;
     return wsdata
 }
 
