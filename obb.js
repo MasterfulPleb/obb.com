@@ -66,7 +66,7 @@ wsapp.ws('/ws', function(ws, req) {
         wss.clients.forEach(function (client) {
             client.send(msg);
         });
-    });*/
+    });*///
 });
 
 setInterval(streamData, 10000)
