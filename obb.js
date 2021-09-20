@@ -69,7 +69,7 @@ var lastSent = {};
 setInterval(streamData, 10000);
 function streamData() {
     if (wss.clients.size == 0) return
-    if (lastSent == data) {
+    else if (lastSent == data) {
         console.log('no new data, sending ping to ' + wss.clients.size + ' clients');
         wss.clients.forEach((client) => {
             client.send('ping');
@@ -88,7 +88,7 @@ function formatData() {
     wsdata.progress = data.written.length;
     delete wsdata.written;
     delete wsdata.remaining;
-    let d = JSON.stringify(wsdata);
+    wsdata = JSON.stringify(wsdata);
     return wsdata
 }
 
