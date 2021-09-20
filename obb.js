@@ -91,6 +91,7 @@ function formatData() {
     wsdata.progress = data.written.length;
     delete wsdata.written;
     delete wsdata.remaining;
+    delete wsdata.leaderboard;
     return wsdata
 }
 
