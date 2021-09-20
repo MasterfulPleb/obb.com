@@ -12,19 +12,19 @@ html
                 p.comments= leaderboard[i].comments
         #content
             #metrics
-                p#latest-comment Latest comment: 
+                p.latest-comment Latest comment: 
                     a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
-                p#latest-comment-old Latest comment (old Reddit): 
+                p.latest-comment-old Latest comment (old Reddit): 
                     a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
-                p#last-letters We are here:  
-                    span.written= lastWritten
+                p.last-letters We are here:  
+                    span#last-written.written= lastWritten
                     span.mark  ʌ 
-                    span.remaining= firstRemaining
-                p#percent Completion: 
-                    span= percent
+                    span#first-remaining.remaining= firstRemaining
+                p.percent Completion: 
+                    span#percent= percent
                     span %
-                p#percent24 Completed in the last 24 hours: 
-                    span= percent24
+                p.percent24 Completed in the last 24 hours: 
+                    span#percent24= percent24
                     span %
                 #space
                 p#source Want some source code? 
