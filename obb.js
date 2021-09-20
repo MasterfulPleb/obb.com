@@ -27,7 +27,6 @@ function refreshData() {
 
 app.set('view engine', 'pug');
 app.use(helmet());
-wsapp.use(helmet())
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
