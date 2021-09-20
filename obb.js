@@ -22,7 +22,7 @@ refreshData();
 function refreshData() {
     getData(pool)
       .then(d => data = d)
-      .finally(setTimeout(refreshData, 1000))
+      .finally(setTimeout(refreshData, 100))
 }
 
 app.set('view engine', 'pug');
@@ -69,15 +69,14 @@ setTimeout(() => {
     let d = formatData()
     oldProgress = d.progress;
     oldLeaderboard = d.leaderboard;
-    setInterval(streamData, 1000);
+    setInterval(streamData, 100);
 }, 5000);
 function streamData() {
     let d = formatData();
     if (wss.clients.size == 0) return
     else if (oldProgress == d.progress) {
         pingTimer++;
-        console.log(pingTimer)
-        if (pingTimer > 30) {
+        if (pingTimer > 300) {
             pingTimer = 0;
             console.log('no new data, sending ping to ' + wss.clients.size +
                 ' client' + (wss.clients.size > 1 ? 's' : ''));
@@ -122,7 +121,6 @@ function formatData() {
     wsdata.progress = data.written.length;
     delete wsdata.written;
     delete wsdata.remaining;
-    //delete wsdata.leaderboard;
     return wsdata
 }
 
