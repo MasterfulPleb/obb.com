@@ -21,8 +21,13 @@ function configureSocket() {
         else if (msg.data == 'pong') console.log('pong');
         else {
             const data = JSON.parse(msg.data);
-            console.log(data);
-            updatePage(data);
+            if (data.progress > 1) {
+                console.log(data);
+                updatePage(data);
+            } else {
+                //this is where charts will be recieved
+                
+            }
         }
     }
 }
