@@ -11,7 +11,7 @@ var lastData;
 async function getData(/**@type {mariadb.Pool}*/pool) {
     const newest = await pool.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1;')
     if (first) {lastID = newest[0].ID; first = false;}
-    else if (newest.ID == lastID) return lastData
+    else if (newest[0].ID == lastID) return lastData
     const prep = await Promise.all([
         pool.getConnection(),
         fs.readFile('/home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'}),
