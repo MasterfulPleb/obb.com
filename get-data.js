@@ -9,7 +9,7 @@ var lastID;
 var lastData;
 
 async function getData(/**@type {mariadb.Pool}*/pool) {
-    const newest = await pool.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1')
+    const newest = await pool.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1;')
     if (first) {lastID = newest[0].ID; first = false;}
     else if (newest.ID == lastID) return lastData
     const prep = await Promise.all([
@@ -25,7 +25,7 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
         conn.query('SELECT COUNT(*) ' +
             'AS comments24h FROM comments ' +
             'WHERE timestamp > (UNIX_TIMESTAMP() - 86400);'),
-        conn.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1')
+        conn.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1;')
     ]);
     var written = prep[1] + prep[2].slice(0, 1);
     var remaining = prep[2].slice(1);
