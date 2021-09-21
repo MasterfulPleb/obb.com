@@ -7,6 +7,7 @@ const expressWs   = require('express-ws')(express());
 const helmet      = require('helmet');
 const favicon     = require('serve-favicon');
 const pug         = require('pug');
+const renderIndex = pug.compileFile('./views/index.pug');
 const Chart       = require('chart.js');
 const mariadb     = require('mariadb');
   const pool      = mariadb.createPool({
@@ -23,7 +24,7 @@ app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-    res.send(template);
+    res.send(preRender);
 });
 app.get('/charts', (req, res) => {
     res.render('charts');
@@ -69,7 +70,7 @@ app.listen(3000);
  * progress: number}}
  * */
 var data;
-var template;
+var preRender;
 var oldProgress;
 var oldLeaderboard;
 var pingTimer = 0;
@@ -80,7 +81,7 @@ async function refreshData(startup = false) {
       .then(d => {
         if (data != d) {
             data = d;
-            template = pug.renderFile('./views/index.pug', data);
+            preRender = renderIndex(data);
         }
         if (startup) {
             oldProgress = d.progress;
