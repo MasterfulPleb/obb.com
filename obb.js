@@ -81,16 +81,16 @@ async function refreshData(startup = false) {
         if (startup) {
             oldProgress = d.progress;
             oldLeaderboard = d.leaderboard;
-            setInterval(streamData, 100);
+            setInterval(streamData, 250);
         }
       })
-      .finally(setTimeout(refreshData, 100));
+      .finally(setTimeout(refreshData, 1000));
 }
 async function streamData() {
     if (wss.clients.size == 0) return
     else if (oldProgress == data.progress) {
         pingTimer++;
-        if (pingTimer > 200) {
+        if (pingTimer > 80) {
             pingTimer = 0;
             console.log('no new data, sending ping to ' + wss.clients.size +
                 ' client' + (wss.clients.size > 1 ? 's' : ''));
