@@ -20,12 +20,6 @@ const Highcharts    = require('highcharts');
   //require('highcharts/modules/exporting')(Highcharts);
 const { getData }   = require('./get-data.js');
 
-
-const indexTS = require('./public/scripts/index.ts');
-console.log(indexTS);
-let result = ts.transpileModule(indexTS, { compilerOptions: { module: ts.ModuleKind.CommonJS }});
-
-
 app.set('view engine', 'pug');
 app.use(helmet());
 app.use(favicon('./public/favicon.ico'));
