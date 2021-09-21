@@ -1,22 +1,30 @@
 'use strict';
-const express     = require('express');
-  const app       = express();
-const expressWs   = require('express-ws')(express()); 
-  const wsapp     = expressWs.app;
-  const wss       = expressWs.getWss('/ws');
-const helmet      = require('helmet');
-const favicon     = require('serve-favicon');
-const pug         = require('pug');
-const renderIndex = pug.compileFile('./views/index.pug');
-const Chart       = require('chart.js');
-const mariadb     = require('mariadb');
-  const pool      = mariadb.createPool({
+const express       = require('express');
+  const app         = express();
+const expressWs     = require('express-ws')(express()); 
+  const wsapp       = expressWs.app;
+  const wss         = expressWs.getWss('/ws');
+const helmet        = require('helmet');
+const favicon       = require('serve-favicon');
+const pug           = require('pug');
+  const renderIndex = pug.compileFile('./views/index.pug');
+const ts            = require('typescript');
+const mariadb       = require('mariadb');
+  const pool        = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
     user: 'root',
     database: 'bee_movie',
     connectionLimit: 5,
   });
-const { getData } = require('./get-data.js');
+const Highcharts    = require('highcharts');
+  require('highcharts/modules/exporting')(Highcharts);
+const { getData }   = require('./get-data.js');
+
+
+const indexTS = require('./public/scripts/index.ts');
+console.log(indexTS);
+let result = ts.transpileModule(indexTS, { compilerOptions: { module: ts.ModuleKind.CommonJS }});
+
 
 app.set('view engine', 'pug');
 app.use(helmet());
@@ -136,3 +144,6 @@ function formatData() {
     delete d.remaining;
     return d
 }
+
+
+//Highcharts.chart({})
