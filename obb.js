@@ -17,7 +17,7 @@ const mariadb       = require('mariadb');
     connectionLimit: 5,
   });
 const Highcharts    = require('highcharts');
-  require('highcharts/modules/exporting')(Highcharts);
+  //require('highcharts/modules/exporting')(Highcharts);
 const { getData }   = require('./get-data.js');
 
 
