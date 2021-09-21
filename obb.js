@@ -23,8 +23,7 @@ app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-    //res.render('index', data);
-    //res.send(template);
+    res.send(template);
 });
 app.get('/charts', (req, res) => {
     res.render('charts');

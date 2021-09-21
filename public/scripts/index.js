@@ -43,16 +43,16 @@ function updatePage(data) {
         const row = document.getElementById(update.author);
         const score = update.comments;
         row.children[2].innerHTML = score;
-        let raise = true;
-        while (raise) {
+        while (true) {
             let nextrow = row.previousElementSibling;
+            if (nextrow == null) break
             let nextScore = parseInt(nextrow.children[2].innerHTML);
             if (score > nextScore) {
                 let temp = row.children[0].innerHTML;
                 row.children[0].innerHTML = nextrow.children[0].innerHTML;
                 nextrow.children[0].innerHTML = temp;
                 leaderboard.insertBefore(row, nextrow);
-            } else raise = false;
+            } else break
         }
     }
     console.log(diff + ' new comment' + (diff == 1 ? '' : 's') + ', page updated');
