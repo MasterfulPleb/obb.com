@@ -23,10 +23,11 @@ app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-    res.render('index', data);
+    //res.render('index', data);
+    res.send(template);
 });
 app.get('/charts', (req, res) => {
-    res.render('charts')
+    res.render('charts');
 });
 app.get('/newest', (req, res) => {
     pool.query('SELECT permalink ' +
@@ -49,8 +50,8 @@ app.get('*', (req, res) => res.redirect('/'));
 wsapp.ws('/ws', function(ws, req) {
     console.log('socket connected');
     ws.on('message', (msg) => {
-        if (msg == 'ping') ws.send('pong')
-        else if (msg == 'update') ws.send(JSON.stringify(formatData()))
+        if (msg == 'ping') ws.send('pong');
+        else if (msg == 'update') ws.send(JSON.stringify(formatData()));
     })
 });
 
@@ -69,6 +70,7 @@ app.listen(3000);
  * progress: number}}
  * */
 var data;
+var template;
 var oldProgress;
 var oldLeaderboard;
 var pingTimer = 0;
@@ -77,7 +79,10 @@ refreshData(true);
 async function refreshData(startup = false) {
     getData(pool)
       .then(d => {
-        data = d;
+        if (data != d) {
+            data = d;
+            template = pug.render('index', data);
+        }
         if (startup) {
             oldProgress = d.progress;
             oldLeaderboard = d.leaderboard;
