@@ -9,6 +9,7 @@
   "author": "MasterfulPleb",
   "license": "ISC",
   "dependencies": {
+    "chart.js": "^3.5.1",
     "express": "^4.17.1",
     "express-ws": "^5.0.2",
     "helmet": "^4.6.0",
