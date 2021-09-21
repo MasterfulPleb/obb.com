@@ -1,11 +1,11 @@
 'use strict';
 
-var ws: WebSocket;
-var alive: NodeJS.Timeout;
+/**@type {WebSocket}*/var ws;
+/**@type {NodeJS.Timeout}*/var alive;
 
-tryConnection();
+tryConnection(true);
 
-function tryConnection(retry = true) {
+function tryConnection(retry) {
     if (retry) {
         configureSocket();
         alive = setTimeout(tryConnection, 60000, false);
@@ -13,10 +13,10 @@ function tryConnection(retry = true) {
 }
 function configureSocket() {
     ws = new WebSocket('wss://test.ouijabeederboard.com/ws');
-    ws.onopen = (_ev) => console.log('websocket connected');
+    ws.onopen = (ev) => console.log('websocket connected');
     ws.onmessage = (msg) => {
         clearTimeout(alive);
-        alive = setTimeout(tryConnection, 60000);
+        alive = setTimeout(tryConnection, 60000, true);
         if (msg.data == 'ping') console.log('ping');
         else if (msg.data == 'pong') console.log('pong');
         else {
@@ -31,17 +31,7 @@ function configureSocket() {
         }
     }
 }
-function updatePage(
-        data: {
-        leaderboard: {author: string, comments: number}[],
-        lastWritten: string,
-        firstRemaining: string,
-        written: string,
-        remaining: string,
-        percent: number,
-        percent24: number,
-        progress: number
-        }) {
+function updatePage(data) {
     const written = document.getElementById('written');
     const remaining = document.getElementById('remaining');
     const oldLength = written.innerHTML.length;
@@ -49,15 +39,15 @@ function updatePage(
     const diff = newLength - oldLength;
     written.innerHTML += remaining.innerHTML.slice(0, diff);
     remaining.innerHTML = remaining.innerHTML.slice(diff);
-    document.getElementById('percent').innerHTML = data.percent.toString();
-    document.getElementById('percent24').innerHTML = data.percent24.toString();
+    document.getElementById('percent').innerHTML = data.percent;
+    document.getElementById('percent24').innerHTML = data.percent24;
     document.getElementById('last-written').innerHTML = data.lastWritten;
     document.getElementById('first-remaining').innerHTML = data.firstRemaining;
     const leaderboard = document.getElementById('leaderboard');
     for (let update of data.leaderboard) {
         const row = document.getElementById(update.author);
         const score = update.comments;
-        row.children[2].innerHTML = score.toString();
+        row.children[2].innerHTML = score;
         while (true) {
             let nextrow = row.previousElementSibling;
             if (nextrow == null) break
