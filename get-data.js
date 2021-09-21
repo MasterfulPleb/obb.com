@@ -4,7 +4,14 @@ exports.getData = getData;
 const fs = require('fs/promises');
 const mariadb = require('mariadb');
 
+var first = true;
+var lastID;
+var lastData;
+
 async function getData(/**@type {mariadb.Pool}*/pool) {
+    const newest = await pool.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1')
+    if (first) {lastID = newest[0].ID; first = false;}
+    else if (newest.ID == lastID) return lastData
     const prep = await Promise.all([
         pool.getConnection(),
         fs.readFile('/home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'}),
@@ -17,7 +24,8 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
             'GROUP BY author ORDER BY COUNT(*) DESC;'),
         conn.query('SELECT COUNT(*) ' +
             'AS comments24h FROM comments ' +
-            'WHERE timestamp > (UNIX_TIMESTAMP() - 86400);')
+            'WHERE timestamp > (UNIX_TIMESTAMP() - 86400);'),
+        conn.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1')
     ]);
     var written = prep[1] + prep[2].slice(0, 1);
     var remaining = prep[2].slice(1);
@@ -29,7 +37,8 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
     var leaderboard = querys[0];
     var percent24 = parseInt(querys[1][0].comments24h * 10000 / (written.length + remaining.length)) / 100;
     var progress = written.length;
-    return {
+    lastID = querys[2][0].ID
+    lastData = {
         leaderboard: leaderboard,
         lastWritten: lastWritten,
         firstRemaining: firstRemaining,
@@ -38,7 +47,8 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
         percent: percent,
         percent24: percent24,
         progress: progress
-    }
+    };
+    return lastData
 }
 function parseLastWritten(written) {
     let temp = written.slice(written.length - 10);
