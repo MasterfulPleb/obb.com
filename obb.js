@@ -76,7 +76,7 @@ function streamData() {
     if (wss.clients.size == 0) return
     else if (oldProgress == d.progress) {
         pingTimer++;
-        if (pingTimer > 120) {
+        if (pingTimer > 80) {
             pingTimer = 0;
             console.log('no new data, sending ping to ' + wss.clients.size +
                 ' client' + (wss.clients.size > 1 ? 's' : ''));
