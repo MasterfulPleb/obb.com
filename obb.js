@@ -17,14 +17,6 @@ const mariadb     = require('mariadb');
   });
 const { getData } = require('./get-data.js');
 
-var data = {};
-refreshData();
-function refreshData() {
-    getData(pool)
-      .then(d => data = d)
-      .finally(setTimeout(refreshData, 250))
-}
-
 app.set('view engine', 'pug');
 app.use(helmet());
 app.use(favicon('./public/favicon.ico'));
@@ -62,19 +54,41 @@ wsapp.ws('/ws', function(ws, req) {
     })
 });
 
+wsapp.listen(3002);
+app.listen(3000);
+
+/**
+ * @type {{
+ * leaderboard: {author: string, comments: number}[],
+ * lastWritten: string,
+ * firstRemaining: string,
+ * written: string,
+ * remaining: string,
+ * percent: number,
+ * percent24: number,
+ * progress: number}}
+ * */
+var data;
 var oldProgress;
 var oldLeaderboard;
 var pingTimer = 0;
-setTimeout(() => {
-    let d = formatData()
-    oldProgress = d.progress;
-    oldLeaderboard = d.leaderboard;
-    setInterval(streamData, 250);
-}, 5000);
-function streamData() {
-    let d = formatData();
+refreshData(true);
+
+async function refreshData(startup = false) {
+    getData(pool)
+      .then(d => {
+        data = d;
+        if (startup) {
+            oldProgress = d.progress;
+            oldLeaderboard = d.leaderboard;
+            setInterval(streamData, 250);
+        }
+      })
+      .finally(setTimeout(refreshData, 250));
+}
+async function streamData() {
     if (wss.clients.size == 0) return
-    else if (oldProgress == d.progress) {
+    else if (oldProgress == data.progress) {
         pingTimer++;
         if (pingTimer > 80) {
             pingTimer = 0;
@@ -86,45 +100,34 @@ function streamData() {
         }
     } else {
         pingTimer = 0;
-        const diff = d.progress - oldProgress;
-        oldProgress = d.progress;
-        var changes = 0;
-        var keepGoing = true;
-        var leaderboardChanges = [];
-        while (keepGoing) {
-            for (let entry of d.leaderboard) {
-                for (let oldEntry of oldLeaderboard) {
-                    if (oldEntry.author == entry.author) {
-                        if (oldEntry.comments != entry.comments) {
-                            leaderboardChanges.push(entry);
-                            changes++;
-                            if (changes == diff) keepGoing = false
-                        }
-                        break
-                    }
-                }
-            }
-            keepGoing = false;
-        }
-        oldLeaderboard = d.leaderboard;
-        d.leaderboard = leaderboardChanges;
         console.log('new data, sending to ' + wss.clients.size +
             ' client' + (wss.clients.size > 1 ? 's' : ''));
-        d = JSON.stringify(d);
         wss.clients.forEach((client) => {
-            client.send(d);
+            client.send(JSON.stringify(formatData()));
         });
     }
 }
 function formatData() {
-    let wsdata = Object.assign({}, data);
-    wsdata.progress = data.written.length;
-    delete wsdata.written;
-    delete wsdata.remaining;
-    return wsdata
+    let d = Object.assign({}, data);
+    const diff = d.progress - oldProgress;
+    oldProgress = d.progress;
+    var changes = 0;
+    var leaderboardChanges = [];
+    for (let entry of d.leaderboard) {
+        if (changes == diff) break
+        for (let oldEntry of oldLeaderboard) {
+            if (oldEntry.author == entry.author) {
+                if (oldEntry.comments != entry.comments) {
+                    leaderboardChanges.push(entry);
+                    changes++;
+                }
+                break
+            }
+        }
+    }
+    oldLeaderboard = d.leaderboard;
+    d.leaderboard = leaderboardChanges;
+    delete d.written;
+    delete d.remaining;
+    return d
 }
-
-
-wsapp.listen(3002);
-
-app.listen(3000);

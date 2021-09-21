@@ -28,6 +28,7 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
     conn.release();
     var leaderboard = querys[0];
     var percent24 = parseInt(querys[1][0].comments24h * 10000 / (written.length + remaining.length)) / 100;
+    var progress = written.length;
     return {
         leaderboard: leaderboard,
         lastWritten: lastWritten,
@@ -35,7 +36,8 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
         written: written,
         remaining: remaining,
         percent: percent,
-        percent24: percent24
+        percent24: percent24,
+        progress: progress
     }
 }
 function parseLastWritten(written) {
