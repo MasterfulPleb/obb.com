@@ -16,7 +16,7 @@ const mariadb       = require('mariadb');
     database: 'bee_movie',
     connectionLimit: 5,
   });
-const Highcharts    = require('highcharts');
+//const Highcharts    = require('highcharts');
   //require('highcharts/modules/exporting')(Highcharts);
 const { getData }   = require('./get-data.js');
 
@@ -138,6 +138,3 @@ function formatData() {
     delete d.remaining;
     return d
 }
-
-
-//Highcharts.chart({})
