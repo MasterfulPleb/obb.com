@@ -24,7 +24,7 @@ app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
     //res.render('index', data);
-    res.send(template);
+    //res.send(template);
 });
 app.get('/charts', (req, res) => {
     res.render('charts');
@@ -81,7 +81,7 @@ async function refreshData(startup = false) {
       .then(d => {
         if (data != d) {
             data = d;
-            template = pug.render('index', data);
+            template = pug.renderFile('./views/index.pug', data);
         }
         if (startup) {
             oldProgress = d.progress;
