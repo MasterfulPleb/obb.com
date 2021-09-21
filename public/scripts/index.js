@@ -3,14 +3,20 @@
 /**@type {WebSocket}*/var ws;
 /**@type {NodeJS.Timeout}*/var alive;
 
-configureSocket();
+tryConnection(true);
 
+function tryConnection(retry) {
+    if (retry) {
+        configureSocket();
+        alive = setTimeout(tryConnection, 60000, false);
+    } else console.log('websocket connection failed');
+}
 function configureSocket() {
     ws = new WebSocket('wss://test.ouijabeederboard.com/ws');
     ws.onopen = (ev) => console.log('websocket connected');
     ws.onmessage = (msg) => {
         clearTimeout(alive);
-        alive = setTimeout(checkSocket, 60000, true);
+        alive = setTimeout(tryConnection, 60000, true);
         if (msg.data == 'ping') console.log('ping');
         else if (msg.data == 'pong') console.log('pong');
         else {
@@ -19,12 +25,6 @@ function configureSocket() {
             updatePage(data);
         }
     }
-}
-function checkSocket(retry) {
-    if (retry) {
-        configureSocket();
-        setTimeout(checkSocket, 60000, false);
-    } else console.log('websocket reconnection failed');
 }
 function updatePage(data) {
     const written = document.getElementById('written');
