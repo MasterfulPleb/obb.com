@@ -1,9 +1,9 @@
 html
     head
         title= 'ouijabeederboard charts'
-        meta(http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src-elem 'unsafe-inline' 'unsafe-eval' http://code.highcharts.com; script-src 'unsafe-inline' 'unsafe-eval' http://code.highcharts.com")
+        -//meta(http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src-elem 'unsafe-inline' 'unsafe-eval' http://code.highcharts.com; script-src 'unsafe-inline' 'unsafe-eval' http://code.highcharts.com")
         link(rel="stylesheet", href="/public/styles/charts.css")
-        script(src='https://code.highcharts.com/highcharts.src.js')
+        script(src='/public/highcharts/code/highcharts.src.js')
         script(src='/public/scripts/charts.js')
     body
         h1 Coming Soon...
