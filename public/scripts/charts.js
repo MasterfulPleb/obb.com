@@ -2,6 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', async function() {
     let data = await fetch('https://test.ouijabeederboard.com/charts/commentsPie');
-    console.log(data);
-    const chart = Highcharts.chart('chart', data);
+    console.log(data.json());
+    const chart = Highcharts.chart('chart', data.json());
 });
