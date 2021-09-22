@@ -25,13 +25,10 @@ app.use(helmet());
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
-app.get('/', (req, res) => {
-    res.send(preRender);
-});
-app.get('/charts', (req, res) => {
-    res.render('charts');
-});
-app.get('/newest', (req, res) => {
+app.get('/', (_req, res) => res.send(preRender));
+app.get('/charts', (_req, res) => res.render('charts'));
+app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie))
+app.get('/newest', (_req, res) => {
     pool.query('SELECT permalink ' +
         'FROM comments ORDER BY timestamp DESC LIMIT 1;')
     .then(perma => {
@@ -39,7 +36,7 @@ app.get('/newest', (req, res) => {
         res.redirect(link);
     });
 });
-app.get('/old.newest', (req, res) => {
+app.get('/old.newest', (_req, res) => {
     pool.query('SELECT permalink ' +
         'FROM comments ORDER BY timestamp DESC LIMIT 1;')
     .then(perma => {
@@ -47,9 +44,9 @@ app.get('/old.newest', (req, res) => {
         res.redirect(link);
     });
 });
-app.get('*', (req, res) => res.redirect('/'));
+app.get('*', (_req, res) => res.redirect('/'));
 
-wsapp.ws('/ws', function(ws, req) {
+wsapp.ws('/ws', function(ws, _req) {
     console.log('socket connected');
     ws.on('message', (msg) => {
         if (msg == 'ping') ws.send('pong');
@@ -77,6 +74,7 @@ var oldProgress;
 var oldLeaderboard;
 var pingTimer = 0;
 refreshData(true);
+setTimeout(updateCharts, 5000)
 
 async function refreshData(startup = false) {
     getData(pool)
@@ -137,4 +135,31 @@ function formatData() {
     delete d.written;
     delete d.remaining;
     return d
+}
+async function updateCharts() {
+    buildCommentsPie();
+    setTimeout(updateCharts, 600000);
+}
+
+
+var commentsPie = {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: 'Comments per user'
+    },
+    series: [{
+        name: 'someone',
+        data: []
+    }]
+};
+
+function buildCommentsPie() {
+    for (let user of data.leaderboard) {
+        commentsPie.series[0].data.push({
+            name: user.author,
+            y: user.comments
+        });
+    }
 }
