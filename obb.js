@@ -144,7 +144,8 @@ async function updateCharts() {
 
 var commentsPie = {
     chart: {
-        type: 'pie'
+        type: 'pie',
+        backgroundColor: rgb(40, 40, 40)
     },
     title: {
         text: 'Comments per user'
@@ -156,6 +157,7 @@ var commentsPie = {
 };
 
 function buildCommentsPie() {
+    commentsPie.series[0].data = []
     for (let user of data.leaderboard) {
         commentsPie.series[0].data.push({
             name: user.author,
