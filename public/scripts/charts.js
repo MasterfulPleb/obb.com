@@ -3,25 +3,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     const chart = Highcharts.chart('chart', {
         chart: {
-            type: 'bar'
+            type: 'pie'
         },
         title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
+            text: 'Comments per user'
         },
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
+            name: 'someone',
+            data: [{
+                name: 'someone',
+                y: 1234
+            }, {
+                name: 'someone else',
+                y: 3456
+            }, {
+                name: 'ligma',
+                y: 2345
+            }, {
+                name: 'joe',
+                y: 6879
+            }, {
+                name: 'jack mehoff',
+                y: 1456
+            }]
         }]
     });
 });
