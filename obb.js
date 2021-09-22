@@ -27,7 +27,7 @@ app.use('/public', express.static('public'));
 
 app.get('/', (_req, res) => res.send(preRender));
 app.get('/charts', (_req, res) => res.render('charts'));
-app.get('/charts/commentsPie', (_req, res) => res.send(JSON.stringify(commentsPie)))
+app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie));
 app.get('/newest', (_req, res) => {
     pool.query('SELECT permalink ' +
         'FROM comments ORDER BY timestamp DESC LIMIT 1;')
