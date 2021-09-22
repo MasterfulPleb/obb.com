@@ -50,7 +50,7 @@ wsapp.ws('/ws', function(ws, _req) {
     console.log('socket connected');
     ws.on('message', (msg) => {
         if (msg == 'ping') ws.send('pong');
-        else if (msg == 'update') ws.send(JSON.stringify(formatData()));
+        else if (msg == 'update') ws.send(wsdata);
     })
 });
 
@@ -69,6 +69,7 @@ app.listen(3000);
  * progress: number}}
  * */
 var data;
+var wsdata;
 var preRender;
 var oldProgress;
 var oldLeaderboard;
@@ -107,8 +108,9 @@ async function streamData() {
         pingTimer = 0;
         console.log('new data, sending to ' + wss.clients.size +
             ' client' + (wss.clients.size > 1 ? 's' : ''));
+        wsdata = JSON.stringify(formatData());
         wss.clients.forEach((client) => {
-            client.send(JSON.stringify(formatData()));
+            client.send(wsdata);
         });
     }
 }
