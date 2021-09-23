@@ -1,5 +1,9 @@
+html {
+    height: 100%;
+}
 body {
-    margin: 1em 1em 1em 1em;
+    height: 100%;
+    margin: 0 1em 0 1em;
     background-color: rgb(40, 40, 40);
     color: whitesmoke;
     font-size: larger;
