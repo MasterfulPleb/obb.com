@@ -92,7 +92,7 @@ function checkSocketEnabled() {
 function getCookie(cname) {
     let name = cname + '=';
     let cookies = document.cookie.split(';');
-    for (let i = 0; i < cookie.length; i++) {
+    for (let i = 0; i < cookies.length; i++) {
         let c = cookies[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
