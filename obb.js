@@ -53,7 +53,11 @@ wsapp.ws('/ws', function(ws, _req) {
     console.log('socket connected');
     ws.on('message', (msg) => {
         if (msg == 'ping') ws.send('pong');
-        else if (msg == 'update') ws.send(wsdata);
+        else if (msg == 'update') {
+            let d = Object.assign({}, wsdata);
+            d.leaderboard = data.leaderboard;
+            ws.send(JSON.stringify(d));
+        }
     })
 });
 
@@ -111,9 +115,10 @@ async function streamData() {
         pingTimer = 0;
         console.log('new data, sending to ' + wss.clients.size +
             ' client' + (wss.clients.size > 1 ? 's' : ''));
-        wsdata = JSON.stringify(formatData());
+        wsdata = formatData();
+        let d = JSON.stringify(wsdata);
         wss.clients.forEach((client) => {
-            client.send(wsdata);
+            client.send(d);
         });
     }
 }
@@ -141,12 +146,12 @@ function formatData() {
     delete d.remaining;
     return d
 }
+
+
 async function updateCharts() {
     buildCommentsPie();
     setTimeout(updateCharts, 600000);
 }
-
-
 var commentsPie = {
     chart: {
         type: 'pie',
@@ -160,7 +165,6 @@ var commentsPie = {
         data: []
     }]
 };
-
 function buildCommentsPie() {
     commentsPie.series[0].data = []
     for (let user of data.leaderboard) {

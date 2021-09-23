@@ -10,10 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
             setCookie('websocket', 'true', 365);
             clearTimeout(alive);
             tryConnection();
+            ws.send('update');
         } else {
             setCookie('websocket', 'false', 365);
             ws.close();
-            console.log('websocket closed')
+            console.log('websocket closed');
         }
     });
 });
