@@ -4,16 +4,18 @@
 /**@type {NodeJS.Timeout}*/var alive;
 var enableSocket = false;
 
-
-document.getElementById('websocket').addEventListener('change', () => {
-    if (document.getElementById('websocket').checked) {
-        setCookie('websocket', 'true', 365);
-        tryConnection();
-    } else {
-        setCookie('websocket', 'false', 365);
-        ws.close();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('websocket').addEventListener('change', () => {
+        if (document.getElementById('websocket').checked) {
+            setCookie('websocket', 'true', 365);
+            tryConnection();
+        } else {
+            setCookie('websocket', 'false', 365);
+            ws.close();
+        }
+    })
 })
+
 
 tryConnection();
 

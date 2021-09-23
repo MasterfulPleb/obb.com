@@ -1,7 +1,9 @@
 'use strict';
 
+let fetchChart = fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+    fetchChart
       .then(res => res.json())
       .then(data => {
         console.log(data);
