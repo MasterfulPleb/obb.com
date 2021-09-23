@@ -12,12 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             setCookie('websocket', 'false', 365);
             ws.close();
+            console.log('websocket closed')
         }
     })
+    tryConnection();
 })
 
 
-tryConnection();
 
 function tryConnection(retry = true) {
     checkSocketEnabled();
