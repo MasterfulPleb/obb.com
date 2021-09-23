@@ -2,7 +2,6 @@
 
 /**@type {WebSocket}*/var ws;
 /**@type {NodeJS.Timeout}*/var alive;
-var enableSocket = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('websocket').addEventListener('change', () => {
@@ -19,9 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
-
 function tryConnection(retry = true) {
-    checkSocketEnabled();
+    let enableSocket = checkSocketCookie();
     if (!enableSocket) console.log('websocket disabled');
     else if (retry) {
         configureSocket();
@@ -80,15 +78,16 @@ function updatePage(data) {
     }
     console.log(diff + ' new comment' + (diff == 1 ? '' : 's') + ', page updated');
 }
-function checkSocketEnabled() {
+function checkSocketCookie() {
     let value = getCookie('websocket');
     if (value == 'true') {
-        enableSocket = true;
         document.getElementById('websocket').checked = true
+        return true
     } else if (value == 'false') {
-        enableSocket = false;
+        return false
     } else if (value == '') {
         setCookie('websocket', 'false', 365);
+        return false
     }
 }
 function getCookie(cname) {

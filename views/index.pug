@@ -5,7 +5,7 @@ html
         link(rel='stylesheet', href='/public/styles/index.css')
         script(src='/public/scripts/index.js')
     body
-        #leaderboard.table
+        #leaderboard
             - for (i = 0; i < leaderboard.length; i++)
               div.row(id=leaderboard[i].author)
                 p.place= (i+1) + '.'
@@ -17,7 +17,7 @@ html
                     a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
                 p.latest-comment-old Latest comment (old Reddit): 
                     a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
-                p.last-letters We are here:  
+                p.we-are-here We are here:  
                     span#last-written.written= lastWritten
                     span.mark  ʌ 
                     span#first-remaining.remaining= firstRemaining
