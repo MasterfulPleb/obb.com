@@ -1,9 +1,9 @@
 html
     head
         title= 'ouijabeederboard.com'
+        meta(http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src-elem 'unsafe-inline' 'unsafe-eval' https://test.ouijabeederboard.com; script-src 'unsafe-inline' 'unsafe-eval' https://test.ouijabeederboard.com")
         link(rel='stylesheet', href='/public/styles/index.css')
-        script(src='/public/socket.io/socket.io.min.js')
-        script(src='/public/scripts/index.js')
+        //script(src='/public/scripts/index.js')
         script.
             'use strict';
 
