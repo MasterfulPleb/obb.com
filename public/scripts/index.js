@@ -26,7 +26,7 @@ function configureSocket() {
                 updatePage(data);
             } else {
                 //this is where charts will be recieved
-                
+                //probably not though lol just fetch the JSON
             }
         }
     }
