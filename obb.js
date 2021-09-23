@@ -21,13 +21,13 @@ const mariadb       = require('mariadb');
 const { getData }   = require('./get-data.js');
 
 app.set('view engine', 'pug');
-app.use(helmet({contentSecurityPolicy: false}));
+app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
-    useDefaults: false,
-    /*directives: {
-        "script-src": ["'self'", "https://test.ouijabeederboard.com/public/scripts/index.js"],
-    }*/
-}))
+    useDefaults: true,
+    directives: {
+        "connect-src": ["'self'", "wss:"]
+    }
+}));
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
