@@ -101,6 +101,7 @@ function getCookie(cname) {
             return c.substring(name.length);
         }
     }
+    return ''
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
