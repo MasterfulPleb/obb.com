@@ -2,43 +2,24 @@
 
 /**@type {WebSocket}*/var ws;
 /**@type {NodeJS.Timeout}*/var alive;
-var disableSocket = true;
+var enableSocket = false;
 
 
-
-
-/*function checkSocketEnabled() {
-    let value = getCookie('websocket');
-    if (value == 'true') {
-        disableSocket = false;
-    } else if (value == 'false') {
-        disableSocket = true;
+document.getElementById('websocket').addEventListener('change', () => {
+    if (this.checked) {
+        setCookie('websocket', 'true', 365);
+        tryConnection();
+    } else {
+        setCookie('websocket', 'false', 365);
+        ws.close();
     }
-}
-function getCookie(cname) {
-    let name = cname + '=';
-    let cookies = document.cookie.split(';');
-    for (let i = 0; i < cookie.length; i++) {
-        let c = cookies[i]
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length)
-        }
-    }
-}
+})
 
-
-
-
-
-
-checkSocketEnabled();*/
 tryConnection();
 
 function tryConnection(retry = true) {
-    if (disableSocket) console.log('websocket disabled')
+    checkSocketEnabled();
+    if (!enableSocket) console.log('websocket disabled');
     else if (retry) {
         configureSocket();
         alive = setTimeout(tryConnection, 60000, false);
@@ -94,4 +75,34 @@ function updatePage(data) {
         }
     }
     console.log(diff + ' new comment' + (diff == 1 ? '' : 's') + ', page updated');
+}
+function checkSocketEnabled() {
+    let value = getCookie('websocket');
+    if (value == 'true') {
+        enableSocket = true;
+        document.getElementById('websocket').checked = true
+    } else if (value == 'false') {
+        enableSocket = false;
+    } else if (value == '') {
+        setCookie('websocket', 'false', 365);
+    }
+}
+function getCookie(cname) {
+    let name = cname + '=';
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookie.length; i++) {
+        let c = cookies[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length);
+        }
+    }
+}
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
