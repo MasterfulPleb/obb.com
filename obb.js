@@ -22,8 +22,7 @@ app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
-        "connect-src": ["'self'", "wss:"],
-        "script-src": ["'self'", "'sha256-we15mGoCY+l7iR8A/z+uKVm98+UlgJd8KLD1+WsfkG0='"]
+        "connect-src": ["'self'", "wss:"]
     }
 }));
 app.use(favicon('./public/favicon.ico'));
