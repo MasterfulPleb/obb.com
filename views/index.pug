@@ -1,10 +1,10 @@
 html
     head
         title= 'ouijabeederboard.com'
-        meta(http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'sha256-3DAamgi72VbKhqe9Yu7EKkUA9LvA99Nsozjb9srA85U='")
+        //meta(http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'sha256-3DAamgi72VbKhqe9Yu7EKkUA9LvA99Nsozjb9srA85U='")
         link(rel='stylesheet', href='/public/styles/index.css')
-        //script(src='/public/scripts/index.js')
-        script.
+        script(src='/public/scripts/index.js')
+        //script.
             'use strict';
 
             /**@type {WebSocket}*/var ws;
