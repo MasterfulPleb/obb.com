@@ -21,7 +21,18 @@ const mariadb       = require('mariadb');
 const { getData }   = require('./get-data.js');
 
 app.set('view engine', 'pug');
-app.use(helmet({
+//app.use(helmet.contentSecurityPolicy());
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet.expectCt());
+app.use(helmet.frameguard());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.hsts());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.permittedCrossDomainPolicies());
+app.use(helmet.referrerPolicy());
+app.use(helmet.xssFilter());
+/*app.use(helmet({
     contentSecurityPolicy: false
 }));
 app.use(helmet.contentSecurityPolicy({
@@ -29,7 +40,7 @@ app.use(helmet.contentSecurityPolicy({
     directives: {
         "script-src": ["'self'", "https://test.ouijabeederboard.com/public/scripts/index.js"],
     }
-}))
+}))*/
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
