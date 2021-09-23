@@ -3,6 +3,8 @@ html
         title= 'ouijabeederboard charts'
         link(rel="stylesheet", href="/public/styles/charts.css")
         script(src='/public/highcharts/code/highcharts.js')
+        script.
+            var fetchChart = fetch('https://test.ouijabeederboard.com/charts/commentsPie')
         script(src='/public/scripts/charts.js')
     body
         #chart

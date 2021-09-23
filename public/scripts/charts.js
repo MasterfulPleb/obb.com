@@ -1,6 +1,6 @@
 'use strict';
 
-let fetchChart = fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+//let fetchChart = fetch('https://test.ouijabeederboard.com/charts/commentsPie')
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchChart

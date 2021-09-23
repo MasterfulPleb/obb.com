@@ -29,6 +29,7 @@ function tryConnection(retry = true) {
     } else console.log('websocket connection failed');
 }
 function configureSocket() {
+    ws.close()
     ws = new WebSocket('wss://test.ouijabeederboard.com/ws');
     ws.onopen = (_ev) => console.log('websocket connected');
     ws.onmessage = (msg) => {
