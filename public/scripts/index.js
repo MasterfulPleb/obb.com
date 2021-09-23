@@ -4,18 +4,19 @@
 /**@type {NodeJS.Timeout}*/var alive;
 
 document.addEventListener('DOMContentLoaded', () => {
+    tryConnection();
     document.getElementById('websocket').addEventListener('change', () => {
         if (document.getElementById('websocket').checked) {
             setCookie('websocket', 'true', 365);
+            clearTimeout(alive);
             tryConnection();
         } else {
             setCookie('websocket', 'false', 365);
             ws.close();
             console.log('websocket closed')
         }
-    })
-    tryConnection();
-})
+    });
+});
 
 
 function tryConnection(retry = true) {
