@@ -8,7 +8,6 @@ const helmet        = require('helmet');
 const favicon       = require('serve-favicon');
 const pug           = require('pug');
   const renderIndex = pug.compileFile('./views/index.pug');
-const ts            = require('typescript');
 const mariadb       = require('mariadb');
   const pool        = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
@@ -16,8 +15,6 @@ const mariadb       = require('mariadb');
     database: 'bee_movie',
     connectionLimit: 5,
   });
-//const Highcharts    = require('highcharts');
-  //require('highcharts/modules/exporting')(Highcharts);
 const { getData }   = require('./get-data.js');
 
 app.set('view engine', 'pug');

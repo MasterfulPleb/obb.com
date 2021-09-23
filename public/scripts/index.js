@@ -2,18 +2,51 @@
 
 /**@type {WebSocket}*/var ws;
 /**@type {NodeJS.Timeout}*/var alive;
+var disableSocket = true;
 
+
+
+
+/*function checkSocketEnabled() {
+    let value = getCookie('websocket');
+    if (value == 'true') {
+        disableSocket = false;
+    } else if (value == 'false') {
+        disableSocket = true;
+    }
+}
+function getCookie(cname) {
+    let name = cname + '=';
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookie.length; i++) {
+        let c = cookies[i]
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length)
+        }
+    }
+}
+
+
+
+
+
+
+checkSocketEnabled();*/
 tryConnection();
 
 function tryConnection(retry = true) {
-    if (retry) {
+    if (disableSocket) console.log('websocket disabled')
+    else if (retry) {
         configureSocket();
         alive = setTimeout(tryConnection, 60000, false);
     } else console.log('websocket connection failed');
 }
 function configureSocket() {
     ws = new WebSocket('wss://test.ouijabeederboard.com/ws');
-    ws.onopen = (ev) => console.log('websocket connected');
+    ws.onopen = (_ev) => console.log('websocket connected');
     ws.onmessage = (msg) => {
         clearTimeout(alive);
         alive = setTimeout(tryConnection, 60000);
