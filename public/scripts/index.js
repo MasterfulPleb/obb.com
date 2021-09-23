@@ -5,8 +5,8 @@
 var enableSocket = false;
 
 
-document.getElementById('websocket').addEventListener('change', (this) => {
-    if (this.checked) {
+document.getElementById('websocket').addEventListener('change', () => {
+    if (document.getElementById('websocket').checked) {
         setCookie('websocket', 'true', 365);
         tryConnection();
     } else {
