@@ -164,25 +164,25 @@ function changeView(view) {
     const stats = document.getElementById('stats')
     const textWall = document.getElementById('text-wall')
     if (view == 'leaderboard') {
-        leaderboard.className = show;
-        data.className = hide;
+        leaderboard.className = 'show';
+        data.className = 'hide';
     } else if (view == 'progress') {
-        leaderboard.className = hide;
-        data.className = show;
-          liveProgress.className = show;
-          stats.className = hide;
-          textWall.className = hide;
+        leaderboard.className = 'hide';
+        data.className = 'show';
+          liveProgress.className = 'show';
+          stats.className = 'hide';
+          textWall.className = 'hide';
     } else if (view == 'stats') {
-        leaderboard.className = hide;
-        data.className = show;
-          liveProgress.className = hide;
-          stats.className = show;
-          textWall.className = hide;
+        leaderboard.className = 'hide';
+        data.className = 'show';
+          liveProgress.className = 'hide';
+          stats.className = 'show';
+          textWall.className = 'hide';
     } else if (view == 'dash') {
-        leaderboard.className = show;
-        data.className = show;
-          liveProgress.className = show;
-          stats.className = show;
-          textWall.className = show;
+        leaderboard.className = 'show';
+        data.className = 'show';
+          liveProgress.className = 'show';
+          stats.className = 'show';
+          textWall.className = 'show';
     }
 }
