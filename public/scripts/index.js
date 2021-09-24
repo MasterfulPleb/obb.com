@@ -4,8 +4,7 @@
 /**@type {NodeJS.Timeout}*/var alive;
 
 document.addEventListener('DOMContentLoaded', () => {
-    tryConnection();
-    if (!checkCookie('darkmode', true)) {}//turn off dark mode
+    if (!checkCookie('darkmode', true)) {}// turn off dark mode
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) {
             setCookie('darkmode', 'true', 365);
@@ -15,6 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // turn off dark mode
         }
     });
+    document.getElementById('menu-btn').addEventListener('click', () => {
+        let navWrap = document.getElementById('nav-items-wrap');
+        if (navWrap.className == 'show') navWrap.className = 'hide';
+        else if (navWrap.className == 'hide') navWrap.className = 'show';
+    });
+    if (window.visualViewport.width < 900) {}// default to leaderboard or statistics
+    tryConnection();
     document.getElementById('websocket').addEventListener('change', () => {
         if (document.getElementById('websocket').checked) {
             setCookie('websocket', 'true', 365);
@@ -26,13 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('websocket closed');
         }
     });
-    document.getElementById('menu-btn').addEventListener('click', () => {
-        let navWrap = document.getElementById('nav-items-wrap');
-        if (navWrap.className == 'show') navWrap.className = 'hide';
-        else if (navWrap.className == 'hide') navWrap.className = 'show';
-    });
 });
-
+window.viewport
 
 function tryConnection(retry = true) {
     let enableSocket = checkCookie('websocket', false);
