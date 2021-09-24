@@ -18,9 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // listeners & stuff for navigation menu
-    let view = getCookie('view')
+    let view = getCookie('view');
     if (view == '') {
-        if (window.visualViewport.width < 900) changeView('leaderboard');
+        if (window.visualViewport.width < 900) {
+            changeView('leaderboard');
+        }
     } else changeView(view, false);
     let navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
@@ -147,15 +149,16 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
-const content = document.getElementById('content');
-const data = document.getElementById('data');
-const leaderboard = document.getElementById('leaderboard');
-const liveProgress = document.getElementById('live-progress');
-const stats = document.getElementById('stats');
-const textWall = document.getElementById('text-wall');
+
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 1);
+    const content = document.getElementById('content');
+    const data = document.getElementById('data');
+    const leaderboard = document.getElementById('leaderboard');
+    const liveProgress = document.getElementById('live-progress');
+    const stats = document.getElementById('stats');
+    const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
         data.className = 'hide';
         liveProgress.className = 'hide';
