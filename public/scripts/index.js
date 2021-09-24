@@ -16,35 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // turn off dark mode
         }
     });
-    changeView(getCookie('view'));
 
     // listeners for navigation menu
+    let view = getCookie('view')
+    if (view = '') {
+        if (window.visualViewport.width < 900) changeView('leaderboard');
+    } else changeView(view, false);
+    
     let navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
-    document.getElementById('nav-leaderboard').addEventListener('click', () => {
-        navItems.className = 'hide';
-        setCookie('view', 'leaderboard', 365);
-        changeView('leaderboard');
-    });
-    document.getElementById('nav-progress').addEventListener('click', () => {
-        navItems.className = 'hide';
-        setCookie('view', 'progress', 365);
-        changeView('progress');
-    });
-    document.getElementById('nav-stats').addEventListener('click', () => {
-        navItems.className = 'hide';
-        setCookie('view', 'stats', 365);
-        changeView('stats');
-    });
-    document.getElementById('nav-dashboard').addEventListener('click', () => {
-        navItems.className = 'hide';
-        setCookie('view', 'dash', 365);
-        changeView('dash');
-    });
-    if (window.visualViewport.width < 900) changeView('leaderboard');
+    document.getElementById('nav-leaderboard').addEventListener('click', changeView('leaderboard'));
+    document.getElementById('nav-progress').addEventListener('click', changeView('progress'));
+    document.getElementById('nav-stats').addEventListener('click', changeView('stats'));
+    document.getElementById('nav-dashboard').addEventListener('click', changeView('dash'));
 
     // configures websocket
     tryConnection();
@@ -161,7 +148,9 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
-function changeView(view) {
+function changeView(view, setCookie = true) {
+    if (setCookie) navItems.className = 'hide';
+    setCookie('view', view, 365);
     const content = document.getElementById('content')
     const data = document.getElementById('data')
     const leaderboard = document.getElementById('leaderboard')
