@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // listeners for navigation menu
     let view = getCookie('view')
-    if (view = '') {
+    if (view == '') {
         if (window.visualViewport.width < 900) changeView('leaderboard');
     } else changeView(view, false);
     
