@@ -147,24 +147,24 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
+const content = document.getElementById('content');
+const data = document.getElementById('data');
+const leaderboard = document.getElementById('leaderboard');
+const liveProgress = document.getElementById('live-progress');
+const stats = document.getElementById('stats');
+const textWall = document.getElementById('text-wall');
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 1);
-    const content = document.getElementById('content');
-    const data = document.getElementById('data');
-    const leaderboard = document.getElementById('leaderboard');
-    const liveProgress = document.getElementById('live-progress');
-    const stats = document.getElementById('stats');
-    const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
         data.className = 'hide';
         liveProgress.className = 'hide';
         stats.className = 'hide';
         textWall.className = 'hide';
         content.className = 'dash';
+        content.style.justifyContent = 'center';
         leaderboard.style.maxWidth = '30em';
         leaderboard.className = 'show';
-        content.style.justifyContent = 'center';
     } else if (view == 'progress') {
         content.className = 'single';
         leaderboard.className = 'hide';
