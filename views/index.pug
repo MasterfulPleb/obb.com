@@ -39,34 +39,35 @@ html
                             img(src='/public/images/discord.svg')
                         a(href='https://github.com/MasterfulPleb/obb.com', target='_blank')
                             img(src='/public/images/github.svg')
-        #content
-            #leaderboard
-                - for (i = 0; i < leaderboard.length; i++)
-                    div.row(id=leaderboard[i].author)
-                        p.place= (i+1) + '.'
-                        p.author= leaderboard[i].author
-                        p.comments= leaderboard[i].comments
-            #data
-                #live-progress
-                    p.latest-comment Latest comment: 
-                        a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
-                    p.latest-comment-old Latest comment (old Reddit): 
-                        a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
-                    p.we-are-here We are here:  
-                        span#last-written.written= lastWritten
-                        span.mark  ʌ 
-                        span#first-remaining.remaining= firstRemaining
-                    p.percent Completion: 
-                        span#percent= percent
-                        span %
-                    p.percent24 Completed in the last 24 hours: 
-                        span#percent24= percent24
-                        span %
-                #stats
-                    p stastasdtasdt
-                    p more stsdasdfasdfasdf
-                    #bee-cloud
-                        img(src='/public/images/beecloud.png')
-                #progress
-                    span#written.written= written
-                    span#remaining.remaining= remaining
+        #content-wrapper
+            #content
+                #leaderboard
+                    - for (i = 0; i < leaderboard.length; i++)
+                        div.row(id=leaderboard[i].author)
+                            p.place= (i+1) + '.'
+                            p.author= leaderboard[i].author
+                            p.comments= leaderboard[i].comments
+                #data
+                    #live-progress
+                        p.latest-comment Latest comment: 
+                            a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
+                        p.latest-comment-old Latest comment (old Reddit): 
+                            a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
+                        p.we-are-here We are here:  
+                            span#last-written.written= lastWritten
+                            span.mark  ʌ 
+                            span#first-remaining.remaining= firstRemaining
+                        p.percent Completion: 
+                            span#percent= percent
+                            span %
+                        p.percent24 Completed in the last 24 hours: 
+                            span#percent24= percent24
+                            span %
+                    #stats
+                        p stastasdtasdt
+                        p more stsdasdfasdfasdf
+                        #bee-cloud
+                            img(src='/public/images/beecloud.png')
+                    #progress
+                        span#written.written= written
+                        span#remaining.remaining= remaining
