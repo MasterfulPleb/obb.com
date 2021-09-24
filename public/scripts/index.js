@@ -150,7 +150,7 @@ function setCookie(cname, cvalue, exdays) {
 
 function changeView(view, setCook = true) {
     if (setCook) document.getElementById('nav-items-wrap').className = 'hide';
-    setCookie('view', view, 365);
+    setCookie('view', view, 0);
     const content = document.getElementById('content')
     const data = document.getElementById('data')
     const leaderboard = document.getElementById('leaderboard')
