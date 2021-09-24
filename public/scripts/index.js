@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setCookie('websocket', 'true', 365);
             clearTimeout(alive);
             tryConnection();
-            setTimeout(ws.send, 2000, 'update');
+            setTimeout(m => ws.send(m), 2000, 'update')
         } else {
             setCookie('websocket', 'false', 365);
             ws.close();
