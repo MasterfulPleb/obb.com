@@ -306,6 +306,12 @@ border-radius: 50%;
  *  nav menu changes
  */
  /* leaderboard */
+#content.single {
+    text-align: center;
+}
+#content.dash {
+    text-align: initial;
+}
 #data.show {
     display: block;
 }
