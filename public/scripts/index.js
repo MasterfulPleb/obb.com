@@ -5,7 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     tryConnection();
-    //if (!checkCookie('darkmode', true)) //turn off dark mode
+    if (!checkCookie('darkmode', true)) {}//turn off dark mode
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) {
             setCookie('darkmode', 'true', 365);

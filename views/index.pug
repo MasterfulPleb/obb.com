@@ -46,26 +46,27 @@ html
                         p.place= (i+1) + '.'
                         p.author= leaderboard[i].author
                         p.comments= leaderboard[i].comments
-            #live-progress
-                p.latest-comment Latest comment: 
-                    a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
-                p.latest-comment-old Latest comment (old Reddit): 
-                    a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
-                p.we-are-here We are here:  
-                    span#last-written.written= lastWritten
-                    span.mark  ʌ 
-                    span#first-remaining.remaining= firstRemaining
-                p.percent Completion: 
-                    span#percent= percent
-                    span %
-                p.percent24 Completed in the last 24 hours: 
-                    span#percent24= percent24
-                    span %
-            #stats
-                p
-                p
-                #bee-cloud
-                    //img(src='/public/images/beecloud.png')
-            #progress
-                span#written.written= written
-                span#remaining.remaining= remaining
+            #data
+                #live-progress
+                    p.latest-comment Latest comment: 
+                        a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
+                    p.latest-comment-old Latest comment (old Reddit): 
+                        a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
+                    p.we-are-here We are here:  
+                        span#last-written.written= lastWritten
+                        span.mark  ʌ 
+                        span#first-remaining.remaining= firstRemaining
+                    p.percent Completion: 
+                        span#percent= percent
+                        span %
+                    p.percent24 Completed in the last 24 hours: 
+                        span#percent24= percent24
+                        span %
+                #stats
+                    p stastasdtasdt
+                    p more stsdasdfasdfasdf
+                    #bee-cloud
+                        //img(src='/public/images/beecloud.png')
+                #progress
+                    span#written.written= written
+                    span#remaining.remaining= remaining
