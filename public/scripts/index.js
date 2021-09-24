@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
-    document.getElementById('nav-leaderboard').addEventListener('click', changeView('leaderboard'));
-    document.getElementById('nav-progress').addEventListener('click', changeView('progress'));
-    document.getElementById('nav-stats').addEventListener('click', changeView('stats'));
-    document.getElementById('nav-dashboard').addEventListener('click', changeView('dash'));
+    document.getElementById('nav-leaderboard').addEventListener('click', () => changeView('leaderboard'));
+    document.getElementById('nav-progress').addEventListener('click', () => changeView('progress'));
+    document.getElementById('nav-stats').addEventListener('click', () => changeView('stats'));
+    document.getElementById('nav-dashboard').addEventListener('click', () => changeView('dash'));
 
     // configures websocket
     tryConnection();
