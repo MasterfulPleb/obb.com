@@ -169,14 +169,14 @@ h3 {margin: 0;}
     font-size: small;
 }
 
-/* progress - aka wall of text */
-#progress {
+/* wall of text */
+#text-wall {
     flex: 1;
     font-size: .6rem;
     overflow-wrap: break-word;
     max-width: 100%;
 }
-#progress .remaining {
+#text-wall .remaining {
     color: grey;
 }
 .written {
@@ -299,4 +299,40 @@ border-radius: 50%;
     #obb h3 {
         font-size: 1.2rem;
     }
+}
+
+
+/*
+ *  nav menu changes
+ */
+ /* leaderboard */
+#data.show {
+    display: block;
+}
+#data.hide {
+    display: none;
+}
+#leaderboard.show {
+    display: block;
+}
+#leaderboard.hide {
+    display: none;
+}
+#live-progress.show {
+    display: block;
+}
+#live-progress.hide {
+    display: none;
+}
+#stats.show {
+    display: block;
+}
+#stats.hide {
+    display: none;
+}
+#text-wall.show {
+    display: block;
+}
+#text-wall.hide {
+    display: none;
 }

@@ -3,7 +3,9 @@
 /**@type {WebSocket}*/var ws;
 /**@type {NodeJS.Timeout}*/var alive;
 
+// initializes the js
 document.addEventListener('DOMContentLoaded', () => {
+    // checks cookies and sets darkmode/view accordingly
     if (!checkCookie('darkmode', true)) {}// turn off dark mode
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) {
@@ -15,11 +17,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     document.getElementById('menu-btn').addEventListener('click', () => {
-        let navWrap = document.getElementById('nav-items-wrap');
-        if (navWrap.className == 'show') navWrap.className = 'hide';
-        else if (navWrap.className == 'hide') navWrap.className = 'show';
+        let navItems = document.getElementById('nav-items-wrap');
+        if (navItems.className == 'show') navItems.className = 'hide';
+        else if (navItems.className == 'hide') navItems.className = 'show';
     });
-    if (window.visualViewport.width < 900) {}// default to leaderboard or statistics
+    changeView(getCookie('view'));
+
+    // listeners for navigation menu
+    document.getElementById('nav-leaderboard').addEventListener('click', () => {
+        setCookie('view', 'leaderboard', 365);
+        changeView('leaderboard');
+    });
+    document.getElementById('nav-progress').addEventListener('click', () => {
+        setCookie('view', 'progress', 365);
+        changeView('progress');
+    });
+    document.getElementById('nav-stats').addEventListener('click', () => {
+        setCookie('view', 'stats', 365);
+        changeView('stats');
+    });
+    document.getElementById('nav-dashboard').addEventListener('click', () => {
+        setCookie('view', 'dash', 365);
+        changeView('dash');
+    });
+    if (window.visualViewport.width < 900) changeView('leaderboard');
+
+    // configures websocket
     tryConnection();
     document.getElementById('websocket').addEventListener('change', () => {
         if (document.getElementById('websocket').checked) {
@@ -33,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-window.viewport
 
 function tryConnection(retry = true) {
     let enableSocket = checkCookie('websocket', false);
@@ -101,6 +123,7 @@ function updatePage(data) {
     }
     console.log(diff + ' new comment' + (diff == 1 ? '' : 's') + ', page updated');
 }
+
 function checkCookie(name, defaultState) {
     let value = getCookie(name);
     if (value == 'true') {
@@ -132,4 +155,34 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = 'expires=' + d.toUTCString();
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+}
+
+function changeView(view) {
+    const data = document.getElementById('data')
+    const leaderboard = document.getElementById('leaderboard')
+    const liveProgress = document.getElementById('live-progress')
+    const stats = document.getElementById('stats')
+    const textWall = document.getElementById('text-wall')
+    if (view == 'leaderboard') {
+        leaderboard.className = show;
+        data.className = hide;
+    } else if (view == 'progress') {
+        leaderboard.className = hide;
+        data.className = show;
+          liveProgress.className = show;
+          stats.className = hide;
+          textWall.className = hide;
+    } else if (view == 'stats') {
+        leaderboard.className = hide;
+        data.className = show;
+          liveProgress.className = hide;
+          stats.className = show;
+          textWall.className = hide;
+    } else if (view == 'dash') {
+        leaderboard.className = show;
+        data.className = show;
+          liveProgress.className = show;
+          stats.className = show;
+          textWall.className = show;
+    }
 }
