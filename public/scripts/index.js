@@ -5,6 +5,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     tryConnection();
+    if (!checkCookie('darkmode', true)) //turn off dark mode
+    document.getElementById('darkmode').addEventListener('change', () => {
+        if (document.getElementById('darkmode').checked) {
+            setCookie('darkmode', 'true', 365);
+            // turn on dark mode
+        } else {
+            setCookie('darkmode', 'false', 365);
+            // turn off dark mode
+        }
+    });
     document.getElementById('websocket').addEventListener('change', () => {
         if (document.getElementById('websocket').checked) {
             setCookie('websocket', 'true', 365);
@@ -25,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function tryConnection(retry = true) {
-    let enableSocket = checkSocketCookie();
+    let enableSocket = checkCookie('websocket', false);
     if (!enableSocket) console.log('websocket disabled');
     else if (retry) {
         configureSocket();
@@ -90,16 +100,16 @@ function updatePage(data) {
     }
     console.log(diff + ' new comment' + (diff == 1 ? '' : 's') + ', page updated');
 }
-function checkSocketCookie() {
-    let value = getCookie('websocket');
+function checkCookie(name, defaultState) {
+    let value = getCookie(name);
     if (value == 'true') {
-        document.getElementById('websocket').checked = true
+        document.getElementById(name).checked = true
         return true
     } else if (value == 'false') {
         return false
     } else if (value == '') {
-        setCookie('websocket', 'false', 365);
-        return false
+        setCookie(name, defaultState ? 'true' : 'false', 365);
+        return defaultState
     }
 }
 function getCookie(cname) {
