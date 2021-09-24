@@ -34,6 +34,11 @@ html
                         label.switch
                             input#darkmode(type='checkbox')
                             span.slider.round
+                    li#links
+                        a(href='https://discord.gg/AXNz4ps73B', target='_blank')
+                            img(src='/public/images/discord.svg')
+                        a(href='https://github.com/MasterfulPleb/obb.com', target='_blank')
+                            img(src='/public/images/github.svg')
         #content
             #leaderboard
                 - for (i = 0; i < leaderboard.length; i++)
@@ -41,7 +46,7 @@ html
                         p.place= (i+1) + '.'
                         p.author= leaderboard[i].author
                         p.comments= leaderboard[i].comments
-            #metrics
+            #live-progress
                 p.latest-comment Latest comment: 
                     a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
                 p.latest-comment-old Latest comment (old Reddit): 
@@ -56,13 +61,11 @@ html
                 p.percent24 Completed in the last 24 hours: 
                     span#percent24= percent24
                     span %
-                #space
+            #stats
+                p
+                p
+                #bee-cloud
                     //img(src='/public/images/beecloud.png')
-                #source
-                    p Want some discord? 
-                        a(href='https://discord.gg/AXNz4ps73B', target='_blank') https://discord.gg/AXNz4ps73B
-                    p Want some source code? 
-                        a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
             #progress
                 span#written.written= written
                 span#remaining.remaining= remaining

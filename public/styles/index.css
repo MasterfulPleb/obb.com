@@ -160,9 +160,6 @@ h3 {margin: 0;}
     margin: .8em;
     max-width: calc(100% - 20em);
 }
-#space {
-    height: 35em;
-}
 #source {
     position: sticky;
     top: calc(100% - 2em);

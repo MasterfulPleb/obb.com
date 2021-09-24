@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setCookie('websocket', 'true', 365);
             clearTimeout(alive);
             tryConnection();
-            ws.send('update');
         } else {
             setCookie('websocket', 'false', 365);
             ws.close();
@@ -21,10 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let navWrap = document.getElementById('nav-items-wrap');
         if (navWrap.className == 'show') navWrap.className = 'hide';
         else if (navWrap.className == 'hide') navWrap.className = 'show';
-    })
+    });
 });
 
-//when click menu button do the menu thing
 
 function tryConnection(retry = true) {
     let enableSocket = checkSocketCookie();
@@ -37,7 +35,10 @@ function tryConnection(retry = true) {
 function configureSocket() {
     if (typeof(ws) != 'undefined') ws.close()
     ws = new WebSocket('wss://test.ouijabeederboard.com/ws');
-    ws.onopen = (_ev) => console.log('websocket connected');
+    ws.onopen = (_ev) => {
+        console.log('websocket connected');
+        ws.send('update');
+    }
     ws.onmessage = (msg) => {
         clearTimeout(alive);
         alive = setTimeout(tryConnection, 60000);
