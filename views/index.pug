@@ -8,7 +8,10 @@ html
     body
         .nav-menu
             .obb
-                h4 ouijabeederboard.com
+                h3 ouijabeederboard.com
+            .menu-btn
+                span Menu 
+                img(src='/public/images/menu-button.svg')
             .nav-items-wrap
                 ul.nav-items
                     li.nav-leaderboard
@@ -20,24 +23,24 @@ html
                     li.nav-dashboard
                         span Dashboard
                     li.nav-charts
-                        a(href='/charts')
-                    li.nav-websocket
+                        a(href='/charts') Charts
+                    li.nav-websocket.toggle
+                        span Live Updates
                         label.switch
                             input#websocket(type='checkbox')
                             span.slider.round
-                    li.nav-darkmode
+                    li.nav-darkmode.toggle
+                        span Darkmode
                         label.switch
                             input#darkmode(type='checkbox')
                             span.slider.round
-            .menu-btn
-                img(src='/public/images/menu-button.svg')
-        #leaderboard
-            - for (i = 0; i < leaderboard.length; i++)
-              div.row(id=leaderboard[i].author)
-                p.place= (i+1) + '.'
-                p.author= leaderboard[i].author
-                p.comments= leaderboard[i].comments
         #content
+            #leaderboard
+                - for (i = 0; i < leaderboard.length; i++)
+                div.row(id=leaderboard[i].author)
+                    p.place= (i+1) + '.'
+                    p.author= leaderboard[i].author
+                    p.comments= leaderboard[i].comments
             #metrics
                 p.latest-comment Latest comment: 
                     a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
@@ -61,5 +64,5 @@ html
                     p Want some source code? 
                         a(href='https://github.com/MasterfulPleb/obb.com', target='_blank') https://github.com/MasterfulPleb/obb.com
             #progress
-                  span#written.written= written
-                  span#remaining.remaining= remaining
+                span#written.written= written
+                span#remaining.remaining= remaining
