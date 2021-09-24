@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setCookie('websocket', 'true', 365);
             clearTimeout(alive);
             tryConnection();
+            setTimeout(ws.send, 2000, 'update');
         } else {
             setCookie('websocket', 'false', 365);
             ws.close();
@@ -65,7 +66,6 @@ function configureSocket() {
     ws = new WebSocket('wss://test.ouijabeederboard.com/ws');
     ws.onopen = (_ev) => {
         console.log('websocket connected');
-        ws.send('update');
     }
     ws.onmessage = (msg) => {
         clearTimeout(alive);
@@ -153,12 +153,12 @@ function setCookie(cname, cvalue, exdays) {
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 1);
-    let content = document.getElementById('content');
-    let data = document.getElementById('data');
-    let leaderboard = document.getElementById('leaderboard');
-    let liveProgress = document.getElementById('live-progress');
-    let stats = document.getElementById('stats');
-    let textWall = document.getElementById('text-wall');
+    const content = document.getElementById('content');
+    const data = document.getElementById('data');
+    const leaderboard = document.getElementById('leaderboard');
+    const liveProgress = document.getElementById('live-progress');
+    const stats = document.getElementById('stats');
+    const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
         data.className = 'hide';
         liveProgress.className = 'hide';

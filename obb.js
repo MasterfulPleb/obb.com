@@ -94,6 +94,7 @@ async function refreshData(startup = false) {
         if (startup) {
             oldProgress = d.progress;
             oldLeaderboard = d.leaderboard;
+            wsdata = formatData();
             setInterval(streamData, 250);
         }
       })
