@@ -17,12 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // listeners for navigation menu
+    // listeners & stuff for navigation menu
     let view = getCookie('view')
     if (view == '') {
         if (window.visualViewport.width < 900) changeView('leaderboard');
     } else changeView(view, false);
-    
     let navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
         if (navItems.className == 'show') navItems.className = 'hide';
@@ -139,7 +138,7 @@ function getCookie(cname) {
             return c.substring(name.length);
         }
     }
-    return ''
+    return '';
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -151,40 +150,40 @@ function setCookie(cname, cvalue, exdays) {
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 1);
-    const content = document.getElementById('content')
-    const data = document.getElementById('data')
-    const leaderboard = document.getElementById('leaderboard')
-    const liveProgress = document.getElementById('live-progress')
-    const stats = document.getElementById('stats')
-    const textWall = document.getElementById('text-wall')
+    const content = document.getElementById('content');
+    const data = document.getElementById('data');
+    const leaderboard = document.getElementById('leaderboard');
+    const liveProgress = document.getElementById('live-progress');
+    const stats = document.getElementById('stats');
+    const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
-        content.className = 'dash'
-        leaderboard.className = 'show';
-        leaderboard.style.maxWidth = '30em'
-        content.style.justifyContent = 'center'
         data.className = 'hide';
-    } else if (view == 'progress') {
-        content.className = 'single'
-        leaderboard.className = 'hide';
-        data.className = 'show';
-          liveProgress.className = 'show';
-          stats.className = 'hide';
-          textWall.className = 'hide';
-    } else if (view == 'stats') {
-        content.className = 'single'
-        leaderboard.className = 'hide';
-        data.className = 'show';
-          liveProgress.className = 'hide';
-          stats.className = 'show';
-          textWall.className = 'hide';
-    } else if (view == 'dash') {
-        content.className = 'dash'
+        content.className = 'dash';
+        leaderboard.style.maxWidth = '30em';
         leaderboard.className = 'show';
-        leaderboard.style.maxWidth = '20em'
-        content.style.justifyContent = 'normal'
+        content.style.justifyContent = 'center';
+    } else if (view == 'progress') {
+        content.className = 'single';
+        leaderboard.className = 'hide';
+        stats.className = 'hide';
+        textWall.className = 'hide';
         data.className = 'show';
-          liveProgress.className = 'show';
-          stats.className = 'show';
-          textWall.className = 'show';
+        liveProgress.className = 'show';
+    } else if (view == 'stats') {
+        content.className = 'single';
+        leaderboard.className = 'hide';
+        textWall.className = 'hide';
+        liveProgress.className = 'hide';
+        data.className = 'show';
+        stats.className = 'show';
+    } else if (view == 'dash') {
+        content.className = 'dash';
+        leaderboard.className = 'show';
+        leaderboard.style.maxWidth = '20em';
+        content.style.justifyContent = 'normal';
+        data.className = 'show';
+        liveProgress.className = 'show';
+        stats.className = 'show';
+        textWall.className = 'show';
     }
 }
