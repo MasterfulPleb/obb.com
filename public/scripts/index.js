@@ -90,7 +90,7 @@ function updatePage(data) {
     const oldLength = written.innerHTML.length;
     const newLength = data.progress;
     const diff = newLength - oldLength;
-    if (diff == 0) break
+    if (diff == 0) return
     written.innerHTML += remaining.innerHTML.slice(0, diff);
     remaining.innerHTML = remaining.innerHTML.slice(diff);
     document.getElementById('percent').innerHTML = data.percent;
