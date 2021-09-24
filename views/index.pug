@@ -6,6 +6,31 @@ html
         link(rel='stylesheet', href='/public/styles/index.css')
         script(src='/public/scripts/index.js')
     body
+        ul.nav-menu
+            .obb
+                h4 ouijabeederboard.com
+            .nav-items-wrap
+                ul.nav-items
+                    li.nav-leaderboard
+                        span Leaderboard
+                    li.nav-progress
+                        span Live Progress
+                    li.nav-stats
+                        span Statistics
+                    li.nav-dashboard
+                        span Dashboard
+                    li.nav-charts
+                        a(href='/charts')
+                    li.nav-websocket
+                        label.switch
+                        input#websocket(type='checkbox')
+                        span.slider.round
+                    li.nav-darkmode
+                        label.switch
+                        input#darkmode(type='checkbox')
+                        span.slider.round
+            .menu-btn
+                img(src='/public/images/menu-button.svg')
         #leaderboard
             - for (i = 0; i < leaderboard.length; i++)
               div.row(id=leaderboard[i].author)
@@ -29,10 +54,7 @@ html
                     span#percent24= percent24
                     span %
                 #space
-                    label.switch
-                        input#websocket(type='checkbox')
-                        span.slider.round
-                    //img(src='/public/beecloud.png')
+                    img(src='/public/images/beecloud.png')
                 #source
                     p Want some discord? 
                         a(href='https://discord.gg/AXNz4ps73B', target='_blank') https://discord.gg/AXNz4ps73B
