@@ -1,7 +1,7 @@
 /* the basics */
 body {
-    display: flex;
-    flex-wrap: wrap-reverse;
+    /*display: flex;*/
+    /*flex-wrap: wrap-reverse;*/
     margin: 0 1em 1em 1em;
     background-color: rgb(40, 40, 40);
     color: whitesmoke;
