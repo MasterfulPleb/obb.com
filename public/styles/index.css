@@ -30,7 +30,7 @@ a {
     /* margin-right: 2em; */
     display: flex;
     padding: .3em 1em;
-    /* width: fit-content; */
+    width: fit-content;
     /* background-color: red; */
     align-items: center;
     /* border-right: 2px solid blue; */
@@ -243,10 +243,14 @@ border-radius: 50%;
     #nav-menu {
         flex-wrap: wrap;
         align-content: center;
-
     }
     #nav-items {
         flex-direction: column;
+        padding: 0;
+    }
+    #nav-items li {
+        width: -webkit-fill-available;
+        justify-content: center;
     }
     #nav-items-wrap.hide {
         display: none;
