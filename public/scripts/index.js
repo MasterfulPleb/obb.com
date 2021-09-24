@@ -149,7 +149,7 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function changeView(view, setCook = true) {
-    if (setCook) navItems.className = 'hide';
+    if (setCook) document.getElementById('nav-items-wrap').className = 'hide';
     setCookie('view', view, 365);
     const content = document.getElementById('content')
     const data = document.getElementById('data')
