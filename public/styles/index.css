@@ -268,3 +268,8 @@ border-radius: 50%;
         display: block;
     }
 }
+@media screen and (max-width: 400px) {
+    #obb h3 {
+        font-size: 1.2rem;
+    }
+}
