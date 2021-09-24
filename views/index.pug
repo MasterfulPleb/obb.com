@@ -34,13 +34,14 @@ html
                         label.switch
                             input#darkmode(type='checkbox')
                             span.slider.round
+            .nav-space
         #content
             #leaderboard
                 - for (i = 0; i < leaderboard.length; i++)
-                div.row(id=leaderboard[i].author)
-                    p.place= (i+1) + '.'
-                    p.author= leaderboard[i].author
-                    p.comments= leaderboard[i].comments
+                    div.row(id=leaderboard[i].author)
+                        p.place= (i+1) + '.'
+                        p.author= leaderboard[i].author
+                        p.comments= leaderboard[i].comments
             #metrics
                 p.latest-comment Latest comment: 
                     a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest

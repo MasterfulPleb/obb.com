@@ -28,6 +28,7 @@ a {
 }
 .nav-items {
     display: flex;
+    flex-direction: row;
     align-items: center;
     /* height: 100%; */
     list-style: none;
@@ -36,6 +37,7 @@ a {
 }
 .nav-menu {
     display: flex;
+    flex-wrap: nowrap;
     align-content: center;
     justify-content: space-between;
     align-items: center;
@@ -46,8 +48,13 @@ a {
 h3 {margin: 0;}
 
 .menu-btn {
-    display: block;
+    display: none;
+    margin-left: 3em;
 }
+.nav-space {
+    display: none;
+}
+
 
 
 /* the leaderboard */
@@ -204,5 +211,15 @@ border-radius: 50%;
 @media screen and (max-width: 920px) {
     .menu-btn {
         display: block;
+    }
+    .nav-space {
+        display: none;
+    }
+    .nav-items {
+        flex-direction: column;
+    }
+    .nav-menu {
+        flex-wrap: wrap;
+        align-content: center;
     }
 }
