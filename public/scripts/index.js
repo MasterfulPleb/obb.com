@@ -149,15 +149,16 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
-let content = document.getElementById('content');
+
+function changeView(view, setCook = true) {
+    document.getElementById('nav-items-wrap').className = 'hide';
+    if (setCook) setCookie('view', view, 1);
+    let content = document.getElementById('content');
     let data = document.getElementById('data');
     let leaderboard = document.getElementById('leaderboard');
     let liveProgress = document.getElementById('live-progress');
     let stats = document.getElementById('stats');
     let textWall = document.getElementById('text-wall');
-function changeView(view, setCook = true) {
-    document.getElementById('nav-items-wrap').className = 'hide';
-    if (setCook) setCookie('view', view, 1);
     if (view == 'leaderboard') {
         data.className = 'hide';
         liveProgress.className = 'hide';
