@@ -55,9 +55,6 @@ h3 {
     margin: 0;
     padding: 0 1em;
 }
-#nav-charts {
-    padding: 0;
-}
 #nav-items li {
     display: flex;
     padding: .3em 1em;
@@ -73,6 +70,9 @@ h3 {
 }
 .toggle span {
     margin-right: 1em;
+}
+#nav-items li#nav-charts {
+    padding: 0;
 }
 #nav-items li a {
     color: inherit;
