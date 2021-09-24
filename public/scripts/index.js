@@ -149,51 +149,46 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
-
+let content = document.getElementById('content');
+    let data = document.getElementById('data');
+    let leaderboard = document.getElementById('leaderboard');
+    let liveProgress = document.getElementById('live-progress');
+    let stats = document.getElementById('stats');
+    let textWall = document.getElementById('text-wall');
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 1);
-    //let document.getElementById('content') = document.getElementById('content');
-    //let document.getElementById('data') = document.getElementById('data');
-    //let document.getElementById('leaderboard') = document.getElementById('leaderboard');
-    //let document.getElementById('live-progress') = document.getElementById('live-progress');
-    //let document.getElementById('stats') = document.getElementById('stats');
-    //let document.getElementById('text-wall') = document.getElementById('text-wall');
     if (view == 'leaderboard') {
-        document.getElementById('data').className = 'hide';
-        document.getElementById('live-progress').className = 'hide';
-        document.getElementById('stats').className = 'hide';
-        document.getElementById('text-wall').className = 'hide';
-        document.getElementById('content').className = 'dash';
-        document.getElementById('content').style.justifyContent = 'center';
-        document.getElementById('leaderboard').style.maxWidth = '30em';
-        document.getElementById('leaderboard').className = 'show';
+        data.className = 'hide';
+        liveProgress.className = 'hide';
+        stats.className = 'hide';
+        textWall.className = 'hide';
+        content.className = 'dash';
+        content.style.justifyContent = 'center';
+        leaderboard.style.maxWidth = '30em';
+        leaderboard.className = 'show';
     } else if (view == 'progress') {
-        document.getElementById('content').className = 'single';
-        document.getElementById('leaderboard').className = 'hide';
-        document.getElementById('stats').className = 'hide';
-        document.getElementById('text-wall').className = 'hide';
-        document.getElementById('content').style.justifyContent = 'normal';
-        document.getElementById('leaderboard').style.maxWidth = '20em';
-        document.getElementById('data').className = 'show';
-        document.getElementById('live-progress').className = 'show';
+        content.className = 'single';
+        leaderboard.className = 'hide';
+        stats.className = 'hide';
+        textWall.className = 'hide';
+        data.className = 'show';
+        liveProgress.className = 'show';
     } else if (view == 'stats') {
-        document.getElementById('content').className = 'single';
-        document.getElementById('leaderboard').className = 'hide';
-        document.getElementById('text-wall').className = 'hide';
-        document.getElementById('live-progress').className = 'hide';
-        document.getElementById('content').style.justifyContent = 'normal';
-        document.getElementById('leaderboard').style.maxWidth = '20em';
-        document.getElementById('data').className = 'show';
-        document.getElementById('stats').className = 'show';
+        content.className = 'single';
+        leaderboard.className = 'hide';
+        textWall.className = 'hide';
+        liveProgress.className = 'hide';
+        data.className = 'show';
+        stats.className = 'show';
     } else if (view == 'dash') {
-        document.getElementById('content').className = 'dash';
-        document.getElementById('leaderboard').className = 'show';
-        document.getElementById('leaderboard').style.maxWidth = '20em';
-        document.getElementById('content').style.justifyContent = 'normal';
-        document.getElementById('data').className = 'show';
-        document.getElementById('live-progress').className = 'show';
-        document.getElementById('stats').className = 'show';
-        document.getElementById('text-wall').className = 'show';
+        content.className = 'dash';
+        leaderboard.className = 'show';
+        leaderboard.style.maxWidth = '20em';
+        content.style.justifyContent = 'normal';
+        data.className = 'show';
+        liveProgress.className = 'show';
+        stats.className = 'show';
+        textWall.className = 'show';
     }
 }
