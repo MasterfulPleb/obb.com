@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//when click menu button do the menu thing
 
 function tryConnection(retry = true) {
     let enableSocket = checkSocketCookie();
