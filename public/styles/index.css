@@ -125,7 +125,7 @@ h3 {margin: 0;}
     margin-right: .8em;
     border: 4px solid rgb(200, 200, 200);
     border-radius: 1em;
-    background-color: inherit;
+    background-color: rgb(40, 40, 40);
 }
 .row {
     display: flex;
