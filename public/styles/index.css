@@ -46,6 +46,9 @@ a {
 }
 .obb {margin-left: 1em;}
 h3 {margin: 0;}
+.nav-items-wrap {
+    width: --webkit-fill-available;
+}
 
 .menu-btn {
     display: none;
@@ -208,7 +211,7 @@ border-radius: 50%;
 /*
  *  mobile configuration
  */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1300px) {
     .menu-btn {
         display: block;
     }
