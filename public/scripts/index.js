@@ -149,8 +149,8 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function changeView(view, setCook = true) {
-     document.getElementById('nav-items-wrap').className = 'hide';
-     if (setCook) setCookie('view', view, 0);
+    document.getElementById('nav-items-wrap').className = 'hide';
+    if (setCook) setCookie('view', view, 1);
     const content = document.getElementById('content')
     const data = document.getElementById('data')
     const leaderboard = document.getElementById('leaderboard')
