@@ -148,8 +148,8 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
-function changeView(view, setCookie = true) {
-    if (setCookie) navItems.className = 'hide';
+function changeView(view, setCook = true) {
+    if (setCook) navItems.className = 'hide';
     setCookie('view', view, 365);
     const content = document.getElementById('content')
     const data = document.getElementById('data')
