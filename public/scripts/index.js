@@ -158,6 +158,9 @@ function changeView(view, setCook = true) {
     const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
         data.className = 'hide';
+        liveProgress.className = 'hide';
+        stats.className = 'hide';
+        textWall.className = 'hide';
         content.className = 'dash';
         leaderboard.style.maxWidth = '30em';
         leaderboard.className = 'show';
