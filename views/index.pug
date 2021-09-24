@@ -6,30 +6,30 @@ html
         link(rel='stylesheet', href='/public/styles/index.css')
         script(src='/public/scripts/index.js')
     body
-        .nav-menu
-            .obb
+        #nav-menu
+            #obb
                 h3 ouijabeederboard.com
             #menu-btn
                 span Menu 
                 img(src='/public/images/menu-button.svg')
             #nav-items-wrap.hide
-                ul.nav-items
-                    li.nav-leaderboard
+                ul#nav-items
+                    li#nav-leaderboard
                         span Leaderboard
-                    li.nav-progress
+                    li#nav-progress
                         span Live Progress
-                    li.nav-stats
+                    li#nav-stats
                         span Statistics
-                    li.nav-dashboard
+                    li#nav-dashboard
                         span Dashboard
-                    li.nav-charts
+                    li#nav-charts
                         a(href='/charts') Charts
-                    li.nav-websocket.toggle
+                    li#nav-websocket.toggle
                         span Live Updates
                         label.switch
                             input#websocket(type='checkbox')
                             span.slider.round
-                    li.nav-darkmode.toggle
+                    li#nav-darkmode.toggle
                         span Darkmode
                         label.switch
                             input#darkmode(type='checkbox')
