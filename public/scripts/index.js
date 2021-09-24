@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('websocket closed');
         }
     });
+    document.getElementById('menu-btn').addEventListener('click', () => {
+        let navWrap = document.getElementById('nav-items-wrap');
+        if (navWrap.className == 'show') navWrap.className = 'hide';
+        else if (navWrap.className == 'hide') navWrap.className = 'show';
+    })
 });
 
 //when click menu button do the menu thing

@@ -40,20 +40,24 @@ a {
     align-content: center;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
     height: 2.5em;
     background-color: darkgoldenrod;
     color: black;
 }
 .obb {margin-left: 1em;}
 h3 {margin: 0;}
-.nav-items-wrap {
+#nav-items-wrap {
     width: -webkit-fill-available;
     display: block;
 }
 
-.menu-btn {
+#menu-btn {
     display: none;
-    margin: 0 1em;
+    align-items: center;
+    height: -webkit-fill-available;
+    padding: 0 1em;
 }
 .nav-space {
     display: none;
@@ -213,8 +217,8 @@ border-radius: 50%;
  *  mobile configuration
  */
 @media screen and (max-width: 1300px) {
-    .menu-btn {
-        display: block;
+    #menu-btn {
+        display: flex;
     }
     .nav-space {
         display: none;
@@ -226,10 +230,10 @@ border-radius: 50%;
     .nav-items {
         flex-direction: column;
     }
-    .nav-items-wrap.hide {
+    #nav-items-wrap.hide {
         display: none;
     }
-    .nav-items-wrap.show {
+    #nav-items-wrap.show {
         display: block;
     }
 }
