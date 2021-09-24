@@ -242,7 +242,7 @@ border-radius: 50%;
 /*
  *  mobile configuration
  */
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1550px) {
     #menu-btn {
         display: flex;
     }
