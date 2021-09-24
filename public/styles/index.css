@@ -46,6 +46,18 @@ a {
     color: inherit;
     text-decoration: none;
 }
+#links {
+    height: 34px;
+}
+#links a {
+    height: 100%;
+}
+#links a:first-child {
+    margin-right: 1em;
+}
+#links a img {
+    height: 100%;
+}
 #nav-menu {
     display: flex;
     flex-wrap: nowrap;

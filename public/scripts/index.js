@@ -30,7 +30,10 @@ function tryConnection(retry = true) {
     else if (retry) {
         configureSocket();
         alive = setTimeout(tryConnection, 60000, false);
-    } else console.log('websocket connection failed');
+    } else {
+        ws.close();
+        console.log('websocket connection failed');
+    };
 }
 function configureSocket() {
     if (typeof(ws) != 'undefined') ws.close()
