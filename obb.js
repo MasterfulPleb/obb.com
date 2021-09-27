@@ -156,7 +156,7 @@ async function updateCharts() {
 var commentsPie = {
     chart: {
         type: 'pie',
-        //backgroundColor: '#282828'
+        backgroundColor: '#282828'
     },
     title: {
         text: 'Comments per user'
@@ -164,14 +164,37 @@ var commentsPie = {
     series: [{
         name: 'Comments',
         data: []
-    }]
+    }],
+    drilldown: {
+        series: [{
+            name: 'Less than 300',
+            id: 'lt300',
+            data: []
+        }]
+    }
 };
 function buildCommentsPie() {
     commentsPie.series[0].data = []
-    for (let user of data.leaderboard) {
-        commentsPie.series[0].data.push({
-            name: user.author,
-            y: user.comments
-        });
+    let lt300 = 0
+    for (i = 0; i < data.leaderboard.length; i++) {
+        let row = data.leaderboard[i]
+        if (row.comments > 299) {
+            commentsPie.series[0].data.push({
+                name: row.author,
+                y: row.comments,
+                drilldown: null
+            });
+        } else if (row.comments < 300 && row.comments > 0) {
+            lt300 += row.comments
+            commentsPie.drilldown.series[0].data.push([
+                row.author,
+                row.comments
+            ])
+        }
     }
+    commentsPie.series[0].data.push({
+        name: 'Less than 300',
+        y: lt300,
+        drilldown: 'lt300'
+    });
 }
