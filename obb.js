@@ -185,6 +185,16 @@ var commentsPie = {
             name: 'Less than 10',
             id: 'lt10',
             data: []
+        },
+        {
+            name: 'Less than 5',
+            id: 'lt5',
+            data: []
+        },
+        {
+            name: 'Single comment',
+            id: 'lt2',
+            data: []
         }]
     }
 };
@@ -197,6 +207,8 @@ function buildCommentsPie() {
     let lt100 = 0
     let lt50 = 0
     let lt10 = 0
+    let lt5 = 0
+    let lt2 = 0
     for (let i = 0; i < data.leaderboard.length; i++) {
         let row = data.leaderboard[i]
         if (row.comments > 299) {
@@ -223,14 +235,28 @@ function buildCommentsPie() {
                 row.author,
                 row.comments
             ])
-        } else if (row.comments < 10 && row.comments > 0) {
+        } else if (row.comments < 10 && row.comments > 4) {
             lt10 += row.comments
             commentsPie.drilldown.series[3].data.push([
                 row.author,
                 row.comments
             ])
+        } else if (row.comments < 5 && row.comments > 1) {
+            lt5 += row.comments
+            commentsPie.drilldown.series[4].data.push([
+                row.author,
+                row.comments
+            ])
+        } else if (row.comments == 1) {
+            lt2 += row.comments
+            commentsPie.drilldown.series[5].data.push([
+                row.author,
+                row.comments
+            ])
         }
     }
+    lt5 += lt2
+    lt10 += lt5
     lt50 += lt10
     lt100 += lt50
     lt300 += lt100
@@ -244,14 +270,24 @@ function buildCommentsPie() {
         y: lt100,
         drilldown: 'lt100'
     });
-    commentsPie.drilldown.series[0].data.push({
+    commentsPie.drilldown.series[1].data.push({
         name: 'Less than 50',
         y: lt50,
         drilldown: 'lt50'
     });
-    commentsPie.drilldown.series[0].data.push({
+    commentsPie.drilldown.series[2].data.push({
         name: 'Less than 10',
         y: lt10,
         drilldown: 'lt10'
+    });
+    commentsPie.drilldown.series[3].data.push({
+        name: 'Less than 5',
+        y: lt5,
+        drilldown: 'lt5'
+    });
+    commentsPie.drilldown.series[4].data.push({
+        name: 'Single comment',
+        y: lt2,
+        drilldown: 'lt2'
     });
 }
