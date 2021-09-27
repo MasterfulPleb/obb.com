@@ -24,14 +24,6 @@ a {
     margin: .8em;
     background-color: rgb(40, 40, 40);
 }
-::-webkit-scrollbar {
-    width: 50px;
-}
-::-webkit-scrollbar-thumb {
-    background: url('/public/images/scrollbee.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-}
 
 /* nav menu */
 #nav-menu {
@@ -253,6 +245,16 @@ input:checked + .slider:before {
 }
 
 
+@media screen and (min-width: 1550px) {
+    ::-webkit-scrollbar {
+        width: 50px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: url('/public/images/scrollbee.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
 /*
  *  mobile configuration
  */
