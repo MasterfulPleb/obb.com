@@ -2,8 +2,34 @@ doctype html
 html
     head
         title= 'ouijabeederboard charts'
+        meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel="stylesheet", href="/public/styles/charts.css")
         script(src='/public/highcharts/code/highcharts.js')
         script(src='/public/scripts/charts.js')
     body
-        #chart
+        #nav-menu
+            #obb
+                h3 ouijabeederboard.com
+            #menu-btn
+                span Menu 
+                img(src='/public/images/menu-button.svg')
+            #nav-items-wrap.hide
+                ul#nav-items
+                    li#nav-leaderboard
+                        a(href='/') Back to leaderboard
+                    li#nav-comments-user
+                        span Comments per user
+                    li#nav-comments-day
+                        span Comments per day
+                    li#nav-darkmode.toggle
+                        span Nightmode
+                        label.switch
+                            input#darkmode(type='checkbox')
+                            span.slider.round
+                    li#links.toggle
+                        a(href='https://discord.gg/AXNz4ps73B', target='_blank')
+                            img(src='/public/images/discord.svg')
+                        a(href='https://github.com/MasterfulPleb/obb.com', target='_blank')
+                            img(src='/public/images/github.svg')
+        #content-wrapper
+            #chart
