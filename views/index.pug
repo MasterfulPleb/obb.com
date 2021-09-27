@@ -40,15 +40,15 @@ html
                         a(href='https://github.com/MasterfulPleb/obb.com', target='_blank')
                             img(src='/public/images/github.svg')
         #content-wrapper
-            #content
-                #leaderboard
+            #content.dash
+                #leaderboard.show
                     - for (i = 0; i < leaderboard.length; i++)
                         div.row(id=leaderboard[i].author)
                             p.place= (i+1) + '.'
                             p.author= leaderboard[i].author
                             p.comments= leaderboard[i].comments
                 #data.show
-                    #live-progress
+                    #live-progress.show
                         p.latest-comment Latest comment: 
                             a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
                         p.latest-comment-old Latest comment (old Reddit): 
@@ -63,11 +63,11 @@ html
                         p.percent24 Completed in the last 24 hours: 
                             span#percent24= percent24
                             span %
-                    #stats
+                    #stats.show
                         p stastasdtasdt
                         p more stsdasdfasdfasdf
                         #bee-cloud
                             img(src='/public/images/beecloud.png')
-                    #text-wall
+                    #text-wall.show
                         span#written.written= written
                         span#remaining.remaining= remaining

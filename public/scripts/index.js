@@ -173,7 +173,7 @@ function changeView(view, setCook = true) {
         content.className = 'single';
         leaderboard.className = 'hide';
         stats.className = 'hide';
-        textWall.className = 'hide';
+        textWall.className = 'show';
         data.className = 'show';
         liveProgress.className = 'show';
     } else if (view == 'stats') {
