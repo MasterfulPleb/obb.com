@@ -19,14 +19,7 @@ body {
 #chart {
     height: 100%
 }
-::-webkit-scrollbar {
-    width: 50px;
-}
-::-webkit-scrollbar-thumb {
-    background: url('/public/images/scrollbee.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-}
+
 
 
 
