@@ -25,10 +25,12 @@ a {
     background-color: rgb(40, 40, 40);
 }
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 50px;
 }
 ::-webkit-scrollbar-thumb {
     background: url('/public/images/scrollbee.png');
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 /* nav menu */
