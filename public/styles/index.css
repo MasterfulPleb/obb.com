@@ -22,6 +22,7 @@ a {
 #content {
     display: flex;
     margin: .8em;
+    background-color: rgb(40, 40, 40);
 }
 
 /* nav menu */
@@ -145,12 +146,14 @@ h3 {
 #data {
     flex: 6;
     overflow: hidden;
+    background-color: rgb(40, 40, 40);
 }
 #data p {
     margin: 1.2em 0;
 }
 #live-progress {
     flex: 2;
+    background-color: rgb(40, 40, 40);
 }
 #live-progress p:first-child {
     margin-top: .8em;
@@ -169,6 +172,7 @@ h3 {
     font-size: .6rem;
     overflow-wrap: break-word;
     max-width: 100%;
+    background-color: rgb(40, 40, 40);
 }
 #text-wall .remaining {
     color: grey;
