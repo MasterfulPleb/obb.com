@@ -156,7 +156,7 @@ async function updateCharts() {
 var commentsPie = {
     chart: {
         type: 'pie',
-        backgroundColor: '#282828'
+        //backgroundColor: '#282828'
     },
     title: {
         text: 'Comments per user'

@@ -66,20 +66,8 @@ function changeMode(darkmode = true, setCook = true) {
     if (!darkmode) {
         document.getElementById('body').style.backgroundColor = 'antiquewhite';
         document.getElementById('body').style.color = 'revert';
-        let rows = document.getElementById('leaderboard').children;
-        for (let i = 0; i < rows.length; i++) {
-            if (i % 2 != 0) {
-                rows[i].style.backgroundColor = 'rgb(230, 230, 230)';
-            }
-        }
     } else {
         document.getElementById('body').style.backgroundColor = '';
         document.getElementById('body').style.color = '';
-        let rows = document.getElementById('leaderboard').children;
-        for (let i = 0; i < rows.length; i++) {
-            if (i % 2 != 0) {
-                rows[i].style.backgroundColor = '';
-            }
-        }
     }
 }
