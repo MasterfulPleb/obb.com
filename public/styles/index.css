@@ -24,6 +24,12 @@ a {
     margin: .8em;
     background-color: rgb(40, 40, 40);
 }
+::-webkit-scrollbar {
+    width: 20px;
+}
+::-webkit-scrollbar-thumb {
+    background: url('/public/images/scrollbee.png');
+}
 
 /* nav menu */
 #nav-menu {
