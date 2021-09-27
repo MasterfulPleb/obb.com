@@ -6,7 +6,7 @@
 // initializes the js
 document.addEventListener('DOMContentLoaded', () => {
     // checks cookies and sets darkmode/view accordingly
-    checkCookie('darkmode', true);
+    if (!checkCookie('darkmode', true)) changeMode(false);
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
@@ -202,8 +202,8 @@ function changeMode(darkmode = true, setCook = true) {
         document.getElementById('body').style.backgroundColor = 'antiquewhite';
         document.getElementById('body').style.color = 'revert';
         let rows = document.getElementById('leaderboard').children;
-        for (let i; i < rows.length; i++) {
-            if (i % 2 == 0) {
+        for (let i = 0; i < rows.length; i++) {
+            if (i % 2 != 0) {
                 rows[i].style.backgroundColor = 'rgb(230, 230, 230)';
             }
         }
@@ -211,8 +211,8 @@ function changeMode(darkmode = true, setCook = true) {
         document.getElementById('body').style.backgroundColor = '';
         document.getElementById('body').style.color = '';
         let rows = document.getElementById('leaderboard').children;
-        for (let i; i < rows.length; i++) {
-            if (i % 2 == 0) {
+        for (let i = 0; i < rows.length; i++) {
+            if (i % 2 != 0) {
                 rows[i].style.backgroundColor = '';
             }
         }
