@@ -283,22 +283,22 @@ input:checked + .slider:before {
         display: block;
     }
 }
-@media screen and (max-width: 930px) {
+@media screen and (max-width: 970px) {
     #body {
         font-size: 1.1rem;
     }
 }
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 897px) {
     #body {
         font-size: 1rem;
     }
 }
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 824px) {
     #body {
         font-size: .9rem;
     }
 }
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 748px) {
     #body {
         font-size: .8rem;
     }
@@ -306,22 +306,22 @@ input:checked + .slider:before {
         border-width: 2px;
     }
 }
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 670px) {
     #body {
         font-size: .7rem;
     }
 }
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 596px) {
     #body {
         font-size: .6rem;
     }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 521px) {
     #body {
         font-size: .5rem;
     }
 }
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 447px) {
     #body {
         font-size: .4rem;
     }
@@ -329,9 +329,23 @@ input:checked + .slider:before {
         font-size: 1.2rem;
     }
 }
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 372px) {
     #body {
         font-size: .3rem;
+    }
+    #obb h3 {
+        font-size: .9rem;
+    }
+    #menu-btn span {
+        font-size: .8rem;
+    }
+}
+@media screen and (max-width: 307px) {
+    #body {
+        font-size: .2rem;
+    }
+    #obb h3 {
+        font-size: .6rem;
     }
 }
 
