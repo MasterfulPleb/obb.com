@@ -6,15 +6,13 @@
 // initializes the js
 document.addEventListener('DOMContentLoaded', () => {
     // checks cookies and sets darkmode/view accordingly
-    if (!checkCookie('darkmode', true)) {}// turn off dark mode
+    let darkmode = getCookie('darkmode');
+    if (darkmode == '') {
+        changeMode(darkmode, true);
+    } else changeMode(darkmode);
     document.getElementById('darkmode').addEventListener('change', () => {
-        if (document.getElementById('darkmode').checked) {
-            setCookie('darkmode', 'true', 365);
-            // turn on dark mode
-        } else {
-            setCookie('darkmode', 'false', 365);
-            // turn off dark mode
-        }
+        if (document.getElementById('darkmode').checked) changeMode(true);
+        else changeMode(false);
     });
 
     // listeners & stuff for navigation menu
@@ -153,7 +151,7 @@ function setCookie(cname, cvalue, exdays) {
 
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
-    if (setCook) setCookie('view', view, 1);
+    if (setCook) setCookie('view', view, 365);
     const body = document.getElementById('body');
     const content = document.getElementById('content');
     const data = document.getElementById('data');
@@ -200,4 +198,27 @@ function changeView(view, setCook = true) {
         stats.className = 'show';
         textWall.className = 'show';
     }
+}
+function changeMode(darkmode = true, setCook = true) {
+    if (setCook) setCookie('darkmode', darkmode, 365);
+    if (darkmode) {
+        document.getElementById('body').style.backgroundColor = 'antiquewhite';
+        document.getElementById('body').style.color = 'revert';
+        let rows = document.getElementById('leaderboard').children;
+        for (let i; i < rows.length; i++) {
+            if (i % 2 == 0) {
+                rows[i].style.backgroundColor = 'rgb(230, 230, 230)';
+            }
+        }
+    } else {
+        document.getElementById('body').style.backgroundColor = '';
+        document.getElementById('body').style.color = '';
+        let rows = document.getElementById('leaderboard').children;
+        for (let i; i < rows.length; i++) {
+            if (i % 2 == 0) {
+                rows[i].style.backgroundColor = '';
+            }
+        }
+    }
+    
 }
