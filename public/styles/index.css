@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     height: 100%;
     margin: 0;
-    background-color: rgb(40, 40, 40);
+    background-color: inherit;
     color: whitesmoke;
     font-size: 1.2rem;
     font-family: sans-serif;
@@ -22,7 +22,7 @@ a {
 #content {
     display: flex;
     margin: .8em;
-    background-color: rgb(40, 40, 40);
+    background-color: inherit;
 }
 ::-webkit-scrollbar {
     width: 50px;
@@ -121,7 +121,7 @@ h3 {
     margin-right: .8em;
     border: 4px solid rgb(200, 200, 200);
     border-radius: 1em;
-    background-color: rgb(40, 40, 40);
+    background-color: inherit;
 }
 .row {
     display: flex;
@@ -154,14 +154,14 @@ h3 {
 #data {
     flex: 6;
     overflow: hidden;
-    background-color: rgb(40, 40, 40);
+    background-color: inherit;
 }
 #data p {
     margin: 1.2em 0;
 }
 #live-progress {
     flex: 2;
-    background-color: rgb(40, 40, 40);
+    background-color: inherit;
 }
 #live-progress p:first-child {
     margin-top: .8em;
@@ -180,7 +180,7 @@ h3 {
     font-size: .6rem;
     overflow-wrap: break-word;
     max-width: 100%;
-    background-color: rgb(40, 40, 40);
+    background-color: inherit;
 }
 #text-wall .remaining {
     color: grey;
