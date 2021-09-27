@@ -170,12 +170,21 @@ var commentsPie = {
             name: 'Less than 300',
             id: 'lt300',
             data: []
+        },
+        {
+            name: 'Less than 100',
+            id: 'lt100',
+            data: []
         }]
     }
 };
 function buildCommentsPie() {
     commentsPie.series[0].data = []
+    for (let series of commentsPie.drilldown.series) {
+        series.data = []
+    }
     let lt300 = 0
+    let lt100 = 0
     for (let i = 0; i < data.leaderboard.length; i++) {
         let row = data.leaderboard[i]
         if (row.comments > 299) {
@@ -184,9 +193,16 @@ function buildCommentsPie() {
                 y: row.comments,
                 drilldown: null
             });
-        } else if (row.comments < 300 && row.comments > 0) {
+        } else if (row.comments < 300 && row.comments > 99) {
             lt300 += row.comments
             commentsPie.drilldown.series[0].data.push([
+                row.author,
+                row.comments
+            ])
+        } else if (row.comments < 100 && row.comments > 0) {
+            lt300 += row.comments
+            lt100 += row.comments
+            commentsPie.drilldown.series[1].data.push([
                 row.author,
                 row.comments
             ])
@@ -197,4 +213,9 @@ function buildCommentsPie() {
         y: lt300,
         drilldown: 'lt300'
     });
+    commentsPie.drilldown.series[0].data.push({
+        name: 'Less than 100',
+        y: lt100,
+        drilldown: 'lt100'
+    })
 }
