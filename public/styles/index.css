@@ -274,11 +274,55 @@ input:checked + .slider:before {
         display: block;
     }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 930px) {
+    #body {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (max-width: 850px) {
+    #body {
+        font-size: 1rem;
+    }
+}
+@media screen and (max-width: 780px) {
+    #body {
+        font-size: .9rem;
+    }
+}
+@media screen and (max-width: 710px) {
+    #body {
+        font-size: .8rem;
+    }
+}
+@media screen and (max-width: 630px) {
+    #body {
+        font-size: .7rem;
+    }
+}
+@media screen and (max-width: 560px) {
+    #body {
+        font-size: .6rem;
+    }
+}
+@media screen and (max-width: 480px) {
+    #body {
+        font-size: .5rem;
+    }
+}
+@media screen and (max-width: 410px) {
+    #body {
+        font-size: .4rem;
+    }
     #obb h3 {
         font-size: 1.2rem;
     }
 }
+@media screen and (max-width: 330px) {
+    #body {
+        font-size: .3rem;
+    }
+}
+
 
 
 /*

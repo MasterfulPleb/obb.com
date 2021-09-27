@@ -154,6 +154,7 @@ function setCookie(cname, cvalue, exdays) {
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 1);
+    const body = document.getElementById('body');
     const content = document.getElementById('content');
     const data = document.getElementById('data');
     const leaderboard = document.getElementById('leaderboard');
@@ -161,6 +162,7 @@ function changeView(view, setCook = true) {
     const stats = document.getElementById('stats');
     const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
+        body.style.fontSize = '1.2rem';
         data.className = 'hide';
         liveProgress.className = 'hide';
         stats.className = 'hide';
@@ -170,6 +172,7 @@ function changeView(view, setCook = true) {
         leaderboard.style.maxWidth = '30em';
         leaderboard.className = 'show';
     } else if (view == 'progress') {
+        body.style.fontSize = '1.2rem';
         content.className = 'single';
         leaderboard.className = 'hide';
         stats.className = 'hide';
@@ -177,6 +180,7 @@ function changeView(view, setCook = true) {
         data.className = 'show';
         liveProgress.className = 'show';
     } else if (view == 'stats') {
+        body.style.fontSize = '1.2rem';
         content.className = 'single';
         leaderboard.className = 'hide';
         textWall.className = 'hide';
@@ -184,6 +188,7 @@ function changeView(view, setCook = true) {
         data.className = 'show';
         stats.className = 'show';
     } else if (view == 'dash') {
+        body.style.fontSize = '';
         content.className = 'dash';
         leaderboard.className = 'show';
         leaderboard.style.maxWidth = '20em';
