@@ -162,6 +162,7 @@ function changeView(view, setCook = true) {
     const stats = document.getElementById('stats');
     const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
+        leaderboard.style.marginRight = '0';
         body.style.fontSize = '1.2rem';
         data.className = 'hide';
         liveProgress.className = 'hide';
@@ -188,6 +189,7 @@ function changeView(view, setCook = true) {
         data.className = 'show';
         stats.className = 'show';
     } else if (view == 'dash') {
+        leaderboard.style.marginRight = '';
         body.style.fontSize = '';
         content.className = 'dash';
         leaderboard.className = 'show';
