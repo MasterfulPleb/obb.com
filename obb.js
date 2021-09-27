@@ -176,7 +176,7 @@ var commentsPie = {
 function buildCommentsPie() {
     commentsPie.series[0].data = []
     let lt300 = 0
-    for (i = 0; i < data.leaderboard.length; i++) {
+    for (let i = 0; i < data.leaderboard.length; i++) {
         let row = data.leaderboard[i]
         if (row.comments > 299) {
             commentsPie.series[0].data.push({
