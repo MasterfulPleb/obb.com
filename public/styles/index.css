@@ -258,6 +258,7 @@ input:checked + .slider:before {
     #nav-menu {
         flex-wrap: wrap;
         align-content: center;
+        font-size: 1.2rem;
     }
     #nav-items {
         flex-direction: column;
@@ -292,6 +293,9 @@ input:checked + .slider:before {
 @media screen and (max-width: 710px) {
     #body {
         font-size: .8rem;
+    }
+    #leaderboard {
+        border-width: 2px;
     }
 }
 @media screen and (max-width: 630px) {
