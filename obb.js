@@ -175,6 +175,16 @@ var commentsPie = {
             name: 'Less than 100',
             id: 'lt100',
             data: []
+        },
+        {
+            name: 'Less than 50',
+            id: 'lt50',
+            data: []
+        },
+        {
+            name: 'Less than 10',
+            id: 'lt10',
+            data: []
         }]
     }
 };
@@ -185,6 +195,8 @@ function buildCommentsPie() {
     }
     let lt300 = 0
     let lt100 = 0
+    let lt50 = 0
+    let lt10 = 0
     for (let i = 0; i < data.leaderboard.length; i++) {
         let row = data.leaderboard[i]
         if (row.comments > 299) {
@@ -199,15 +211,29 @@ function buildCommentsPie() {
                 row.author,
                 row.comments
             ])
-        } else if (row.comments < 100 && row.comments > 0) {
-            lt300 += row.comments
+        } else if (row.comments < 100 && row.comments > 49) {
             lt100 += row.comments
             commentsPie.drilldown.series[1].data.push([
                 row.author,
                 row.comments
             ])
+        } else if (row.comments < 50 && row.comments > 9) {
+            lt50 += row.comments
+            commentsPie.drilldown.series[2].data.push([
+                row.author,
+                row.comments
+            ])
+        } else if (row.comments < 10 && row.comments > 0) {
+            lt10 += row.comments
+            commentsPie.drilldown.series[3].data.push([
+                row.author,
+                row.comments
+            ])
         }
     }
+    lt50 += lt10
+    lt100 += lt50
+    lt300 += lt100
     commentsPie.series[0].data.push({
         name: 'Less than 300',
         y: lt300,
@@ -217,5 +243,15 @@ function buildCommentsPie() {
         name: 'Less than 100',
         y: lt100,
         drilldown: 'lt100'
-    })
+    });
+    commentsPie.drilldown.series[0].data.push({
+        name: 'Less than 50',
+        y: lt50,
+        drilldown: 'lt50'
+    });
+    commentsPie.drilldown.series[0].data.push({
+        name: 'Less than 10',
+        y: lt10,
+        drilldown: 'lt10'
+    });
 }
