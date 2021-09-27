@@ -6,10 +6,7 @@
 // initializes the js
 document.addEventListener('DOMContentLoaded', () => {
     // checks cookies and sets darkmode/view accordingly
-    let darkmode = getCookie('darkmode');
-    if (darkmode == '') {
-        changeMode(darkmode, true);
-    } else changeMode(darkmode);
+    checkCookie('darkmode', true);
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
