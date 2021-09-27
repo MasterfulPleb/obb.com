@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
     });
+    document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>'
 
     // listeners & stuff for navigation menu
     let view = getCookie('view');
@@ -217,5 +218,4 @@ function changeMode(darkmode = true, setCook = true) {
             }
         }
     }
-    
 }

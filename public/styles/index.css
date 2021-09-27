@@ -390,3 +390,13 @@ input:checked + .slider:before {
 #text-wall.hide {
     display: none;
 }
+
+#Moose_Hole .comments span {
+    color: green;
+}
+#Moose_Hole .comments span:first-child {
+    color: yellow;
+}
+#Moose_Hole .comments span:last-child {
+    color: red;
+}
