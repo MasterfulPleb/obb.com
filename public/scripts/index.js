@@ -201,7 +201,7 @@ function changeView(view, setCook = true) {
 }
 function changeMode(darkmode = true, setCook = true) {
     if (setCook) setCookie('darkmode', darkmode, 365);
-    if (darkmode) {
+    if (!darkmode) {
         document.getElementById('body').style.backgroundColor = 'antiquewhite';
         document.getElementById('body').style.color = 'revert';
         let rows = document.getElementById('leaderboard').children;

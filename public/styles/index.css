@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     height: 100%;
     margin: 0;
-    background-color: inherit;
+    background-color: rgb(40, 40, 40);
     color: whitesmoke;
     font-size: 1.2rem;
     font-family: sans-serif;
