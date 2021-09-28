@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('ddodd69').children[2].innerHTML = '2<span>' + temp + '</span>';
     temp = document.getElementById('motobrowniano').children[2].innerHTML
     document.getElementById('motobrowniano').children[2].innerHTML = '<span>9</span><span>4</span><span>1</span><span>'+temp.slice(3)+'</span>'
-    document.getElementById('THROWAWAYBlTCH').children[2].innerHTML = '<span>THROWAWAYBlTCH</span>'
+    document.getElementById('THROWAWAYBlTCH').children[1].innerHTML = '<span>THROWAWAYBlTCH</span>'
 
 
     // listeners & stuff for navigation menu
