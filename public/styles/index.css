@@ -436,7 +436,7 @@ div#leaderboard div#Mclovin11859 {
     /*background-color: rgb(40, 40, 40);*/
     color: whitesmoke;
 } 
-div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author, div#leaderboard #THROWAWAYBlTCH .comments {
+div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author span, div#leaderboard #THROWAWAYBlTCH .comments {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -452,4 +452,7 @@ div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author,
 }
 #The_GreenPinky7 {
     color: pink;
+}
+#simply_0range {
+    color: orange;
 }
