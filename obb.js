@@ -31,6 +31,7 @@ app.use('/public', express.static('public'));
 app.get('/', (_req, res) => res.send(preRender));
 app.get('/charts', (_req, res) => res.render('charts'));
 app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie));
+app.get('/charts/commentsHeat', (_req, res) => res.send(commentsHeat));
 app.get('/newest', (_req, res) => {
     pool.query('SELECT permalink ' +
         'FROM comments ORDER BY timestamp DESC LIMIT 1;')
@@ -76,13 +77,13 @@ app.listen(3000);
  * progress: number}}
  * */
 var data;
-var wsdata;
+//var wsdata;
 var preRender;
-var oldProgress;
-var oldLeaderboard;
-var pingTimer = 0;
+//var oldProgress;
+//var oldLeaderboard;
+//var pingTimer = 0;
 refreshData(true);
-setTimeout(updateCharts, 5000)
+setTimeout(buildCharts, 5000)
 
 async function refreshData(startup = false) {
     getData(pool)
@@ -92,15 +93,15 @@ async function refreshData(startup = false) {
             preRender = renderIndex(data);
         }
         if (startup) {
-            oldProgress = d.progress;
-            oldLeaderboard = d.leaderboard;
-            wsdata = formatData();
-            setInterval(streamData, 250);
+            //oldProgress = d.progress;
+            //oldLeaderboard = d.leaderboard;
+            //wsdata = formatData();
+            //setInterval(streamData, 250);
         }
-      })
-      .finally(setTimeout(refreshData, 1000));
+      });
+      //.finally(setTimeout(refreshData, 1000));
 }
-async function streamData() {
+/*async function streamData() {
     if (wss.clients.size == 0) return
     else if (oldProgress == data.progress) {
         pingTimer++;
@@ -122,8 +123,8 @@ async function streamData() {
             client.send(d);
         });
     }
-}
-function formatData() {
+}*/
+/*function formatData() {
     let d = Object.assign({}, data);
     const diff = d.progress - oldProgress;
     oldProgress = d.progress;
@@ -146,12 +147,11 @@ function formatData() {
     delete d.written;
     delete d.remaining;
     return d
-}
+}*/
 
 
-async function updateCharts() {
+async function buildCharts() {
     buildCommentsPie();
-    setTimeout(updateCharts, 600000);
 }
 var commentsPie = {
     chart: {
@@ -297,7 +297,7 @@ function buildCommentsPie() {
         drilldown: 'lt2'
     });
 }
-var commentsPie = {
+var commentsHeat = {
     chart: {
         type: 'heatmap',
         marginTop: 40,

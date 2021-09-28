@@ -1,8 +1,5 @@
 'use strict';
 
-/**@type {WebSocket}*/var ws;
-/**@type {NodeJS.Timeout}*/var alive;
-
 // initializes the js
 document.addEventListener('DOMContentLoaded', () => {
     // checks cookies and sets darkmode/view accordingly
@@ -11,17 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
     });
+
     // custom colors
     document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>';
     let temp = document.getElementById('yer--mum').children[2].innerHTML.slice(1);
     document.getElementById('yer--mum').children[2].innerHTML = '2<span>' + temp + '</span>';
     temp = document.getElementById('ddodd69').children[2].innerHTML.slice(1);
     document.getElementById('ddodd69').children[2].innerHTML = '2<span>' + temp + '</span>';
-    temp = document.getElementById('motobrowniano').children[2].innerHTML
-    document.getElementById('motobrowniano').children[2].innerHTML = '<span>9</span><span>4</span><span>1</span><span>'+temp.slice(3)+'</span>'
-    document.getElementById('THROWAWAYBlTCH').children[0].innerHTML = '<span>10.</span>'
-    document.getElementById('THROWAWAYBlTCH').children[1].innerHTML = '<span>THROWAWAYBlTCH</span>'
-
+    temp = document.getElementById('motobrowniano').children[2].innerHTML;
+    document.getElementById('motobrowniano').children[2].innerHTML = '<span>9</span><span>4</span><span>1</span><span>'+temp.slice(3)+'</span>';
+    document.getElementById('THROWAWAYBlTCH').children[0].innerHTML = '<span>10.</span>';
+    document.getElementById('THROWAWAYBlTCH').children[1].innerHTML = '<span>THROWAWAYBlTCH</span>';
 
     // listeners & stuff for navigation menu
     let view = getCookie('view');
