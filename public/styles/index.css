@@ -400,7 +400,7 @@ input:checked + .slider:before {
 #Moose_Hole .comments span:last-child {
     color: red;
 }
-#motobrowniano {
+#motobrowniano .comments{
     background: linear-gradient(to right, darkred, darkred, darkred, yellow, yellow, grey, grey, forestgreen, forestgreen, forestgreen);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -421,7 +421,7 @@ input:checked + .slider:before {
     color: forestgreen;
 }
 div#leaderboard div#Mclovin11859 {
-    background-color: rgb(49, 49, 49);
+    /*background-color: rgb(40, 40, 40);*/
     color: whitesmoke;
 } 
 div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author, div#leaderboard #THROWAWAYBlTCH .comments {

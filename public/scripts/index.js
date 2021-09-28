@@ -205,7 +205,7 @@ function changeMode(darkmode = true, setCook = true) {
         let rows = document.getElementById('leaderboard').children;
         for (let i = 0; i < rows.length; i++) {
             if (i % 2 != 0) {
-                rows[i].style.backgroundColor = 'rgb(230, 230, 230)';
+                if (rows[i].id != 'Mclovin11859') rows[i].style.backgroundColor = 'rgb(230, 230, 230)';
             }
         }
     } else {
