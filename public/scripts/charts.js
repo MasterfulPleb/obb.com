@@ -1,11 +1,9 @@
 'use strict';
 
-let fetchChart = fetch('https://test.ouijabeederboard.com/charts/commentsPie')
-    .then(res => res.json())
-
+let darkmode = checkCookie('darkmode', true)
 document.addEventListener('DOMContentLoaded', function() {
     // checks cookies and sets darkmode/view accordingly
-    if (!checkCookie('darkmode', true)) changeMode(false);
+    if (!darkmode) changeMode(false);
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
@@ -34,9 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
           });
     })
 
-    fetchChart
+    fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+      .then(res => res.json())
       .then(data => {
         console.log(data);
+        if (!darkmode) data.chart.backgroundColor = '#faebd7';
         const chart = Highcharts.chart('chart', data);
       });
 });
