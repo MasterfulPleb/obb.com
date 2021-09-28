@@ -62,8 +62,8 @@ wsapp.ws('/ws', function(ws, _req) {
     })
 });
 
-wsapp.listen(3002);
-app.listen(3000);
+wsapp.listen(3003);
+app.listen(3001);
 
 /**
  * @type {{

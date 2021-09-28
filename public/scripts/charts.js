@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else navItems.className = 'show';
     });
     document.getElementById('nav-comments-user').addEventListener('click', () => {
-        fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+        fetch('https://ouijabeederboard.com/charts/commentsPie')
           .then(res => res.json())
           .then(data => {
             console.log(data);
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
     })
     document.getElementById('nav-comments-day').addEventListener('click', () => {
-        fetch('https://test.ouijabeederboard.com/charts/commentsHeat')
+        fetch('https://ouijabeederboard.com/charts/commentsHeat')
           .then(res => res.json())
           .then(data => {
             console.log(data);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
     })
 
-    fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+    fetch('https://ouijabeederboard.com/charts/commentsPie')
       .then(res => res.json())
       .then(data => {
         console.log(data);
