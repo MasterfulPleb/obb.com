@@ -400,10 +400,22 @@ input:checked + .slider:before {
 #Moose_Hole .comments span:last-child {
     color: red;
 }
-#motobrowniano .comments{
+/*#motobrowniano .comments{
     background: linear-gradient(to right, darkred, darkred, darkred, yellow, yellow, grey, grey, forestgreen, forestgreen, forestgreen);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}*/
+#motobrowniano .comments span:nth-child(1) {
+    color: darkred;
+}
+#motobrowniano .comments span:nth-child(2) {
+    color: yellow;
+}
+#motobrowniano .comments span:nth-child(3) {
+    color: grey;
+}
+#motobrowniano .comments span:nth-child(4) {
+    color: forestgreen;
 }
 #haykam821 {
     color: #ff7600;

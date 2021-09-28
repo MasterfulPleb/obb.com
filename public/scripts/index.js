@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('yer--mum').children[2].innerHTML = '2<span>' + temp + '</span>';
     temp = document.getElementById('ddodd69').children[2].innerHTML.slice(1);
     document.getElementById('ddodd69').children[2].innerHTML = '2<span>' + temp + '</span>';
+    temp = document.getElementById('motobrowniano').children[2].innerHTML
+    document.getElementById('motobrowniano').children[2].innerHTML = '<span>9</span><span>4</span><span>1</span><span>'+temp.slice(3)+'</span>'
 
 
     // listeners & stuff for navigation menu
