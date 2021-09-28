@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else changeMode(false);
     });
     document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>';
-    let temp = document.getElementById('yer--mum').children[2].innerHTML;
-    temp = temp.slice(1);
+    let temp = document.getElementById('yer--mum').children[2].innerHTML.slice(1);
     document.getElementById('yer--mum').children[2].innerHTML = '2<span>' + temp + '</span>';
-    temp = document.getElementById('ddodd69').children[2].innerHTML;
+    temp = document.getElementById('ddodd69').children[2].innerHTML.slice(1);
     document.getElementById('ddodd69').children[2].innerHTML = '2<span>' + temp + '</span>';
 
 
