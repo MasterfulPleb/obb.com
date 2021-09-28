@@ -86,12 +86,14 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 
-function changeMode(darkmode = true, setCook = true) {
-    if (setCook) setCookie('darkmode', darkmode, 365);
-    if (!darkmode) {
+function changeMode(dark = true, setCook = true) {
+    if (setCook) setCookie('darkmode', dark, 365);
+    if (!dark) {
+        darkmode = true;
         document.getElementById('body').style.backgroundColor = 'antiquewhite';
         document.getElementById('body').style.color = 'revert';
     } else {
+        darkmode = false;
         document.getElementById('body').style.backgroundColor = '';
         document.getElementById('body').style.color = '';
     }
