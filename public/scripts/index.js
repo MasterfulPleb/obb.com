@@ -11,7 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
     });
-    document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>'
+    document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>';
+    let temp = document.getElementById('yer--mum').children[2].innerHTML;
+    temp = temp.slice(1);
+    document.getElementById('yer--mum').children[2].innerHTML = '2<span>' + temp + '</span>';
+    temp = document.getElementById('ddodd69').children[2].innerHTML;
+    document.getElementById('ddodd69').children[2].innerHTML = '2<span>' + temp + '</span>';
+
 
     // listeners & stuff for navigation menu
     let view = getCookie('view');
