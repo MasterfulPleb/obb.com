@@ -17,7 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
-
+    document.getElementById('nav-comments-user').addEventListener('click', () => {
+        fetch('https://test.ouijabeederboard.com/charts/commentsPie')
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            const chart = Highcharts.chart('chart', data);
+          });
+    })
+    document.getElementById('nav-comments-day').addEventListener('click', () => {
+        fetch('https://test.ouijabeederboard.com/charts/commentsHeat')
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            const chart = Highcharts.chart('chart', data);
+          });
+    })
 
     fetchChart
       .then(data => {
