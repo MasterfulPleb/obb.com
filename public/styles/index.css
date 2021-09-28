@@ -401,7 +401,9 @@ input:checked + .slider:before {
     color: red;
 }
 #motobrowniano {
-
+    background: linear-gradient(to right, darkred, darkred, darkred, yellow, yellow, grey, grey, forestgreen, forestgreen, forestgreen);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 #haykam821 {
     color: #ff7600;
@@ -419,11 +421,11 @@ input:checked + .slider:before {
     color: forestgreen;
 }
 div#leaderboard div#Mclovin11859 {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(49, 49, 49);
     color: whitesmoke;
 } 
-div#leaderboard #THROWAWAYBlTCH {
-    background-color: linear-gradient(to right, red, orange, yellow, green, blue, violet);
+div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author, div#leaderboard #THROWAWAYBlTCH .comments {
+    background: linear-gradient(to right, red, orange, yellow, green, blue, violet);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
