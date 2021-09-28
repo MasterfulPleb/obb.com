@@ -425,6 +425,7 @@ input:checked + .slider:before {
 }
 #HybridPosts {
     color: #0a47a8;
+    text-shadow: 0.5px 0.5px mediumslateblue;
 }
 #Digital_Sparrow {
     color: #33ccb4;
@@ -436,7 +437,7 @@ div#leaderboard div#Mclovin11859 {
     /*background-color: rgb(40, 40, 40);*/
     color: whitesmoke;
 } 
-div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author span, div#leaderboard #THROWAWAYBlTCH .comments {
+div#leaderboard #THROWAWAYBlTCH .place span, div#leaderboard #THROWAWAYBlTCH .author span, div#leaderboard #THROWAWAYBlTCH .comments {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -455,4 +456,7 @@ div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author 
 }
 #simply_0range {
     color: orange;
+}
+#violet_wings {
+    color: violet;
 }
