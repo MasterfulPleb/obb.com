@@ -1,12 +1,17 @@
 'use strict';
 
-let darkmode = checkCookie('darkmode', true)
+let darkmode;
+let lastChart;
 document.addEventListener('DOMContentLoaded', function() {
     // checks cookies and sets darkmode/view accordingly
+    darkmode = checkCookie('darkmode', true);
     if (!darkmode) changeMode(false);
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
+        if (!darkmode) lastChart.chart.backgroundColor = '#faebd7';
+        else lastChart.chart.backgroundColor = '#282828';
+        const chart = Highcharts.chart('chart', lastChart);
     });
 
     // listeners & stuff for navigation menu
@@ -20,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(res => res.json())
           .then(data => {
             console.log(data);
+            if (!darkmode) data.chart.backgroundColor = '#faebd7';
+            lastChart = data;
             const chart = Highcharts.chart('chart', data);
           });
     })
@@ -28,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(res => res.json())
           .then(data => {
             console.log(data);
+            if (!darkmode) data.chart.backgroundColor = '#faebd7';
+            lastChart = data;
             const chart = Highcharts.chart('chart', data);
           });
     })
@@ -37,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(data => {
         console.log(data);
         if (!darkmode) data.chart.backgroundColor = '#faebd7';
+        lastChart = data;
         const chart = Highcharts.chart('chart', data);
       });
 });
