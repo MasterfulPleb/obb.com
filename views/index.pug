@@ -24,11 +24,6 @@ html
                         span Dashboard
                     li#nav-charts
                         a(href='/charts') Charts
-                    li#nav-websocket.toggle
-                        span Live Updates
-                        label.switch
-                            input#websocket(type='checkbox')
-                            span.slider.round
                     li#nav-darkmode.toggle
                         span Nightmode
                         label.switch
@@ -49,14 +44,10 @@ html
                             p.comments= leaderboard[i].comments
                 #data.show
                     #live-progress.show
-                        p.latest-comment Latest comment: 
+                        p.latest-comment The end: 
                             a(href='https://ouijabeederboard.com/newest', target='_blank') ouijabeederboard.com/newest
-                        p.latest-comment-old Latest comment (old Reddit): 
+                        p.latest-comment-old The end (old Reddit): 
                             a(href='https://ouijabeederboard.com/old.newest', target='_blank') ouijabeederboard.com/old.newest
-                        p.we-are-here We are here:  
-                            span#last-written.written= lastWritten
-                            span.mark  ʌ 
-                            span#first-remaining.remaining= firstRemaining
                         p.percent Completion: 
                             span#percent= percent
                             span %

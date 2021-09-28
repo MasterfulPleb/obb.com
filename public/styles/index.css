@@ -437,7 +437,7 @@ div#leaderboard div#Mclovin11859 {
     color: whitesmoke;
 } 
 div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author, div#leaderboard #THROWAWAYBlTCH .comments {
-    background: linear-gradient(to right, red, orange, yellow, green, blue, violet);
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -449,4 +449,7 @@ div#leaderboard #THROWAWAYBlTCH .place, div#leaderboard #THROWAWAYBlTCH .author,
 }
 #You-JustLostTheGame {
     color: mediumpurple;
+}
+#The_GreenPinky7 {
+    color: pink;
 }
