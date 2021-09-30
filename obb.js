@@ -435,7 +435,7 @@ function buildCommentsHeat(stamps) {
     for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
         let dd;
         let v;
-        if (drilldownSeries[i].data.length = 0) {
+        if (drilldownSeries[i].data.length == 0) {
             dd = null;
             v = 0;
             emptyIndexes.push(i);
