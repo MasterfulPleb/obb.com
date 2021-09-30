@@ -390,13 +390,11 @@ function buildCommentsHeat(stamps) {
     // sorts timestamps into days
     for (let i = 0; i < stamps.length; i++) {
         let time = new Date(stamps[i].timestamp * 1000);
-        let series = drilldownSeries.pop();
+        let series = drilldownSeries[drilldownSeries.length - 1];
         let seriesEnd = new Date(series.name.getTime() + 86400000);
         if (time < seriesEnd) {
             series.data.push(time);
-            drilldownSeries.push(series);
         } else {
-            drilldownSeries.push(series);
             drilldownSeries.push({
                 name: seriesEnd,
                 id: seriesEnd.toLocaleDateString().slice(0,-5),
@@ -443,7 +441,7 @@ function buildCommentsHeat(stamps) {
             emptyIndexes.push(i);
         } else {
             dd = drilldownSeries[i].id;
-            v = drilldownSeries[i].data.pop();
+            v = drilldownSeries[i].data[drilldownSeries[i].data.length - 1];
         }
         topData.push({
             x: x,
