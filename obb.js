@@ -145,7 +145,10 @@ async function refreshData(startup = false) {
 
 async function buildCharts() {
     buildCommentsPie();
-    buildCommentsHeat();
+    pool.query('SELECT timestamp FROM comments;')
+      .then(stamps => {
+        buildCommentsHeat(stamps)
+      });
 }
 var commentsPie = {
     chart: {
@@ -309,7 +312,7 @@ var commentsHeat = {
         style: { 'color': "#797268" }
     },
     subtitle: {
-        text: "Try tapping/clicking 'less than 300, 100, etc.'",
+        text: "Try tapping/clicking a square",
         style: { 'color': "#797268" }
     },
     caption: {
@@ -366,9 +369,9 @@ var commentsHeat = {
         series: []
     }
 };
-async function buildCommentsHeat() {
-    /**@type { Array<{ timestamp: number }> }*/
-    var stamps = await pool.query('SELECT timestamp FROM comments;');
+function buildCommentsHeat(stamps) {
+    /* *@type { Array<{ timestamp: number }> }*/
+    //var stamps = await pool.query('SELECT timestamp FROM comments;');
     /**
      * @type {{
      *      x: number,
