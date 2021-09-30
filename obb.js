@@ -387,7 +387,7 @@ async function buildCommentsHeat() {
     // sorts timestamps into days
     for (let i = 0; i < stamps.length; i++) {
         let time = new Date(stamps[i].timestamp * 1000);
-        let series = drilldownSeries.at(-1);
+        let series = drilldownSeries.slice(-1);
         let seriesEnd = new Date(series.name.getTime() + 86400000);
         if (time < seriesEnd) {
             series.data.push(time);
@@ -401,6 +401,7 @@ async function buildCommentsHeat() {
             i--;
         }
     }
+    drilldownSeries.slice
     // finishes configuring drilldown, leaving day's count at end of series data (and possibly empty drilldown series?)
     for (let i = 0; i < drilldownSeries.length; i++) {
         /**@type {Date[]}*/
