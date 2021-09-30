@@ -407,16 +407,16 @@ async function buildCommentsHeat() {
         if (timestamps == []) break
         drilldownSeries[i].data = [];
         // adds a datapoint for every minute in series
-        for (y = 0; y < 24; y++) {
-            for (x = 0; x < 60; x++) {
+        for (let y = 0; y < 24; y++) {
+            for (let x = 0; x < 60; x++) {
                 drilldownSeries[i].data.push([x, y, 0]);
             }
         }
         // adds a count for every timestamp on that day
         for (let time of timestamps) {
-            let hours = time.getHours();
-            let minutes = time.getMinutes();
-            let index = drilldownSeries[i].data.findIndex(arr => {arr[0] == minutes && arr[1] == hours});
+            let hours = parseInt(time.getHours());
+            let minutes = parseInt(time.getMinutes());
+            let index = drilldownSeries[i].data.findIndex(arr => arr[0] == minutes ? arr[1] == hours ? true : false : false);
             drilldownSeries[i].data[index][2]++;
         }
         // changes x & y positions to match labels on chart
