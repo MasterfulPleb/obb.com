@@ -420,9 +420,9 @@ async function buildCommentsHeat() {
             drilldownSeries[i].data[index][2]++;
         }
         // changes x & y positions to match labels on chart
-        for (let i = 0; i < drilldownSeries[i].data.length; i++) {
-            drilldownSeries[i].data[i][0] += 13;
-            drilldownSeries[i].data[i][1] += 7;
+        for (let j = 0; j < drilldownSeries[i].data.length; j++) {
+            drilldownSeries[i].data[j][0] += 13;
+            drilldownSeries[i].data[j][1] += 7;
         }
         // stores the day's count as the last datapoint, to be popped later
         drilldownSeries[i].data.push(timestamps.length);
