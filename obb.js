@@ -363,7 +363,11 @@ var commentsHeat = {
             y: 2,
             value: 0,
             drilldown: null
-        }]
+        }],
+        dataLabels: {
+            enabled: true,
+            color: '#000000'
+        }
     }],
     drilldown: {
         series: []
@@ -383,7 +387,7 @@ function buildCommentsHeat(stamps) {
     let topData = [];
     let drilldownSeries = [{
         name: new Date(1625630400000),
-        id: new Date(1625630400000).toLocaleDateString().slice(0,-5),
+        id: new Date(1625630400000).toLocaleDateString().slice(0,-5).replace('/','-'),
         /**@type {[number, number, number][]}*/
         data: []
     }];
@@ -397,7 +401,7 @@ function buildCommentsHeat(stamps) {
         } else {
             drilldownSeries.push({
                 name: seriesEnd,
-                id: seriesEnd.toLocaleDateString().slice(0,-5),
+                id: seriesEnd.toLocaleDateString().slice(0,-5).replace('/','-'),
                 data: []
             });
             i--;
@@ -464,6 +468,30 @@ function buildCommentsHeat(stamps) {
         topData.push(commentsHeat.series[0].data.pop())
     }
     topData.reverse();
+    let filler = [{
+            x: 12,
+            y: 3,
+            value: 0,
+            drilldown: null
+        }, {
+            x: 12,
+            y: 4,
+            value: 0,
+            drilldown: null
+        }, {
+            x: 12,
+            y: 5,
+            value: 0,
+            drilldown: null
+        }, {
+            x: 12,
+            y: 6,
+            value: 0,
+            drilldown: null
+        }]
+    for (let i = 0; i < filler.length; i++) {
+        topData.push(filler[i])
+    }
     commentsHeat.series[0].data = topData;
     console.log('commentsHeat loaded');
 }
