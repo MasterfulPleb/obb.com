@@ -390,11 +390,13 @@ function buildCommentsHeat(stamps) {
     // sorts timestamps into days
     for (let i = 0; i < stamps.length; i++) {
         let time = new Date(stamps[i].timestamp * 1000);
-        let series = drilldownSeries.slice(-1)[0];
+        let series = drilldownSeries.pop();
         let seriesEnd = new Date(series.name.getTime() + 86400000);
         if (time < seriesEnd) {
             series.data.push(time);
+            drilldownSeries.push(series);
         } else {
+            drilldownSeries.push(series);
             drilldownSeries.push({
                 name: seriesEnd,
                 id: seriesEnd.toLocaleDateString().slice(0,-5),
