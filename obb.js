@@ -387,21 +387,19 @@ async function buildCommentsHeat() {
     // sorts timestamps into days
     for (let i = 0; i < stamps.length; i++) {
         let time = new Date(stamps[i].timestamp * 1000);
-        let series = drilldownSeries.slice(-1);
+        let series = drilldownSeries.slice(-1)[0];
         let seriesEnd = new Date(series.name.getTime() + 86400000);
         if (time < seriesEnd) {
             series.data.push(time);
         } else {
-            seriesEnd = seriesEnd.toLocaleDateString().slice(0,-5);
             drilldownSeries.push({
                 name: seriesEnd,
-                id: seriesEnd,
+                id: seriesEnd.toLocaleDateString().slice(0,-5),
                 data: []
             });
             i--;
         }
     }
-    drilldownSeries.slice
     // finishes configuring drilldown, leaving day's count at end of series data (and possibly empty drilldown series?)
     for (let i = 0; i < drilldownSeries.length; i++) {
         /**@type {Date[]}*/
@@ -454,6 +452,9 @@ async function buildCommentsHeat() {
         drilldownSeries.splice(emptyIndexes[i], 1);
     }
     // appends the parsed data to the chart object
+    for (let series of drilldownSeries) {
+        series.name = series.id
+    }
     commentsHeat.drilldown.series = drilldownSeries;
     topData.reverse();
     while (commentsHeat.series[0].data.length > 0) {
