@@ -8,6 +8,7 @@ const helmet        = require('helmet');
 const favicon       = require('serve-favicon');
 const pug           = require('pug');
   const renderIndex = pug.compileFile('./views/index.pug');
+  const renderCharts = pug.compileFile('./views/charts.pug');
 const mariadb       = require('mariadb');
   const pool        = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
@@ -29,24 +30,14 @@ app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 app.get('/', (_req, res) => res.send(preRender));
-app.get('/charts', (_req, res) => res.render('charts'));
+app.get('/charts', (_req, res) => res.send(preRenderCharts));
 app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie));
 app.get('/charts/commentsHeat', (_req, res) => res.send(commentsHeat));
 app.get('/newest', (_req, res) => {
-    pool.query('SELECT permalink ' +
-        'FROM comments ORDER BY timestamp DESC LIMIT 1;')
-    .then(perma => {
-        var link = 'https://www.reddit.com' + perma[0].permalink + '?context=3';
-        res.redirect(link);
-    });
+    res.redirect('https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/hemsuuz/?context=3');
 });
 app.get('/old.newest', (_req, res) => {
-    pool.query('SELECT permalink ' +
-        'FROM comments ORDER BY timestamp DESC LIMIT 1;')
-    .then(perma => {
-        var link = 'https://old.reddit.com' + perma[0].permalink + '?context=3';
-        res.redirect(link);
-    });
+    res.redirect('https://old.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/hemsuuz/?context=3');
 });
 app.get('*', (_req, res) => res.redirect('/'));
 
@@ -62,8 +53,8 @@ wsapp.ws('/ws', function(ws, _req) {
     })
 });
 
-wsapp.listen(3003);
-app.listen(3001);
+wsapp.listen(3002);
+app.listen(3000);
 
 /**
  * @type {{
@@ -79,6 +70,7 @@ app.listen(3001);
 var data;
 //var wsdata;
 var preRender;
+var preRenderCharts;
 //var oldProgress;
 //var oldLeaderboard;
 //var pingTimer = 0;
@@ -91,6 +83,7 @@ async function refreshData(startup = false) {
         if (data != d) {
             data = d;
             preRender = renderIndex(data);
+            preRenderCharts = renderCharts();
         }
         if (startup) {
             //oldProgress = d.progress;
@@ -152,6 +145,7 @@ async function refreshData(startup = false) {
 
 async function buildCharts() {
     buildCommentsPie();
+    buildCommentsHeat();
 }
 var commentsPie = {
     chart: {
@@ -161,11 +155,15 @@ var commentsPie = {
     },
     title: {
         text: 'Comments per user',
-        style: { 'color': "#dbd5cd" }
+        style: { 'color': "#797268" }
+    },
+    subtitle: {
+        text: "Try tapping/clicking 'less than 300, 100, etc.'",
+        style: { 'color': "#797268" }
     },
     caption: {
         text: 'This chart is interactive!',
-        style: { 'color': "#dbd5cd" }
+        style: { 'color': "#797268" }
     },
     series: [{
         name: 'Comments',
@@ -296,6 +294,7 @@ function buildCommentsPie() {
         y: lt2,
         drilldown: 'lt2'
     });
+    console.log('commentsPie loaded');
 }
 var commentsHeat = {
     chart: {
@@ -307,11 +306,15 @@ var commentsHeat = {
     },
     title: {
         text: 'Comments per day',
-        style: { 'color': "#dbd5cd" }
+        style: { 'color': "#797268" }
+    },
+    subtitle: {
+        text: "Try tapping/clicking 'less than 300, 100, etc.'",
+        style: { 'color': "#797268" }
     },
     caption: {
         text: 'This chart is interactive!',
-        style: { 'color': "#dbd5cd" }
+        style: { 'color': "#797268" }
     },
     xAxis: {
         categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26',
@@ -346,17 +349,116 @@ var commentsHeat = {
             x: 0,
             y: 0,
             value: 0,
-            drilldown: '7/4'
+            drilldown: null
+        }, {
+            x: 0,
+            y: 1,
+            value: 0,
+            drilldown: null
+        }, {
+            x: 0,
+            y: 2,
+            value: 0,
+            drilldown: null
         }]
     }],
     drilldown: {
-        series: [{
-            name: '7/4',
-            id: '7/4',
-            data: [[14, 8, 0]]
-        }]
+        series: []
     }
 };
-function buildCommentsHeat() {
-    var stamps = pool.query('SELECT timestamp FROM comments;')
+async function buildCommentsHeat() {
+    /**@type { Array<{ timestamp: number }> }*/
+    var stamps = await pool.query('SELECT timestamp FROM comments;');
+    /**
+     * @type {{
+     *      x: number,
+     *      y: number,
+     *      value: number,
+     *      drilldown: string|null
+     *  }[]}
+     * */
+    let topData = [];
+    let drilldownSeries = [{
+        name: new Date(1625630400000),
+        id: new Date(1625630400000).toLocaleDateString().slice(0,-5),
+        /**@type {[number, number, number][]}*/
+        data: []
+    }];
+    // sorts timestamps into days
+    for (let i = 0; i < stamps.length; i++) {
+        let time = new Date(stamps[i].timestamp * 1000);
+        let series = drilldownSeries.at(-1);
+        let seriesEnd = new Date(series.name.getTime() + 86400000);
+        if (time < seriesEnd) {
+            series.data.push(time);
+        } else {
+            seriesEnd = seriesEnd.toLocaleDateString().slice(0,-5);
+            drilldownSeries.push({
+                name: seriesEnd,
+                id: seriesEnd,
+                data: []
+            });
+            i--;
+        }
+    }
+    // finishes configuring drilldown, leaving day's count at end of series data (and possibly empty drilldown series?)
+    for (let i = 0; i < drilldownSeries.length; i++) {
+        /**@type {Date[]}*/
+        let timestamps = drilldownSeries[i].data;
+        if (timestamps == []) break
+        drilldownSeries[i].data = [];
+        // adds a datapoint for every minute in series
+        for (y = 0; y < 24; y++) {
+            for (x = 0; x < 60; x++) {
+                drilldownSeries[i].data.push([x, y, 0]);
+            }
+        }
+        // adds a count for every timestamp on that day
+        for (let time of timestamps) {
+            let hours = time.getHours();
+            let minutes = time.getMinutes();
+            let index = drilldownSeries[i].data.findIndex(arr => {arr[0] == minutes && arr[1] == hours});
+            drilldownSeries[i].data[index][2]++;
+        }
+        // changes x & y positions to match labels on chart
+        for (let i = 0; i < drilldownSeries[i].data.length; i++) {
+            drilldownSeries[i].data[i][0] += 13;
+            drilldownSeries[i].data[i][1] += 7;
+        }
+        // stores the day's count as the last datapoint, to be popped later
+        drilldownSeries[i].data.push(timestamps.length);
+    }
+    // builds top level series from drilldown series
+    let emptyIndexes = [];
+    for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
+        let dd;
+        let v;
+        if (drilldownSeries[i].data.length = 0) {
+            dd = null;
+            v = 0;
+            emptyIndexes.push(i);
+        } else {
+            dd = drilldownSeries[i].id;
+            v = drilldownSeries[i].data.pop();
+        }
+        topData.push({
+            x: x,
+            y: y,
+            value: v,
+            drilldown: dd
+        });
+    }
+    // removes empty drilldown days if there are any i guess
+    for (let i = emptyIndexes.length - 1; i >= 0; i--) {
+        drilldownSeries.splice(emptyIndexes[i], 1);
+    }
+    // appends the parsed data to the chart object
+    commentsHeat.drilldown.series = drilldownSeries;
+    topData.reverse();
+    while (commentsHeat.series[0].data.length > 0) {
+        topData.push(commentsHeat.series[0].data.pop())
+    }
+    topData.reverse();
+    commentsHeat.series[0].data = topData;
+    console.log('commentsHeat loaded');
 }

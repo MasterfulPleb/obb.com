@@ -20,9 +20,6 @@ body {
     height: 100%
 }
 
-
-
-
 /* nav menu */
 #nav-menu {
     display: flex;
@@ -188,6 +185,10 @@ input:checked + .slider:before {
     #nav-items li {
         width: -webkit-fill-available;
         justify-content: center;
+    }
+    #nav-items li a {
+        width: -webkit-fill-available;
+        text-align: center;
     }
     #nav-items-wrap.hide {
         display: none;

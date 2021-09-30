@@ -11,6 +11,7 @@ body {
     color: whitesmoke;
     font-size: 1.2rem;
     font-family: sans-serif;
+    transition: background-color 300ms, color 300ms;
 }
 a {
     color: cornflowerblue;
@@ -129,6 +130,7 @@ h3 {
 }
 .row:nth-child(even) {
     background-color: rgb(49, 49, 49);
+    transition: background-color 300ms;
 }
 .row p {
     margin-top: .6em;
@@ -275,6 +277,10 @@ input:checked + .slider:before {
     #nav-items li {
         width: -webkit-fill-available;
         justify-content: center;
+    }
+    #nav-items li a {
+        width: -webkit-fill-available;
+        text-align: center;
     }
     #nav-items-wrap.hide {
         display: none;
@@ -459,4 +465,10 @@ div#leaderboard #THROWAWAYBlTCH .place span, div#leaderboard #THROWAWAYBlTCH .au
 }
 #violet_wings {
     color: violet;
+}
+#Yoshy2077 {
+    color: #38c76e;
+}
+#Bukiso {
+    color: black;
 }
