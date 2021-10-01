@@ -9,7 +9,7 @@ body {
     margin: 0;
     background-color: rgb(40, 40, 40);
     color: whitesmoke;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-family: sans-serif;
     transition: background-color 300ms, color 300ms;
 }

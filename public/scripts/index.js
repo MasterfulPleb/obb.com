@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         else changeMode(false);
     });
 
+    // beecloud image size based on viewport
+    if (window.visualViewport.width < 900) {
+        document.getElementById('bee-cloud').src = '/public/images/smollestbeecloud.png'
+    } else if (window.visualViewport.width < 1920) {
+        document.getElementById('bee-cloud').src = '/public/images/smollbeecloud.png'
+    } else {
+        document.getElementById('bee-cloud').src = '/public/images/beecloud.png'
+    }
+
     // custom colors
     document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>';
     document.getElementById('yer--mum').children[2].innerHTML = '2<span>69</span>';
@@ -82,7 +91,6 @@ function changeView(view, setCook = true) {
     const textWall = document.getElementById('text-wall');
     if (view == 'leaderboard') {
         leaderboard.style.marginRight = '0';
-        body.style.fontSize = '1.2rem';
         data.className = 'hide';
         liveProgress.className = 'hide';
         stats.className = 'hide';
@@ -92,7 +100,6 @@ function changeView(view, setCook = true) {
         leaderboard.style.maxWidth = '30em';
         leaderboard.className = 'show';
     } else if (view == 'progress') {
-        body.style.fontSize = '1.2rem';
         content.className = 'single';
         leaderboard.className = 'hide';
         stats.className = 'hide';
@@ -100,7 +107,6 @@ function changeView(view, setCook = true) {
         data.className = 'show';
         liveProgress.className = 'show';
     } else if (view == 'stats') {
-        body.style.fontSize = '1.2rem';
         content.className = 'single';
         leaderboard.className = 'hide';
         textWall.className = 'hide';
