@@ -89,11 +89,13 @@ a {
 }
 @media screen and (min-width: 950px) {
     #bee-cloud {
+        height: 1805;
         background-image: url('/public/images/smolbeecloud.png');
     }
 }
 @media screen and (min-width: 1920px) {
     #bee-cloud {
+        height: 2320;
         background-image: url('/public/images/beecloud.png');
     }
 }
@@ -132,6 +134,9 @@ a {
         width: -webkit-fill-available;
         justify-content: center;
     }
+    #nav-items li#links {
+        width: auto;
+    }
     #nav-items li a {
         width: -webkit-fill-available;
         text-align: center;
@@ -141,6 +146,11 @@ a {
     }
     #nav-items-wrap.show {
         display: block;
+    }
+}
+@media screen and (min-width: 1551px) {
+    body {
+        font-size: 1.3rem;
     }
 }
 @media screen and (max-width: 970px) {
