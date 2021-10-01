@@ -3,8 +3,9 @@ html
     head
         title= 'ouijabeederboard.com'
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='/public/styles/index.css')
-        script(src='/public/scripts/index.js')
+        link(rel='stylesheet', href='/public/styles/shared.min.css')
+        link(rel='stylesheet', href='/public/styles/index.min.css')
+        script(src='/public/scripts/index.min.js')
     body#body
         #nav-menu
             #obb
@@ -22,7 +23,7 @@ html
                         span Statistics
                     li#nav-dashboard
                         span Dashboard
-                    li#nav-charts
+                    li#nav-charts.link
                         a(href='/charts') Charts
                     li#nav-darkmode.toggle
                         span Nightmode
@@ -61,8 +62,9 @@ html
                     #stats.show
                         p stastasdtasdt
                         p more stsdasdfasdfasdf
-                        #bee-cloud
-                            img(src='/public/images/smolbeecloud.png')
+                        a(href='/public/images/beecloud.svg')
+                            #bee-cloud
+                                //img(src='/public/images/smolbeecloud.png')
                     #text-wall.show
                         span#written.written= written
                         span#remaining.remaining= remaining

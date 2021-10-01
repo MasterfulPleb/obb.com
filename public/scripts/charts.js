@@ -1,7 +1,8 @@
 'use strict';
 
-let darkmode;
-let lastChart;
+var darkmode;
+var lastChart;
+
 document.addEventListener('DOMContentLoaded', function() {
     // checks cookies and sets darkmode/view accordingly
     darkmode = checkCookie('darkmode', true);

@@ -1,22 +1,22 @@
 'use strict';
-const express       = require('express');
-  const app         = express();
-const expressWs     = require('express-ws')(express()); 
-  const wsapp       = expressWs.app;
-  const wss         = expressWs.getWss('/ws');
-const helmet        = require('helmet');
-const favicon       = require('serve-favicon');
-const pug           = require('pug');
-  const renderIndex = pug.compileFile('./views/index.pug');
+const express        = require('express');
+  const app          = express();
+//const expressWs    = require('express-ws')(express()); 
+  //const wsapp      = expressWs.app;
+  //const wss        = expressWs.getWss('/ws');
+const helmet         = require('helmet');
+const favicon        = require('serve-favicon');
+const pug            = require('pug');
+  const renderIndex  = pug.compileFile('./views/index.pug');
   const renderCharts = pug.compileFile('./views/charts.pug');
-const mariadb       = require('mariadb');
-  const pool        = mariadb.createPool({
+const mariadb        = require('mariadb');
+  const pool         = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
     user: 'root',
     database: 'bee_movie',
     connectionLimit: 5,
   });
-const { getData }   = require('./get-data.js');
+const { getData }    = require('./get-data.js');
 
 app.set('view engine', 'pug');
 app.use(helmet());
@@ -41,7 +41,7 @@ app.get('/old.newest', (_req, res) => {
 });
 app.get('*', (_req, res) => res.redirect('/'));
 
-wsapp.ws('/ws', function(ws, _req) {
+/*wsapp.ws('/ws', function(ws, _req) {
     console.log('socket connected');
     ws.on('message', (msg) => {
         if (msg == 'ping') ws.send('pong');
@@ -53,7 +53,7 @@ wsapp.ws('/ws', function(ws, _req) {
     })
 });
 
-wsapp.listen(3002);
+wsapp.listen(3002);*/
 app.listen(3000);
 
 /**
@@ -146,9 +146,7 @@ async function refreshData(startup = false) {
 async function buildCharts() {
     buildCommentsPie();
     pool.query('SELECT timestamp FROM comments;')
-      .then(stamps => {
-        buildCommentsHeat(stamps)
-      });
+      .then(stamps => buildCommentsHeat(stamps));
 }
 var commentsPie = {
     chart: {
@@ -311,12 +309,12 @@ var commentsHeat = {
         text: 'Comments per day',
         style: { 'color': "#797268" }
     },
-    subtitle: {
+    /*subtitle: {
         text: "Try tapping/clicking a square",
         style: { 'color': "#797268" }
-    },
+    },*/
     caption: {
-        text: 'This chart is interactive!',
+        text: 'This chart is a work-in-progress',
         style: { 'color': "#797268" }
     },
     xAxis: {
@@ -334,6 +332,7 @@ var commentsHeat = {
     },
     colorAxis: {
         min: 0,
+        max: 1600,
         minColor: '#FFFFFF',
         maxColor: '#7cb5ec'
     },
@@ -343,7 +342,7 @@ var commentsHeat = {
         margin: 0,
         verticalAlign: 'top',
         y: 25,
-        symbolHeight: 280
+        symbolHeight: 500
     },
     series: [{
         name: 'Comments per day',
@@ -374,8 +373,6 @@ var commentsHeat = {
     }
 };
 function buildCommentsHeat(stamps) {
-    /* *@type { Array<{ timestamp: number }> }*/
-    //var stamps = await pool.query('SELECT timestamp FROM comments;');
     /**
      * @type {{
      *      x: number,
@@ -434,7 +431,7 @@ function buildCommentsHeat(stamps) {
         // stores the day's count as the last datapoint, to be popped later
         drilldownSeries[i].data.push(timestamps.length);
     }
-    // builds top level series from drilldown series
+    // builds top level series from drilldown series, pops days count
     let emptyIndexes = [];
     for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
         let dd;
@@ -445,7 +442,7 @@ function buildCommentsHeat(stamps) {
             emptyIndexes.push(i);
         } else {
             dd = drilldownSeries[i].id;
-            v = drilldownSeries[i].data[drilldownSeries[i].data.length - 1];
+            v = drilldownSeries[i].data.pop();
         }
         topData.push({
             x: x,
