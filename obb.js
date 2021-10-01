@@ -54,7 +54,7 @@ app.get('*', (_req, res) => res.redirect('/'));
 });
 
 wsapp.listen(3002);*/
-app.listen(3000);
+app.listen(3001);
 
 /**
  * @type {{

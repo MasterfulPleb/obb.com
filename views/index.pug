@@ -2,7 +2,7 @@ doctype html
 html
     head
         title= 'ouijabeederboard.com'
-        meta(name='viewport', content='width=device-width, height=device-height, initial-scale=1')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='/public/styles/shared.min.css')
         link(rel='stylesheet', href='/public/styles/index.min.css')
         script(src='/public/scripts/index.min.js')
@@ -54,14 +54,15 @@ html
                             span.mark  ʌ 
                             span#first-remaining.remaining= firstRemaining
                         p.percent Completion: 
-                            span#percent= percent
+                            span#percent= 100
                             span %
                         p.percent24 Completed in the last 24 hours: 
-                            span#percent24= percent24
+                            span#percent24= 0
                             span %
                     #stats.show
-                        p stastasdtasdt
-                        p more stsdasdfasdfasdf
+                        p Stats coming soon!
+                        //p stastasdtasdt
+                        //p more stsdasdfasdfasdf
                         a(href='/public/images/beecloud.svg')
                             img#bee-cloud(src='')
                     #text-wall.show
