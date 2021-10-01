@@ -80,24 +80,6 @@ a {
 #bee-cloud {
     width: 100%;
 }
-/*#bee-cloud {
-    height: 900px;
-    background-image: url('/public/images/smolestbeecloud.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-@media screen and (min-width: 950px) {
-    #bee-cloud {
-        background-image: url('/public/images/smolbeecloud.png');
-    }
-}
-@media screen and (min-width: 1920px) {
-    #bee-cloud {
-        height: 2320px;
-        background-image: url('/public/images/beecloud.png');
-    }
-}*/
 #text-wall {
     flex: 1;
     font-size: .6rem;
@@ -147,11 +129,6 @@ a {
         display: block;
     }
 }
-/*@media screen and (min-width: 1551px) {
-    body {
-        font-size: 1.3rem;
-    }
-}*/
 @media screen and (max-width: 970px) {
     #body {
         font-size: 1.1rem;
@@ -301,6 +278,7 @@ div#leaderboard div#Mclovin11859 {
 div#leaderboard #THROWAWAYBlTCH .place span, div#leaderboard #THROWAWAYBlTCH .author span, div#leaderboard #THROWAWAYBlTCH .comments {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 #yer--mum .comments span {
