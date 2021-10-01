@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // beecloud image size based on viewport
     if (window.visualViewport.width < 900) {
-        document.getElementById('bee-cloud').src = '/public/images/smollestbeecloud.png'
+        document.getElementById('bee-cloud').src = '/public/images/smolestbeecloud.png'
     } else if (window.visualViewport.width < 1920) {
-        document.getElementById('bee-cloud').src = '/public/images/smollbeecloud.png'
+        document.getElementById('bee-cloud').src = '/public/images/smolbeecloud.png'
     } else {
         document.getElementById('bee-cloud').src = '/public/images/beecloud.png'
     }
