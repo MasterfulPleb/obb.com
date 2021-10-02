@@ -10,8 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('darkmode').addEventListener('change', () => {
         if (document.getElementById('darkmode').checked) changeMode(true);
         else changeMode(false);
-        if (!darkmode) lastChart.chart.backgroundColor = '#faebd7';
-        else lastChart.chart.backgroundColor = '#282828';
+        if (!darkmode) {
+            lastChart.chart.backgroundColor = '#faebd7';
+            data.colorAxis[0].stops[0][1] = '#faebd7';
+        } else {
+            lastChart.chart.backgroundColor = '#282828';
+            data.colorAxis[0].stops[0][1] = '#282828';
+        }
         const chart = Highcharts.chart('chart', lastChart);
     });
 
