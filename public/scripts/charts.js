@@ -36,7 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(res => res.json())
           .then(data => {
             console.log(data);
-            if (!darkmode) data.chart.backgroundColor = '#faebd7';
+            if (!darkmode) {
+                data.chart.backgroundColor = '#faebd7';
+                data.colorAxis[0].stops[0][1] = '#faebd7';
+            }
             data.chart.events = {
                 drilldown: function (e) {
                     var chart = this;
@@ -60,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
                     });
                 }
-            }
+            };
             lastChart = data;
             const chart = Highcharts.chart('chart', data);
           });
