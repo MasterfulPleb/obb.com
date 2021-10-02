@@ -303,7 +303,23 @@ var commentsHeat = {
         marginTop: 40,
         marginBottom: 80,
         plotBorderWidth: 1,
-        backgroundColor: '#282828'
+        backgroundColor: '#282828',
+        events: {
+            drilldown: function (e) {
+                var chart = this;
+                chart.yAxis[0].update({
+                    type: 'linear',
+                    categories: false
+                })
+            },
+            drillup: function (e) {
+                var chart = this;
+                chart.yAxis[0].update({
+                    type: 'category',
+                    categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                })
+            }
+        }
     },
     title: {
         text: 'Comments per day',
@@ -326,24 +342,26 @@ var commentsHeat = {
     yAxis: {
         title: null,
         reversed: true,
-        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'/*,
                     '0','1','2','3','4','5','6','7','8','9','10','11','12',
-                    '13','14','15','16','17','18','19','20','21','22','23']
+                    '13','14','15','16','17','18','19','20','21','22','23'*/]
     },
-    colorAxis: [{
-        min: 0,
-        max: 14,
-        stops: [
-            [0, '#ffffff'],
-            [0.071428, '#dad9ff'],
-            [1, '#ff0000']
-        ]
-    }, {
-        min: 0,
-        max: 1600,
-        minColor: '#dad9ff',
-        maxColor: '#ff3f00'
-    }],
+    colorAxis: [
+        {
+            min: 0,
+            max: 14,
+            stops: [
+                [0, '#ffffff'],
+                [0.071428, '#dad9ff'],
+                [1, '#ff0000']
+            ]
+        }, {
+            min: 0,
+            max: 1600,
+            minColor: '#dad9ff',
+            maxColor: '#ff3f00'
+        }
+    ],
     legend: {
         align: 'right',
         layout: 'vertical',
@@ -420,7 +438,7 @@ function buildCommentsHeat(stamps) {
         // changes x & y positions to match labels on chart
         for (let j = 0; j < drilldownSeries[i].data.length; j++) {
             drilldownSeries[i].data[j][0] += 13;
-            drilldownSeries[i].data[j][1] += 7;
+            //drilldownSeries[i].data[j][1] += 7;
         }
         // stores the day's count as the last datapoint, to be popped later
         drilldownSeries[i].data.push(timestamps.length);
