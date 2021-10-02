@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
         else changeMode(false);
         if (!darkmode) {
             lastChart.chart.backgroundColor = '#faebd7';
-            data.colorAxis[0].stops[0][1] = '#faebd7';
+            lastChart.colorAxis[0].stops[0][1] = '#faebd7';
         } else {
             lastChart.chart.backgroundColor = '#282828';
-            data.colorAxis[0].stops[0][1] = '#282828';
+            lastChart.colorAxis[0].stops[0][1] = '#282828';
         }
         const chart = Highcharts.chart('chart', lastChart);
     });
