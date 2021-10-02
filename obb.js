@@ -319,10 +319,11 @@ var commentsHeat = {
         style: { 'color': "#797268" }
     },
     xAxis: {
+        title: 'Weeks',
         categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
     },
     yAxis: {
-        title: null,
+        title: 'Days',
         reversed: true,
         categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     },
@@ -361,6 +362,12 @@ var commentsHeat = {
         }
     }],
     drilldown: {
+        activeAxisLabelStyle: {
+            cursor: 'undefined',
+            color: 'undefined',
+            fontWeight: 'undefined',
+            textDecoration: 'undefined'
+        },
         series: []
     }
 };
