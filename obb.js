@@ -320,11 +320,6 @@ var commentsHeat = {
     },
     xAxis: {
         title: 'Weeks',
-        labels: {
-            style: {
-                color: '#797268'
-            }
-        },
         categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
     },
     yAxis: {
@@ -369,7 +364,7 @@ var commentsHeat = {
     drilldown: {
         activeAxisLabelStyle: {
             cursor: 'undefined',
-            color: '797268',
+            color: '#797268',
             fontWeight: 'undefined',
             textDecoration: 'undefined'
         },
