@@ -310,14 +310,14 @@ var commentsHeat = {
                 chart.yAxis[0].update({
                     type: 'linear',
                     categories: false
-                })
+                });
             },
             drillup: function (e) {
                 var chart = this;
                 chart.yAxis[0].update({
                     type: 'category',
                     categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                })
+                });
             }
         }
     },
