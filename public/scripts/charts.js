@@ -44,12 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         type: 'linear',
                         categories: false
                     });
+                    chart.xAxis[0].update({
+                        type: 'linear',
+                        categories: false
+                    });
                 },
                 drillup: function (e) {
                     var chart = this;
                     chart.yAxis[0].update({
                         type: 'category',
                         categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    });
+                    chart.xAxis[0].update({
+                        type: 'category',
+                        categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
                     });
                 }
             }
