@@ -364,7 +364,7 @@ var commentsHeat = {
     drilldown: {
         activeAxisLabelStyle: {
             cursor: 'undefined',
-            color: 'undefined',
+            color: '797268',
             fontWeight: 'undefined',
             textDecoration: 'undefined'
         },
