@@ -341,8 +341,8 @@ var commentsHeat = {
     }, {
         min: 0,
         max: 1600,
-        minColor: '#ffffff',
-        maxColor: '#ff0000'
+        minColor: '#dad9ff',
+        maxColor: '#ff3f00'
     }],
     legend: {
         align: 'right',
@@ -356,22 +356,7 @@ var commentsHeat = {
         name: 'Comments per day',
         borderWidth: 1,
         colorAxis: 1,
-        data: [{
-            x: 0,
-            y: 0,
-            value: 0,
-            drilldown: null
-        }, {
-            x: 0,
-            y: 1,
-            value: 0,
-            drilldown: null
-        }, {
-            x: 0,
-            y: 2,
-            value: 0,
-            drilldown: null
-        }],
+        data: [],
         dataLabels: {
             enabled: true,
             color: '#000000'
@@ -413,7 +398,7 @@ function buildCommentsHeat(stamps) {
             i--;
         }
     }
-    // finishes configuring drilldown, leaving day's count at end of series data (and possibly empty drilldown series?)
+    // finishes configuring drilldown, leaving day's count at end of series data
     for (let i = 0; i < drilldownSeries.length; i++) {
         /**@type {Date[]}*/
         let timestamps = drilldownSeries[i].data;
@@ -460,44 +445,11 @@ function buildCommentsHeat(stamps) {
             drilldown: dd
         });
     }
-    // removes empty drilldown days if there are any i guess
-    for (let i = emptyIndexes.length - 1; i >= 0; i--) {
-        drilldownSeries.splice(emptyIndexes[i], 1);
-    }
     // appends the parsed data to the chart object
     for (let series of drilldownSeries) {
         series.name = series.id
     }
     commentsHeat.drilldown.series = drilldownSeries;
-    topData.reverse();
-    while (commentsHeat.series[0].data.length > 0) {
-        topData.push(commentsHeat.series[0].data.pop())
-    }
-    topData.reverse();
-    let filler = [{
-            x: 12,
-            y: 3,
-            value: 0,
-            drilldown: null
-        }, {
-            x: 12,
-            y: 4,
-            value: 0,
-            drilldown: null
-        }, {
-            x: 12,
-            y: 5,
-            value: 0,
-            drilldown: null
-        }, {
-            x: 12,
-            y: 6,
-            value: 0,
-            drilldown: null
-        }]
-    for (let i = 0; i < filler.length; i++) {
-        topData.push(filler[i])
-    }
     commentsHeat.series[0].data = topData;
     console.log('commentsHeat loaded');
 }
