@@ -311,12 +311,20 @@ var commentsHeat = {
                     type: 'linear',
                     categories: false
                 });
+                chart.xAxis[0].update({
+                    type: 'linear',
+                    categories: false
+                });
             },
             drillup: function (e) {
                 var chart = this;
                 chart.yAxis[0].update({
                     type: 'category',
                     categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                });
+                chart.xAxis[0].update({
+                    type: 'category',
+                    categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
                 });
             }
         }
@@ -334,17 +342,15 @@ var commentsHeat = {
         style: { 'color': "#797268" }
     },
     xAxis: {
-        categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26',
+        categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26'/*,
                     '0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20',
                     '21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40',
-                    '41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59']
+                    '41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'*/]
     },
     yAxis: {
         title: null,
         reversed: true,
-        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'/*,
-                    '0','1','2','3','4','5','6','7','8','9','10','11','12',
-                    '13','14','15','16','17','18','19','20','21','22','23'*/]
+        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     },
     colorAxis: [
         {
@@ -437,7 +443,7 @@ function buildCommentsHeat(stamps) {
         }
         // changes x & y positions to match labels on chart
         for (let j = 0; j < drilldownSeries[i].data.length; j++) {
-            drilldownSeries[i].data[j][0] += 13;
+            //drilldownSeries[i].data[j][0] += 13;
             //drilldownSeries[i].data[j][1] += 7;
         }
         // stores the day's count as the last datapoint, to be popped later
