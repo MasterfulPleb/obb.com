@@ -3,9 +3,9 @@ html
     head
         title= 'ouijabeederboard.com'
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='/public/styles/shared.min.css')
-        link(rel='stylesheet', href='/public/styles/index.min.css')
-        script(src='/public/scripts/index.min.js')
+        link(rel='stylesheet', href='/public/styles/shared.css')
+        link(rel='stylesheet', href='/public/styles/index.css')
+        script(src='/public/scripts/index.js')
     body#body
         #nav-menu
             #obb
@@ -54,12 +54,15 @@ html
                             span.mark  ʌ 
                             span#first-remaining.remaining= firstRemaining
                         p.percent Completion: 
-                            span#percent= 100
+                            span#percent 100
                             span %
                         p.percent24 Completed in the last 24 hours: 
-                            span#percent24= 0
+                            span#percent24 0
                             span %
                     #stats.show
+                        p If you'd like a custom style on the leaderboard, message 
+                            a(href='https://www.reddit.com/user/Krosis27') u/Krosis27
+                            span  with your request
                         p Stats coming soon!
                         //p stastasdtasdt
                         //p more stsdasdfasdfasdf

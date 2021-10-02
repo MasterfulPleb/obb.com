@@ -54,7 +54,7 @@ app.get('*', (_req, res) => res.redirect('/'));
 });
 
 wsapp.listen(3002);*/
-app.listen(3001);
+app.listen(3000);
 
 /**
  * @type {{
@@ -330,12 +330,20 @@ var commentsHeat = {
                     '0','1','2','3','4','5','6','7','8','9','10','11','12',
                     '13','14','15','16','17','18','19','20','21','22','23']
     },
-    colorAxis: {
+    colorAxis: [{
+        min: 0,
+        max: 14,
+        stops: [
+            [0, '#ffffff'],
+            [0.071428, '#dad9ff'],
+            [1, '#ff0000']
+        ]
+    }, {
         min: 0,
         max: 1600,
-        minColor: '#FFFFFF',
-        maxColor: '#7cb5ec'
-    },
+        minColor: '#ffffff',
+        maxColor: '#ff0000'
+    }],
     legend: {
         align: 'right',
         layout: 'vertical',
@@ -347,6 +355,7 @@ var commentsHeat = {
     series: [{
         name: 'Comments per day',
         borderWidth: 1,
+        colorAxis: 1,
         data: [{
             x: 0,
             y: 0,
