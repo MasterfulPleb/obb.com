@@ -308,18 +308,23 @@ var commentsHeat = {
     },
     title: {
         text: 'Comments per day',
-        style: { 'color': "#797268" }
+        style: { color: '#797268' }
     },
     /*subtitle: {
-        text: "Try tapping/clicking a square",
-        style: { 'color': "#797268" }
+        text: 'Try tapping/clicking a square',
+        style: { color: '#797268' }
     },*/
     caption: {
         text: 'This chart is a work-in-progress',
-        style: { 'color': "#797268" }
+        style: { color: '#797268' }
     },
     xAxis: {
         title: 'Weeks',
+        labels: {
+            style: {
+                color: '#797268'
+            }
+        },
         categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
     },
     yAxis: {
