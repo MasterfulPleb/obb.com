@@ -37,6 +37,22 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(data => {
             console.log(data);
             if (!darkmode) data.chart.backgroundColor = '#faebd7';
+            data.chart.events = {
+                drilldown: function (e) {
+                    var chart = this;
+                    chart.yAxis[0].update({
+                        type: 'linear',
+                        categories: false
+                    });
+                },
+                drillup: function (e) {
+                    var chart = this;
+                    chart.yAxis[0].update({
+                        type: 'category',
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    });
+                }
+            }
             lastChart = data;
             const chart = Highcharts.chart('chart', data);
           });
