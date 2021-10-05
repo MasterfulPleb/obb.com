@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // checks URL hash to see if certain chart requested
     hashDirect();
+    window.onhashchange = () => hashDirect();
 });
 
 
