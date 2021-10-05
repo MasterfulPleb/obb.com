@@ -77,48 +77,43 @@ function setCookie(cname, cvalue, exdays) {
 function changeView(view, setCook = true) {
     document.getElementById('nav-items-wrap').className = 'hide';
     if (setCook) setCookie('view', view, 365);
-    const body = document.getElementById('body');
-    const content = document.getElementById('content');
-    const data = document.getElementById('data');
-    const leaderboard = document.getElementById('leaderboard');
-    const liveProgress = document.getElementById('live-progress');
-    const stats = document.getElementById('stats');
-    const textWall = document.getElementById('text-wall');
+    const body = document.getElementById('body'),
+        content = document.getElementById('content'),
+        data = document.getElementById('data'),
+        leaderboard = document.getElementById('leaderboard'),
+        liveProgress = document.getElementById('live-progress'),
+        stats = document.getElementById('stats'),
+        textWall = document.getElementById('text-wall'),
+        wah = document.getElementById('we-are-here'),
+        percent = document.getElementById('percent'),
+        percent24 = document.getElementById('percent24');
     if (view == 'leaderboard') {
         leaderboard.style.marginRight = '0';
-        data.className = 'hide';
-        liveProgress.className = 'hide';
-        stats.className = 'hide';
-        textWall.className = 'hide';
+        data.className = liveProgress.className =
+            stats.className = textWall.className = 'hide';
         content.className = 'dash';
         content.style.justifyContent = 'center';
         leaderboard.style.maxWidth = '30em';
         leaderboard.className = 'show';
     } else if (view == 'progress') {
         content.className = 'single';
-        leaderboard.className = 'hide';
-        stats.className = 'hide';
-        textWall.className = 'show';
-        data.className = 'show';
-        liveProgress.className = 'show';
+        leaderboard.className = stats.className = 'hide';
+        textWall.className = data.className = liveProgress.className = 'show';
+        wah.style.display = percent.style.display = percent24.style.display = 'block';
     } else if (view == 'stats') {
         content.className = 'single';
-        leaderboard.className = 'hide';
-        textWall.className = 'hide';
-        liveProgress.className = 'hide';
-        data.className = 'show';
-        stats.className = 'show';
+        leaderboard.className = textWall.className =
+            liveProgress.className = 'hide';
+        data.className = stats.className = 'show';
     } else if (view == 'dash') {
         leaderboard.style.marginRight = '';
         body.style.fontSize = '';
         content.className = 'dash';
-        leaderboard.className = 'show';
-        leaderboard.style.maxWidth = '20em';
         content.style.justifyContent = 'normal';
-        data.className = 'show';
-        liveProgress.className = 'show';
-        stats.className = 'show';
-        textWall.className = 'show';
+        leaderboard.style.maxWidth = '20em';
+        leaderboard.className = data.className = liveProgress.className =
+            stats.className = textWall.className = 'show';
+        wah.style.display = percent.style.display = percent24.style.display = 'none';
     }
 }
 function changeMode(darkmode = true, setCook = true) {
