@@ -315,6 +315,7 @@ function buildCommentsHeat(stamps) {
         /**@type {Date[]}*/
         let timestamps = drilldownSeries[i].data;
         drilldownSeries[i].data = dataTemplate;
+        drilldownSeries[i].name = drilldownSeries[i].id;
         // adds a count for every timestamp on that day
         for (let time of timestamps) {
             let hours = parseInt(time.getHours());
