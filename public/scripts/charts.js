@@ -28,19 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
-    document.getElementById('nav-comments-user').addEventListener('click', () => fetchCommentsUser());
-    document.getElementById('nav-comments-day').addEventListener('click', () => fetchCommentsDay());
-    document.getElementById('nav-letters-used').addEventListener('click', () => fetchLettersUsed());
+    document.getElementById('nav-comments-user').addEventListener('click', () => 
+        window.history.pushState({}, '', '#commentsPie'));
+    document.getElementById('nav-comments-day').addEventListener('click', () => 
+        window.history.pushState({}, '', '#commentsHeat'));
+    document.getElementById('nav-letters-used').addEventListener('click', () => 
+        window.history.pushState({}, '', '#lettersColumn'));
 
     // checks URL hash to see if certain chart requested
-    const hash = new URL(window.location.href).hash;
-    if (hash == '' || hash == '#comments-user') {
-        fetchCommentsUser();
-    } else if (hash == '#comments-day') {
-        fetchCommentsDay();
-    } else if (hash == '#letters-used') {
-        fetchLettersUsed();
-    }
+    hashDirect();
+    window.onhashchange = () => hashDirect();
 });
 
 
@@ -90,67 +87,55 @@ function changeMode(dark = true, setCook = true) {
     }
 }
 
-function fetchCommentsUser() {
-    fetch(baseURL + '/charts/commentsPie')
+//fetches proper chart based on hash and performs modifications
+function hashDirect() {
+    const hash = new URL(window.location.href).hash;
+    if (hash == '') {
+        fetchChart('commentsPie');
+    } else if (hash == '#commentsHeat') {
+        fetchChart('commentsHeat', () => {
+            if (!darkmode) data.colorAxis[0].stops[0][1] = '#faebd7';
+            data.chart.events = {
+                drilldown: function (e) {
+                    var chart = this;
+                    chart.yAxis[0].update({
+                        title: { text: 'Hours' },
+                        type: 'linear',
+                        categories: false
+                    });
+                    chart.xAxis[0].update({
+                        title: { text: 'Minutes' },
+                        type: 'linear',
+                        categories: false
+                    });
+                },
+                drillup: function (e) {
+                    var chart = this;
+                    chart.yAxis[0].update({
+                        title: 'Days',
+                        type: 'category',
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    });
+                    chart.xAxis[0].update({
+                        title: 'Weeks',
+                        type: 'category',
+                        categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
+                    });
+                }
+            };
+        });
+    } else {
+        fetchChart(hash.slice(1));
+    }
+}
+function fetchChart(/**@type {String}*/chartid, mods = () => {}) {
+    fetch(baseURL + '/charts/' + chartid)
       .then(res => res.json())
       .then(data => {
         console.log(data);
         if (!darkmode) data.chart.backgroundColor = '#faebd7';
+        mods(data);
         lastChart = data;
         chart = Highcharts.chart('chart', data);
-        window.history.pushState({}, '', '#comments-user');
-      });
-}
-function fetchCommentsDay() {
-    fetch(baseURL + '/charts/commentsHeat')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (!darkmode) {
-            data.chart.backgroundColor = '#faebd7';
-            data.colorAxis[0].stops[0][1] = '#faebd7';
-        }
-        data.chart.events = {
-            drilldown: function (e) {
-                var chart = this;
-                chart.yAxis[0].update({
-                    title: { text: 'Hours' },
-                    type: 'linear',
-                    categories: false
-                });
-                chart.xAxis[0].update({
-                    title: { text: 'Minutes' },
-                    type: 'linear',
-                    categories: false
-                });
-            },
-            drillup: function (e) {
-                var chart = this;
-                chart.yAxis[0].update({
-                    title: 'Days',
-                    type: 'category',
-                    categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                });
-                chart.xAxis[0].update({
-                    title: 'Weeks',
-                    type: 'category',
-                    categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
-                });
-            }
-        };
-        lastChart = data;
-        chart = Highcharts.chart('chart', data);
-        window.history.pushState({}, '', '#comments-day');
-      });
-}
-function fetchLettersUsed() {
-    fetch(baseURL + '/charts/lettersColumn')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (!darkmode) data.chart.backgroundColor = '#faebd7';
-        lastChart = data;
-        chart = Highcharts.chart('chart', data);
-        window.history.pushState({}, '', '#letters-used');
       });
 }
