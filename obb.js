@@ -352,6 +352,9 @@ var lettersColumn = {
         text: '# of letters/numbers used',
         style: { color: '#797268' }
     },
+    legend: {
+        enabled: false
+    },
     xAxis: {
         categories: [],
         crosshair: true
