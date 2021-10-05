@@ -24,6 +24,7 @@ app.get('/', (_req, res) => res.send(preRender));
 app.get('/charts', (_req, res) => res.send(preRenderCharts));
 app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie));
 app.get('/charts/commentsHeat', (_req, res) => res.send(commentsHeat));
+app.get('/charts/lettersColumn', (_req, res) => res.send(lettersColumn));
 app.get('/newest', (_req, res) => {
     res.redirect('https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/hemsuuz/?context=3');
 });

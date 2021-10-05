@@ -36,7 +36,17 @@ document.addEventListener('DOMContentLoaded', function() {
             lastChart = data;
             chart = Highcharts.chart('chart', data);
           });
-    })
+    });
+    document.getElementById('nav-letters-used').addEventListener('click', () => {
+        fetch('https://test.ouijabeederboard.com/charts/lettersColumn')
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            if (!darkmode) data.chart.backgroundColor = '#faebd7';
+            lastChart = data;
+            chart = Highcharts.chart('chart', data);
+          });
+    });
     // additional config for comments/day heatmap
     document.getElementById('nav-comments-day').addEventListener('click', () => {
         fetch('https://test.ouijabeederboard.com/charts/commentsHeat')
@@ -78,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             lastChart = data;
             chart = Highcharts.chart('chart', data);
           });
-    })
+    });
 
     fetch('https://test.ouijabeederboard.com/charts/commentsPie')
       .then(res => res.json())
