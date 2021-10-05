@@ -314,7 +314,7 @@ function buildCommentsHeat(stamps) {
     for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
         /**@type {Date[]}*/
         let timestamps = drilldownSeries[i].data;
-        drilldownSeries[i].data = dataTemplate;
+        drilldownSeries[i].data = dataTemplate.slice();
         drilldownSeries[i].name = drilldownSeries[i].id;
         // adds a count for every timestamp on that day
         for (let time of timestamps) {
