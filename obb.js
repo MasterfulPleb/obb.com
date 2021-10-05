@@ -56,9 +56,12 @@ getData(pool).then(d => {
 function buildCharts() {
     pool.query('SELECT timestamp FROM comments;')
       .then(stamps => buildCommentsHeat(stamps));
+    pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
+      .then(letters => buildLettersColumn(letters));
     buildCommentsPie();
     // new charts go here
 }
+
 var commentsPie = {
     chart: {
         type: 'pie',
@@ -199,6 +202,7 @@ function buildCommentsPie() {
     });
     console.log('commentsPie loaded');
 }
+
 var commentsHeat = {
     chart: {
         type: 'heatmap',
@@ -221,11 +225,11 @@ var commentsHeat = {
         style: { color: '#797268' }
     },
     xAxis: {
-        title: 'Weeks',
+        title: { text: 'Weeks' },
         categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
     },
     yAxis: {
-        title: 'Days',
+        title: { text: 'Days' },
         reversed: true,
         categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     },
@@ -336,4 +340,39 @@ function buildCommentsHeat(stamps) {
     commentsHeat.drilldown.series = drilldownSeries;
     commentsHeat.series[0].data = topData;
     console.log('commentsHeat loaded');
+}
+
+var lettersColumn = {
+    chart: {
+        type: 'column',
+        backgroundColor: '#282828'
+    },
+    title: {
+        text: '# of letters/numbers used',
+        style: { color: '#797268' }
+    },
+    xAxis: {
+        categories: [],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Letters',
+        data: []
+    }]
+};
+function buildLettersColumn(letters) {
+    let arr = letters.slice(11).concat(letters.slice(0, 10));
+    for (let i = 0; i < arr.length; i++) {
+        lettersColumn.xAxis.categories.push(arr[i].body);
+        lettersColumn.series[0].data.push(arr[i].letters);
+    }
 }

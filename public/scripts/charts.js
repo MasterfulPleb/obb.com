@@ -51,12 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 drilldown: function (e) {
                     var chart = this;
                     chart.yAxis[0].update({
-                        title: 'Hours',
+                        title: { text: 'Hours' },
                         type: 'linear',
                         categories: false
                     });
                     chart.xAxis[0].update({
-                        title: 'Minutes',
+                        title: { text: 'Minutes' },
                         type: 'linear',
                         categories: false
                     });
