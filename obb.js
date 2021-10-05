@@ -21,7 +21,7 @@ app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 app.get('/', (_req, res) => res.send(preRender));
-app.get('/charts', (_req, res) => res.send(preRenderCharts));
+app.get('/charts(#*)?', (_req, res) => res.send(preRenderCharts));
 app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie));
 app.get('/charts/commentsHeat', (_req, res) => res.send(commentsHeat));
 app.get('/charts/lettersColumn', (_req, res) => res.send(lettersColumn));
