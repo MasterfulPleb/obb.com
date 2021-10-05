@@ -93,7 +93,7 @@ function hashDirect() {
     if (hash == '') {
         fetchChart('commentsPie');
     } else if (hash == '#commentsHeat') {
-        fetchChart('commentsHeat', () => {
+        fetchChart('commentsHeat', (data) => {
             if (!darkmode) data.colorAxis[0].stops[0][1] = '#faebd7';
             data.chart.events = {
                 drilldown: function (e) {
