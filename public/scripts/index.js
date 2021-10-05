@@ -10,13 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // beecloud image size based on viewport
-    if (window.visualViewport.width < 900) {
-        document.getElementById('bee-cloud').src = '/public/images/smolestbeecloud.png'
-    } else if (window.visualViewport.width < 1920) {
-        document.getElementById('bee-cloud').src = '/public/images/smolbeecloud.png'
-    } else {
-        document.getElementById('bee-cloud').src = '/public/images/beecloud.png'
-    }
+    resizeBeeCloud();
+    window.onresize = () => resizeBeeCloud();
 
     // custom colors
     document.getElementById('Moose_Hole').children[2].innerHTML = '<span>4</span><span>2</span><span>0</span>';
@@ -27,13 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('THROWAWAYBlTCH').children[1].innerHTML = '<span>THROWAWAYBlTCH</span>';
 
     // listeners & stuff for navigation menu
-    let view = getCookie('view');
+    const view = getCookie('view');
     if (view == '') {
         if (window.visualViewport.width < 900) {
             changeView('leaderboard');
         }
     } else changeView(view, false);
-    let navItems = document.getElementById('nav-items-wrap');
+    const navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
@@ -146,5 +141,15 @@ function changeMode(darkmode = true, setCook = true) {
                 rows[i].style.backgroundColor = '';
             }
         }
+    }
+}
+function resizeBeeCloud() {
+    const cloud = document.getElementById('bee-cloud');
+    if (window.visualViewport.width < 900) {
+        cloud.src = '/public/images/smolestbeecloud.png';
+    } else if (window.visualViewport.width < 1920) {
+        cloud.src = '/public/images/smolbeecloud.png';
+    } else {
+        cloud.src = '/public/images/beecloud.png';
     }
 }

@@ -1,22 +1,31 @@
 'use strict';
-const express  = require('express'),
-  app          = express(),
-helmet         = require('helmet'),
-favicon        = require('serve-favicon'),
-pug            = require('pug'),
-  renderIndex  = pug.compileFile('./views/index.pug'),
-  renderCharts = pug.compileFile('./views/charts.pug'),
-mariadb        = require('mariadb'),
-  pool         = mariadb.createPool({
+const express        = require('express');
+  const app          = express();
+//const expressWs    = require('express-ws')(express()); 
+  //const wsapp      = expressWs.app;
+  //const wss        = expressWs.getWss('/ws');
+const helmet         = require('helmet');
+const favicon        = require('serve-favicon');
+const pug            = require('pug');
+  const renderIndex  = pug.compileFile('./views/index.pug');
+  const renderCharts = pug.compileFile('./views/charts.pug');
+const mariadb        = require('mariadb');
+  const pool         = mariadb.createPool({
     socketPath: '/var/run/mysqld/mysqld.sock',
     user: 'root',
     database: 'bee_movie',
     connectionLimit: 5,
- }),
-{ getData }    = require('./get-data.js');
+  });
+const { getData }    = require('./get-data.js');
 
 app.set('view engine', 'pug');
 app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+        "connect-src": ["'self'", "wss:"]
+    }
+}));
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
 
@@ -32,6 +41,19 @@ app.get('/old.newest', (_req, res) => {
 });
 app.get('*', (_req, res) => res.redirect('/'));
 
+/*wsapp.ws('/ws', function(ws, _req) {
+    console.log('socket connected');
+    ws.on('message', (msg) => {
+        if (msg == 'ping') ws.send('pong');
+        else if (msg == 'update') {
+            let d = Object.assign({}, wsdata);
+            d.leaderboard = data.leaderboard;
+            ws.send(JSON.stringify(d));
+        }
+    })
+});
+
+wsapp.listen(3002);*/
 app.listen(3000);
 
 /**
@@ -45,19 +67,86 @@ app.listen(3000);
  * percent24: number,
  * progress: number}}
  * */
-var data, preRender, preRenderCharts;
-getData(pool).then(d => {
-    data = d;
-    preRender = renderIndex(data);
-    preRenderCharts = renderCharts();
-    buildCharts()
-});
+var data;
+//var wsdata;
+var preRender;
+var preRenderCharts;
+//var oldProgress;
+//var oldLeaderboard;
+//var pingTimer = 0;
+refreshData(true);
+setTimeout(buildCharts, 5000)
 
-function buildCharts() {
+async function refreshData(startup = false) {
+    getData(pool)
+      .then(d => {
+        if (data != d) {
+            data = d;
+            preRender = renderIndex(data);
+            preRenderCharts = renderCharts();
+        }
+        if (startup) {
+            //oldProgress = d.progress;
+            //oldLeaderboard = d.leaderboard;
+            //wsdata = formatData();
+            //setInterval(streamData, 250);
+        }
+      });
+      //.finally(setTimeout(refreshData, 1000));
+}
+/*async function streamData() {
+    if (wss.clients.size == 0) return
+    else if (oldProgress == data.progress) {
+        pingTimer++;
+        if (pingTimer > 80) {
+            pingTimer = 0;
+            console.log('no new data, sending ping to ' + wss.clients.size +
+                ' client' + (wss.clients.size > 1 ? 's' : ''));
+            wss.clients.forEach((client) => {
+                client.send('ping');
+            });
+        }
+    } else {
+        pingTimer = 0;
+        console.log('new data, sending to ' + wss.clients.size +
+            ' client' + (wss.clients.size > 1 ? 's' : ''));
+        wsdata = formatData();
+        let d = JSON.stringify(wsdata);
+        wss.clients.forEach((client) => {
+            client.send(d);
+        });
+    }
+}*/
+/*function formatData() {
+    let d = Object.assign({}, data);
+    const diff = d.progress - oldProgress;
+    oldProgress = d.progress;
+    var changes = 0;
+    var leaderboardChanges = [];
+    for (let entry of d.leaderboard) {
+        if (changes == diff) break
+        for (let oldEntry of oldLeaderboard) {
+            if (oldEntry.author == entry.author) {
+                if (oldEntry.comments != entry.comments) {
+                    leaderboardChanges.push(entry);
+                    changes++;
+                }
+                break
+            }
+        }
+    }
+    oldLeaderboard = d.leaderboard;
+    d.leaderboard = leaderboardChanges;
+    delete d.written;
+    delete d.remaining;
+    return d
+}*/
+
+
+async function buildCharts() {
+    buildCommentsPie();
     pool.query('SELECT timestamp FROM comments;')
       .then(stamps => buildCommentsHeat(stamps));
-    buildCommentsPie();
-    // new charts go here
 }
 var commentsPie = {
     chart: {
@@ -119,7 +208,12 @@ function buildCommentsPie() {
     for (let series of commentsPie.drilldown.series) {
         series.data = [];
     }
-    let lt300=0, lt100=0, lt50=0, lt10=0, lt5=0, lt2=0;
+    let lt300 = 0;
+    let lt100 = 0;
+    let lt50 = 0;
+    let lt10 = 0;
+    let lt5 = 0;
+    let lt2 = 0;
     for (let i = 0; i < data.leaderboard.length; i++) {
         let row = data.leaderboard[i];
         if (row.comments > 299) {
@@ -166,7 +260,11 @@ function buildCommentsPie() {
             ]);
         }
     }
-    lt300 += lt100 += lt50 += lt10 += lt5 += lt2;
+    lt5 += lt2;
+    lt10 += lt5;
+    lt50 += lt10;
+    lt100 += lt50;
+    lt300 += lt100;
     commentsPie.series[0].data.push({
         name: 'Less than 300',
         y: lt300,
@@ -212,12 +310,12 @@ var commentsHeat = {
         text: 'Comments per day',
         style: { color: '#797268' }
     },
-    subtitle: {
+    /*subtitle: {
         text: 'Try tapping/clicking a square',
         style: { color: '#797268' }
-    },
+    },*/
     caption: {
-        text: 'This chart is interactive!',
+        text: 'This chart is a work-in-progress',
         style: { color: '#797268' }
     },
     xAxis: {
@@ -289,7 +387,7 @@ function buildCommentsHeat(stamps) {
         /**@type {[number, number, number][]}*/
         data: []
     }];
-    // sorts timestamps into series
+    // sorts timestamps into days
     for (let i = 0; i < stamps.length; i++) {
         let time = new Date(stamps[i].timestamp * 1000);
         let series = drilldownSeries[drilldownSeries.length - 1];
@@ -297,7 +395,6 @@ function buildCommentsHeat(stamps) {
         if (time < seriesEnd) {
             series.data.push(time);
         } else {
-            series.name = series.id;
             drilldownSeries.push({
                 name: seriesEnd,
                 id: seriesEnd.toLocaleDateString().slice(0,-5).replace('/','-'),
@@ -306,15 +403,17 @@ function buildCommentsHeat(stamps) {
             i--;
         }
     }
-    // finishes configuring drilldown & builds top level series
-    let dataTemplate = [];
-    for (let x=0, y=0; y < 24; x==59 ? x=0 & y++ : x++ ) {
-        dataTemplate.push([x, y, 0]);
-    }
-    for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
+    // finishes configuring drilldown, leaving day's count at end of series data
+    for (let i = 0; i < drilldownSeries.length; i++) {
         /**@type {Date[]}*/
         let timestamps = drilldownSeries[i].data;
-        drilldownSeries[i].data = dataTemplate;
+        drilldownSeries[i].data = [];
+        // adds a datapoint for every minute in series
+        for (let y = 0; y < 24; y++) {
+            for (let x = 0; x < 60; x++) {
+                drilldownSeries[i].data.push([x, y, 0]);
+            }
+        }
         // adds a count for every timestamp on that day
         for (let time of timestamps) {
             let hours = parseInt(time.getHours());
@@ -322,16 +421,22 @@ function buildCommentsHeat(stamps) {
             let index = drilldownSeries[i].data.findIndex(arr => arr[0] == minutes ? arr[1] == hours ? true : false : false);
             drilldownSeries[i].data[index][2]++;
         }
-        ///////////////////// try removing empty datapoints in drilldown? //////////////////////////
-        // builds top level series from drilldown series
+        // stores the day's count as the last datapoint, to be popped later
+        drilldownSeries[i].data.push(timestamps.length);
+    }
+    // builds top level series from drilldown series, pops days count
+    for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
         topData.push({
             x: x,
             y: y,
-            value: timestamps.length,
+            value: drilldownSeries[i].data.pop(),
             drilldown: drilldownSeries[i].id
         });
     }
     // appends the parsed data to the chart object
+    for (let series of drilldownSeries) {
+        series.name = series.id
+    }
     commentsHeat.drilldown.series = drilldownSeries;
     commentsHeat.series[0].data = topData;
     console.log('commentsHeat loaded');

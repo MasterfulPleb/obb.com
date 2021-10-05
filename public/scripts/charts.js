@@ -1,7 +1,8 @@
 'use strict';
 
-var darkmode;
-var lastChart;
+var darkmode,
+    lastChart,
+    chart;
 
 document.addEventListener('DOMContentLoaded', function() {
     // checks cookies and sets darkmode/view accordingly
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             lastChart.chart.backgroundColor = '#282828';
             lastChart.colorAxis[0].stops[0][1] = '#282828';
         }
-        const chart = Highcharts.chart('chart', lastChart);
+        chart = Highcharts.chart('chart', lastChart);
     });
 
     // listeners & stuff for navigation menu
@@ -33,9 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(data);
             if (!darkmode) data.chart.backgroundColor = '#faebd7';
             lastChart = data;
-            const chart = Highcharts.chart('chart', data);
+            chart = Highcharts.chart('chart', data);
           });
     })
+    // additional config for comments/day heatmap
     document.getElementById('nav-comments-day').addEventListener('click', () => {
         fetch('https://test.ouijabeederboard.com/charts/commentsHeat')
           .then(res => res.json())
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             };
             lastChart = data;
-            const chart = Highcharts.chart('chart', data);
+            chart = Highcharts.chart('chart', data);
           });
     })
 
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(data);
         if (!darkmode) data.chart.backgroundColor = '#faebd7';
         lastChart = data;
-        const chart = Highcharts.chart('chart', data);
+        chart = Highcharts.chart('chart', data);
       });
 });
 
