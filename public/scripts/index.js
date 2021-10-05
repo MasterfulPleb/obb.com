@@ -84,9 +84,9 @@ function changeView(view, setCook = true) {
         liveProgress = document.getElementById('live-progress'),
         stats = document.getElementById('stats'),
         textWall = document.getElementById('text-wall'),
-        wah = document.getElementById('we-are-here'),
-        percent = document.getElementById('percent'),
-        percent24 = document.getElementById('percent24');
+        wah = document.getElementsByClassName('we-are-here')[0],
+        percent = document.getElementsByClassName('percent')[0],
+        percent24 = document.getElementsByClassName('percent24')[0];
     if (view == 'leaderboard') {
         leaderboard.style.marginRight = '0';
         data.className = liveProgress.className =
