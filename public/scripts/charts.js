@@ -28,16 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
-    document.getElementById('nav-comments-user').addEventListener('click', () => 
-        window.history.pushState({}, '', '#commentsPie'));
-    document.getElementById('nav-comments-day').addEventListener('click', () => 
-        window.history.pushState({}, '', '#commentsHeat'));
-    document.getElementById('nav-letters-used').addEventListener('click', () => 
-        window.history.pushState({}, '', '#lettersColumn'));
+    document.getElementById('nav-comments-user').addEventListener('click', () => hashDirect('#commentsPie'));
+    document.getElementById('nav-comments-day').addEventListener('click', () => hashDirect('#commentsHeat'));
+    document.getElementById('nav-letters-used').addEventListener('click', () => hashDirect('#lettersColumn'));
 
     // checks URL hash to see if certain chart requested
     hashDirect();
-    window.onhashchange = () => hashDirect();
 });
 
 
@@ -88,8 +84,13 @@ function changeMode(dark = true, setCook = true) {
 }
 
 //fetches proper chart based on hash and performs modifications
-function hashDirect() {
-    const hash = new URL(window.location.href).hash;
+function hashDirect(newHash = '') {
+    var hash;
+    if (newHash == '') hash = new URL(window.location.href).hash;
+    else {
+        window.history.pushState({}, '', newHash);
+        hash = newHash;
+    }
     if (hash == '') {
         fetchChart('commentsPie');
     } else if (hash == '#commentsHeat') {
