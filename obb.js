@@ -314,11 +314,8 @@ function buildCommentsHeat(stamps) {
     for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
         /**@type {Date[]}*/
         let timestamps = drilldownSeries[i].data;
-        drilldownSeries[i].data = dataTemplate.slice();
+        drilldownSeries[i].data = JSON.parse(JSON.stringify(dataTemplate));
         drilldownSeries[i].name = drilldownSeries[i].id;
-
-        if (i==0) console.log(drilldownSeries[i].data);
-
         // adds a count for every timestamp on that day
         for (let time of timestamps) {
             let hours = parseInt(time.getHours());
@@ -326,9 +323,6 @@ function buildCommentsHeat(stamps) {
             let index = drilldownSeries[i].data.findIndex(arr => arr[0] == minutes ? arr[1] == hours ? true : false : false);
             drilldownSeries[i].data[index][2]++;
         }
-
-        if (i==0) console.log(drilldownSeries[i].data);
-        
         ///////////////////// try removing empty datapoints in drilldown? //////////////////////////
         // builds top level series from drilldown series
         topData.push({
