@@ -1,32 +1,33 @@
 'use strict';
+
+const charts = {
+    build: function(/**@type {mariadb.Pool}*/pool,
+            /**
+            * @type {{
+            * leaderboard: {author: string, comments: number}[],
+            * lastWritten: string,
+            * firstRemaining: string,
+            * written: string,
+            * remaining: string,
+            * percent: number,
+            * percent24: number,
+            * progress: number}}
+            * */
+            data) {
+        pool.query('SELECT timestamp FROM comments;')
+        .then(stamps => buildCommentsHeat(stamps));
+        pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
+        .then(letters => buildLettersColumn(letters));
+        pool.query('SELECT author FROM comments;')
+        .then(authors => buildRepliesDependency(authors, data));
+        buildCommentsPie(data);
+        // new charts go here
+    }
+};
+
 exports.charts = charts;
 
 const mariadb = require('mariadb');
-
-const charts = {};
-
-charts.build = function(/**@type {mariadb.Pool}*/pool,
-        /**
-        * @type {{
-        * leaderboard: {author: string, comments: number}[],
-        * lastWritten: string,
-        * firstRemaining: string,
-        * written: string,
-        * remaining: string,
-        * percent: number,
-        * percent24: number,
-        * progress: number}}
-        * */
-        data) {
-    pool.query('SELECT timestamp FROM comments;')
-      .then(stamps => buildCommentsHeat(stamps));
-    pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
-      .then(letters => buildLettersColumn(letters));
-    pool.query('SELECT author FROM comments;')
-      .then(authors => buildRepliesDependency(authors, data));
-    buildCommentsPie(data);
-    // new charts go here
-}
 
 
 var commentsPie = {
