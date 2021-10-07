@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('nav-comments-user').addEventListener('click', () => hashDirect('#commentsPie'));
     document.getElementById('nav-comments-day').addEventListener('click', () => hashDirect('#commentsHeat'));
     document.getElementById('nav-letters-used').addEventListener('click', () => hashDirect('#lettersColumn'));
+    document.getElementById('nav-letters-used').addEventListener('click', () => hashDirect('#repliesDependency'));
 
     // checks URL hash to see if certain chart requested
     hashDirect();

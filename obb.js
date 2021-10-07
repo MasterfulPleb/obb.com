@@ -25,6 +25,7 @@ app.get('/charts(#*)?', (_req, res) => res.send(preRenderCharts));
 app.get('/charts/commentsPie', (_req, res) => res.send(commentsPie));
 app.get('/charts/commentsHeat', (_req, res) => res.send(commentsHeat));
 app.get('/charts/lettersColumn', (_req, res) => res.send(lettersColumn));
+app.get('/charts/repliesDependency', (_req, res) => res.send(repliesDependency));
 app.get('/newest', (_req, res) => {
     res.redirect('https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/hemsuuz/?context=3');
 });
@@ -59,6 +60,8 @@ function buildCharts() {
       .then(stamps => buildCommentsHeat(stamps));
     pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
       .then(letters => buildLettersColumn(letters));
+    pool.query('SELECT author FROM comments;')
+      .then(authors => buildRepliesDependency(authors));
     buildCommentsPie();
     // new charts go here
 }
@@ -379,4 +382,50 @@ function buildLettersColumn(letters) {
         lettersColumn.xAxis.categories.push(arr[i].body);
         lettersColumn.series[0].data.push(arr[i].letters);
     }
+    console.log('lettersColumn loaded');
+}
+
+var repliesDependency = {
+    chart: {
+        backgroundColor: '#282828'
+    },
+    title: {
+        text: 'Replies between top 23',
+        style: { color: '#797268' }
+    },
+    subtitle: {
+        text: 'Dependency wheel showing # of times each user with 200+ comments replied to eachother',
+        style: { color: '#797268' }
+    },
+    series: [{
+        keys: ['from', 'to', 'weight'],
+        data: []
+    }]
+};
+function buildRepliesDependency(authors) {
+    var whitelist = [];
+    for (let i = 0; i < 23; i++) {// determines # of users in chart
+        whitelist.push(data.leaderboard[i].author)
+    }
+    var relations = {};
+    for (let i = 1; i < authors.length; i++) {// builds relations object
+        if (!whitelist.includes(authors[i].author)) continue
+        if (!whitelist.includes(authors[i-1].author)) continue
+        if (relations[authors[i].author] == undefined) {
+            relations[authors[i].author] = {};
+            relations[authors[i].author][authors[i-1].author] = 1;
+        } else if (relations[authors[i].author][authors[i-1].author] == undefined) {
+            relations[authors[i].author][authors[i-1].author] = 1;
+        } else relations[authors[i].author][authors[i-1].author]++;
+    }
+    for (let replier in relations) {// flattens relations object into array in chart data
+        for (let repliee in relations[replier]) {
+            repliesDependency.series[0].data.push([
+                replier,
+                repliee,
+                relations[replier][repliee]
+            ])
+        }
+    }
+    console.log('repliesDependency loaded');
 }
