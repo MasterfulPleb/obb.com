@@ -398,8 +398,21 @@ var repliesDependency = {
         style: { color: '#797268' }
     },
     series: [{
+        name: 'Dependency wheel series',
         keys: ['from', 'to', 'weight'],
-        data: []
+        data: [],
+        type: 'dependencywheel',
+        dataLabels: {
+            color: '#333',
+            textPath: {
+                enabled: true,
+                attributes: {
+                    dy: 5
+                }
+            },
+            distance: 10
+        },
+        size: '95%'
     }]
 };
 function buildRepliesDependency(authors) {
