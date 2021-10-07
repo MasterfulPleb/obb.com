@@ -403,7 +403,7 @@ var repliesDependency = {
         data: [],
         type: 'dependencywheel',
         dataLabels: {
-            color: '#333',
+            color: '#797268',
             textPath: {
                 enabled: true,
                 attributes: {
