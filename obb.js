@@ -394,7 +394,7 @@ var repliesDependency = {
         style: { color: '#797268' }
     },
     subtitle: {
-        text: 'Dependency wheel showing # of times each user with 200+ comments replied to eachother',
+        text: 'Dependency wheel showing # of times each user with over 200 comments replied to eachother',
         style: { color: '#797268' }
     },
     series: [{
@@ -417,7 +417,7 @@ var repliesDependency = {
 };
 function buildRepliesDependency(authors) {
     var whitelist = [];
-    for (let i = 0; i < 23; i++) {// determines # of users in chart
+    for (let i = 0; i < 22; i++) {// determines # of users in chart
         whitelist.push(data.leaderboard[i].author)
     }
     var relations = {};
