@@ -14,7 +14,7 @@ mariadb        = require('mariadb'),
     connectionLimit: 5,
  }),
 { getData }    = require('./get-data.js'),
-{ charts }     = require('./built/charts.js'),
+{ charts }     = require('./built/build-charts.js'),
 preRender      = {};
 
 getData(pool).then(data => {
