@@ -4,7 +4,8 @@
   "description": "",
   "main": "obb.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "update": "git pull && npx tsc",
+    "build": "npx tsc"
   },
   "author": "MasterfulPleb",
   "license": "ISC",
