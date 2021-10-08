@@ -2,6 +2,7 @@
 
 import * as mariadb from 'mariadb';
 
+
 type Data = {
     leaderboard: {
         author: string,
