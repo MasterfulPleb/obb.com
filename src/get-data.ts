@@ -1,15 +1,25 @@
 'use strict';
-exports.getData = getData;
 
-const fs = require('fs/promises');
-const mariadb = require('mariadb');
+import * as fs from 'fs/promises';
+import * as mariadb from'mariadb';
 
-var lastID;
-var lastData;
+type Data = {
+    leaderboard: {
+        author: string,
+        comments: number
+    }[],
+    lastWritten: string,
+    firstRemaining: string,
+    written: string,
+    remaining: string,
+    percent: number,
+    percent24: number,
+    progress: number
+};
 
-async function getData(/**@type {mariadb.Pool}*/pool) {
-    const newest = await pool.query('SELECT ID FROM comments ORDER BY timestamp DESC LIMIT 1;');
-    if (newest[0].ID == lastID) return lastData
+var lastData: Data;
+
+async function getData(pool: mariadb.Pool) {
     const prep = await Promise.all([
         pool.getConnection(),
         fs.readFile('/home/justin/scraper/bee-movie-comment-updater/written.txt', {encoding: 'utf8'}),
@@ -29,13 +39,12 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
     var remaining = prep[2].slice(1);
     var lastWritten = parseLastWritten(written);
     var firstRemaining = parseFirstRemaining(remaining);
-    var percent = parseInt(written.length * 10000 / (written.length + remaining.length)) / 100;
+    var percent = 100;
     const querys = await query;
     conn.release();
     var leaderboard = querys[0];
-    var percent24 = parseInt(querys[1][0].comments24h * 10000 / (written.length + remaining.length)) / 100;
+    var percent24 = 0;
     var progress = written.length;
-    lastID = querys[2][0].ID
     lastData = {
         leaderboard: leaderboard,
         lastWritten: lastWritten,
@@ -46,23 +55,24 @@ async function getData(/**@type {mariadb.Pool}*/pool) {
         percent24: percent24,
         progress: progress
     };
-    return lastData
+    return lastData;
 }
-function parseLastWritten(written) {
+function parseLastWritten(written: string) {
     let temp = written.slice(written.length - 10);
     let lw = '';
     for (let i = 0; i < 10; i++) {
         lw += temp.slice(i, i+1);
-        if (i != 9) lw += ' '
+        if (i != 9) lw += ' ';
     }
-    return lw
+    return lw;
 }
-function parseFirstRemaining(remaining) {
+function parseFirstRemaining(remaining: string) {
     let temp = remaining.slice(0, 10);
     let fr = '';
     for (let i = 0; i < 10; i++) {
         fr += temp.slice(i, i+1);
-        if (i != 9) fr += ' '
+        if (i != 9) fr += ' ';
     }
-    return fr
+    return fr;
 }
+export {getData};

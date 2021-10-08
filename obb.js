@@ -13,7 +13,7 @@ mariadb        = require('mariadb'),
     database: 'bee_movie',
     connectionLimit: 5,
  }),
-{ getData }    = require('./get-data.js'),
+{ getData }    = require('./built/get-data.js'),
 { charts }     = require('./built/build-charts.js'),
 preRender      = {};
 
