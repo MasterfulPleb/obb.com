@@ -1,5 +1,7 @@
 'use strict';
 
+import * as mariadb from 'mariadb';
+
 type Data = {
     leaderboard: {
         author: string,
@@ -12,13 +14,13 @@ type Data = {
     percent: number,
     percent24: number,
     progress: number
-}
+};
 type DBdata = {
     timestamp: number,
     body: string,
     letters: number,
     author: string
-}[]
+}[];
 
 const charts = {
     build: function(pool: mariadb.Pool, data: Data) {
@@ -36,10 +38,6 @@ const charts = {
     lettersColumn,
     repliesDependency
 };
-import * as mariadb from 'mariadb';
-
-exports.charts = charts;
-
 
 var commentsPie = {
     chart: {
@@ -425,3 +423,5 @@ function buildRepliesDependency(authors: DBdata, data: Data) {
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
 }
+
+export { charts };

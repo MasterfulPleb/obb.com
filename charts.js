@@ -1,5 +1,4 @@
 'use strict';
-
 const charts = {
     build: function (pool, data) {
         pool.query('SELECT timestamp FROM comments;')
@@ -16,9 +15,7 @@ const charts = {
     lettersColumn,
     repliesDependency
 };
-
-exports.charts = charts;
-
+//exports.charts = charts;
 var commentsPie = {
     chart: {
         type: 'pie',
@@ -162,7 +159,6 @@ function buildCommentsPie(data) {
     charts.commentsPie = commentsPie;
     console.log('commentsPie loaded');
 }
-
 var commentsHeat = {
     chart: {
         type: 'heatmap',
@@ -296,7 +292,6 @@ function buildCommentsHeat(stamps) {
     charts.commentsHeat = commentsHeat;
     console.log('commentsHeat loaded');
 }
-
 var lettersColumn = {
     chart: {
         type: 'column',
@@ -346,7 +341,6 @@ function buildLettersColumn(letters) {
     charts.lettersColumn = lettersColumn;
     console.log('lettersColumn loaded');
 }
-
 var repliesDependency = {
     chart: {
         backgroundColor: '#282828'
@@ -410,3 +404,4 @@ function buildRepliesDependency(authors, data) {
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
 }
+export { charts };
