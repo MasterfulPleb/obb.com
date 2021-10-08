@@ -2,7 +2,7 @@
   "name": "obb.com",
   "version": "1.0.23",
   "description": "",
-  "main": "obb.js",
+  "main": "liveobb.js",
   "scripts": {
     "update": "git pull && npm run build",
     "update-live": "git pull && npm run build-live",
