@@ -39,6 +39,8 @@ const charts = {
     repliesDependency
 };
 
+exports.charts = charts;
+
 var commentsPie = {
     chart: {
         type: 'pie',
@@ -423,5 +425,3 @@ function buildRepliesDependency(authors: DBdata, data: Data) {
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
 }
-
-export { charts };

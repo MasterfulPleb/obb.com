@@ -1,4 +1,5 @@
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 const charts = {
     build: function (pool, data) {
         pool.query('SELECT timestamp FROM comments;')
@@ -15,7 +16,7 @@ const charts = {
     lettersColumn,
     repliesDependency
 };
-//exports.charts = charts;
+exports.charts = charts;
 var commentsPie = {
     chart: {
         type: 'pie',
@@ -404,4 +405,3 @@ function buildRepliesDependency(authors, data) {
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
 }
-export { charts };
