@@ -2,6 +2,7 @@
 const express  = require('express'),
   app          = express(),
 helmet         = require('helmet'),
+compression    = require('compression'),
 favicon        = require('serve-favicon'),
 pug            = require('pug'),
   renderIndex  = pug.compileFile('./views/index.pug'),
@@ -13,8 +14,8 @@ mariadb        = require('mariadb'),
     database: 'bee_movie',
     connectionLimit: 5,
  }),
-{ getData }    = require('./built/get-data.js'),
-{ charts }     = require('./built/build-charts.js'),
+{ getData }    = require('./types/built/get-data.js'),
+{ charts }     = require('./types/built/build-charts.js'),
 preRender      = {};
 
 getData(pool).then(data => {
@@ -25,7 +26,8 @@ getData(pool).then(data => {
 
 app.set('view engine', 'pug');
 app.use(helmet());
-app.use(favicon('./public/favicon.ico'));
+app.use(compression());
+app.use(favicon('./public/images/favicon.ico'));
 app.use('/public', express.static('public'));
 //app.use('/public/scripts/charts.js', express.static('built/charts.js'));
 

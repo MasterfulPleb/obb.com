@@ -4,20 +4,24 @@
   "description": "",
   "main": "obb.js",
   "scripts": {
-    "update": "git pull && npx tsc",
-    "build": "npx tsc"
+    "update": "git pull && npm run build",
+    "update-live": "git pull && npm run build-live",
+    "build": "npx tsc",
+    "build-live": "npx tsc && npm run minify-js && npm run minify-css",
+    "minify-js": "npx terser -c -m -o public/scripts/index.min.js -- public/scripts/index.js && npx terser -c -m -o public/scripts/charts.min.js -- public/scripts/charts.js",
+    "minify-css": "npx cleancss -O 2 -o public/styles/index.min.css public/styles/index.css && npx cleancss -O 2 -o public/styles/shared.min.css public/styles/shared.css"
   },
   "author": "MasterfulPleb",
   "license": "ISC",
   "dependencies": {
+    "clean-css": "^5.2.1",
+    "compression": "^1.7.4",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
-    "highcharts": "^9.2.2",
     "mariadb": "^2.5.4",
     "pug": "^3.0.2",
     "serve-favicon": "^2.5.0",
     "terser": "^5.9.0",
-    "typescript": "^4.4.3",
-    "ws": "^8.2.2"
+    "typescript": "^4.4.3"
   }
 }

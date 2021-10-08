@@ -3,6 +3,8 @@
 import * as fs from 'fs/promises';
 import * as mariadb from'mariadb';
 
+export {getData};
+
 type Data = {
     leaderboard: {
         author: string,
@@ -75,4 +77,3 @@ function parseFirstRemaining(remaining: string) {
     }
     return fr;
 }
-export {getData};

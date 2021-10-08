@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "outDir": "./built",
+        "outDir": "./types/built",
         "allowJs": true,
         "target": "ES6",
         "module": "commonjs",
         "moduleResolution": "node",
     },
-    "include": ["src/**/*"],
+    "include": ["types/src/**/*"],
 }

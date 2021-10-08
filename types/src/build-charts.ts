@@ -2,6 +2,8 @@
 
 import * as mariadb from 'mariadb';
 
+export {charts};
+
 type Data = {
     leaderboard: {
         author: string,
@@ -424,5 +426,3 @@ function buildRepliesDependency(authors: DBdata, data: Data) {
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
 }
-
-export {charts}
