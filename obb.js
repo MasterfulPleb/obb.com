@@ -14,10 +14,8 @@ mariadb        = require('mariadb'),
     connectionLimit: 5,
  }),
 { getData }    = require('./get-data.js'),
-//{ charts }     = require('./charts.js'),
+{ charts }     = require('./charts.js'),
 preRender      = {};
-
-import charts from './charts.ts'
 
 getData(pool).then(data => {
     preRender.index = renderIndex(data);

@@ -307,6 +307,8 @@ function buildCommentsHeat(stamps: DBdata) {
             value: drilldownSeries[i].stamps.length,
             drilldown: drilldownSeries[i].id
         });
+        delete drilldownSeries[i].time;
+        delete drilldownSeries[i].stamps;
     }
     // appends the parsed data to the chart object
     commentsHeat.drilldown.series = drilldownSeries;
