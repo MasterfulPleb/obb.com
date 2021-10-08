@@ -14,7 +14,7 @@ mariadb        = require('mariadb'),
     connectionLimit: 5,
  }),
 { getData }    = require('./get-data.js'),
-{ charts }     = require('./charts.js'),
+{ charts }     = require('./built/charts.js'),
 preRender      = {};
 
 getData(pool).then(data => {
@@ -27,6 +27,7 @@ app.set('view engine', 'pug');
 app.use(helmet());
 app.use(favicon('./public/favicon.ico'));
 app.use('/public', express.static('public'));
+//app.use('/public/scripts/charts.js', express.static('built/charts.js'));
 
 app.get('/', (_req, res) => res.send(preRender.index));
 app.get('/charts(#*)?', (_req, res) => res.send(preRender.charts));

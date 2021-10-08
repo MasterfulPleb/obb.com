@@ -2,3 +2,7 @@
 node_modules/
 
 public/highcharts/
+
+built/
+
+old/

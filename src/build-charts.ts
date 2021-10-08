@@ -1,13 +1,35 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
+
+import * as mariadb from 'mariadb';
+
+type Data = {
+    leaderboard: {
+        author: string,
+        comments: number
+    }[],
+    lastWritten: string,
+    firstRemaining: string,
+    written: string,
+    remaining: string,
+    percent: number,
+    percent24: number,
+    progress: number
+};
+type DBdata = {
+    timestamp: number,
+    body: string,
+    letters: number,
+    author: string
+}[];
+
 const charts = {
-    build: function (pool, data) {
+    build: function(pool: mariadb.Pool, data: Data) {
         pool.query('SELECT timestamp FROM comments;')
-            .then(stamps => buildCommentsHeat(stamps));
+        .then(stamps => buildCommentsHeat(stamps));
         pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
-            .then(letters => buildLettersColumn(letters));
+        .then(letters => buildLettersColumn(letters));
         pool.query('SELECT author FROM comments;')
-            .then(authors => buildRepliesDependency(authors, data));
+        .then(authors => buildRepliesDependency(authors, data));
         buildCommentsPie(data);
         // new charts go here
     },
@@ -16,7 +38,9 @@ const charts = {
     lettersColumn,
     repliesDependency
 };
+
 exports.charts = charts;
+
 var commentsPie = {
     chart: {
         type: 'pie',
@@ -36,44 +60,44 @@ var commentsPie = {
         style: { 'color': "#797268" }
     },
     series: [{
-            name: 'Comments',
-            data: []
-        }],
+        name: 'Comments',
+        data: []
+    }],
     drilldown: {
         series: [{
-                name: 'Less than 300',
-                id: 'lt300',
-                data: []
-            },
-            {
-                name: 'Less than 100',
-                id: 'lt100',
-                data: []
-            },
-            {
-                name: 'Less than 50',
-                id: 'lt50',
-                data: []
-            },
-            {
-                name: 'Less than 10',
-                id: 'lt10',
-                data: []
-            },
-            {
-                name: 'Less than 5',
-                id: 'lt5',
-                data: []
-            },
-            {
-                name: 'Single comment',
-                id: 'lt2',
-                data: []
-            }]
+            name: 'Less than 300',
+            id: 'lt300',
+            data: []
+        },
+        {
+            name: 'Less than 100',
+            id: 'lt100',
+            data: []
+        },
+        {
+            name: 'Less than 50',
+            id: 'lt50',
+            data: []
+        },
+        {
+            name: 'Less than 10',
+            id: 'lt10',
+            data: []
+        },
+        {
+            name: 'Less than 5',
+            id: 'lt5',
+            data: []
+        },
+        {
+            name: 'Single comment',
+            id: 'lt2',
+            data: []
+        }]
     }
 };
-function buildCommentsPie(data) {
-    let lt300 = 0, lt100 = 0, lt50 = 0, lt10 = 0, lt5 = 0, lt2 = 0;
+function buildCommentsPie(data: Data) {
+    let lt300=0, lt100=0, lt50=0, lt10=0, lt5=0, lt2=0;
     for (let i = 0; i < data.leaderboard.length; i++) {
         let row = data.leaderboard[i];
         if (row.comments > 299) {
@@ -82,44 +106,38 @@ function buildCommentsPie(data) {
                 y: row.comments,
                 drilldown: null
             });
-        }
-        else if (row.comments < 300 && row.comments > 99) {
-            lt300 += row.comments;
+        } else if (row.comments < 300 && row.comments > 99) {
+            lt300 += row.comments
             commentsPie.drilldown.series[0].data.push([
                 row.author,
                 row.comments
             ]);
-        }
-        else if (row.comments < 100 && row.comments > 49) {
-            lt100 += row.comments;
+        } else if (row.comments < 100 && row.comments > 49) {
+            lt100 += row.comments
             commentsPie.drilldown.series[1].data.push([
                 row.author,
                 row.comments
             ]);
-        }
-        else if (row.comments < 50 && row.comments > 9) {
-            lt50 += row.comments;
+        } else if (row.comments < 50 && row.comments > 9) {
+            lt50 += row.comments
             commentsPie.drilldown.series[2].data.push([
                 row.author,
                 row.comments
             ]);
-        }
-        else if (row.comments < 10 && row.comments > 4) {
-            lt10 += row.comments;
+        } else if (row.comments < 10 && row.comments > 4) {
+            lt10 += row.comments
             commentsPie.drilldown.series[3].data.push([
                 row.author,
                 row.comments
             ]);
-        }
-        else if (row.comments < 5 && row.comments > 1) {
-            lt5 += row.comments;
+        } else if (row.comments < 5 && row.comments > 1) {
+            lt5 += row.comments
             commentsPie.drilldown.series[4].data.push([
                 row.author,
                 row.comments
             ]);
-        }
-        else if (row.comments == 1) {
-            lt2 += row.comments;
+        } else if (row.comments == 1) {
+            lt2 += row.comments
             commentsPie.drilldown.series[5].data.push([
                 row.author,
                 row.comments
@@ -160,6 +178,7 @@ function buildCommentsPie(data) {
     charts.commentsPie = commentsPie;
     console.log('commentsPie loaded');
 }
+
 var commentsHeat = {
     chart: {
         type: 'heatmap',
@@ -183,7 +202,7 @@ var commentsHeat = {
     },
     xAxis: {
         title: { text: 'Weeks' },
-        categories: ['7/4', '7/11', '7/18', '7/25', '8/1', '8/8', '8/15', '8/22', '8/29', '9/5', '9/12', '9/19', '9/26']
+        categories: ['7/4','7/11','7/18','7/25','8/1','8/8','8/15','8/22','8/29','9/5','9/12','9/19','9/26']
     },
     yAxis: {
         title: { text: 'Days' },
@@ -215,15 +234,15 @@ var commentsHeat = {
         symbolHeight: 500
     },
     series: [{
-            name: 'Comments per day',
-            borderWidth: 1,
-            colorAxis: 1,
-            data: [],
-            dataLabels: {
-                enabled: true,
-                color: '#000000'
-            }
-        }],
+        name: 'Comments per day',
+        borderWidth: 1,
+        colorAxis: 1,
+        data: [],
+        dataLabels: {
+            enabled: true,
+            color: '#000000'
+        }
+    }],
     drilldown: {
         activeAxisLabelStyle: {
             cursor: 'undefined',
@@ -234,15 +253,20 @@ var commentsHeat = {
         series: []
     }
 };
-function buildCommentsHeat(stamps) {
-    let topData = [];
-    let drilldownSeries = [{
-            name: new Date(1625630400000).toLocaleDateString().slice(0, -5),
-            id: new Date(1625630400000).toLocaleDateString().slice(0, -5),
-            time: new Date(1625630400000),
-            stamps: [],
-            data: []
-        }];
+function buildCommentsHeat(stamps: DBdata) {
+    let topData: {
+        x: number,
+        y: number,
+        value: number,
+        drilldown: string|null
+    }[] = [];
+    let drilldownSeries: {name: string, id: string, time: Date, stamps: Date[], data: [number, number, number][]}[] = [{
+        name: new Date(1625630400000).toLocaleDateString().slice(0,-5),
+        id: new Date(1625630400000).toLocaleDateString().slice(0,-5),
+        time: new Date(1625630400000),
+        stamps: [],
+        data: []
+    }];
     // sorts timestamps into series
     for (let i = 0; i < stamps.length; i++) {
         let time = new Date(stamps[i].timestamp * 1000);
@@ -250,11 +274,10 @@ function buildCommentsHeat(stamps) {
         let seriesEnd = new Date(series.time.getTime() + 86400000);
         if (time < seriesEnd) {
             series.stamps.push(time);
-        }
-        else {
+        } else {
             drilldownSeries.push({
-                name: seriesEnd.toLocaleDateString().slice(0, -5),
-                id: seriesEnd.toLocaleDateString().slice(0, -5),
+                name: seriesEnd.toLocaleDateString().slice(0,-5),
+                id: seriesEnd.toLocaleDateString().slice(0,-5),
                 time: seriesEnd,
                 stamps: [],
                 data: []
@@ -263,11 +286,11 @@ function buildCommentsHeat(stamps) {
         }
     }
     // finishes configuring drilldown & builds top level series
-    let dataTemplate = [];
-    for (let x = 0, y = 0; y < 24; x == 59 ? x = 0 & y++ : x++) {
+    let dataTemplate: [number, number, 0][] = [];
+    for (let x=0, y=0; y < 24; x==59 ? x=0 & y++ : x++ ) {
         dataTemplate.push([x, y, 0]);
     }
-    for (let i = 0, x = 0, y = 3; i < drilldownSeries.length; i++, y == 6 ? y = 0 & x++ : y++) {
+    for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
         drilldownSeries[i].data = JSON.parse(JSON.stringify(dataTemplate));
         // adds a count for every timestamp on that day
         for (let time of drilldownSeries[i].stamps) {
@@ -293,6 +316,7 @@ function buildCommentsHeat(stamps) {
     charts.commentsHeat = commentsHeat;
     console.log('commentsHeat loaded');
 }
+
 var lettersColumn = {
     chart: {
         type: 'column',
@@ -329,11 +353,11 @@ var lettersColumn = {
         }
     },
     series: [{
-            name: 'Letters',
-            data: []
-        }]
+        name: 'Letters',
+        data: []
+    }]
 };
-function buildLettersColumn(letters) {
+function buildLettersColumn(letters: DBdata) {
     let arr = letters.slice(11).concat(letters.slice(0, 10));
     for (let i = 0; i < arr.length; i++) {
         lettersColumn.xAxis.categories.push(arr[i].body);
@@ -342,6 +366,7 @@ function buildLettersColumn(letters) {
     charts.lettersColumn = lettersColumn;
     console.log('lettersColumn loaded');
 }
+
 var repliesDependency = {
     chart: {
         backgroundColor: '#282828'
@@ -355,45 +380,40 @@ var repliesDependency = {
         style: { color: '#797268' }
     },
     series: [{
-            name: 'Comments from → to',
-            keys: ['from', 'to', 'weight'],
-            data: [],
-            type: 'dependencywheel',
-            dataLabels: {
-                color: '#797268',
-                textPath: {
-                    enabled: true,
-                    attributes: {
-                        dy: 5
-                    }
-                },
-                distance: 10
+        name: 'Comments from → to',
+        keys: ['from', 'to', 'weight'],
+        data: [],
+        type: 'dependencywheel',
+        dataLabels: {
+            color: '#797268',
+            textPath: {
+                enabled: true,
+                attributes: {
+                    dy: 5
+                }
             },
-            size: '95%'
-        }]
+            distance: 10
+        },
+        size: '95%'
+    }]
 };
-function buildRepliesDependency(authors, data) {
+function buildRepliesDependency(authors: DBdata, data: Data) {
     var whitelist = [];
-    for (let i = 0; i < 22; i++) { // determines # of users in chart
+    for (let i = 0; i < 22; i++) {// determines # of users in chart
         whitelist.push(data.leaderboard[i].author);
     }
     var relations = {};
-    for (let i = 1; i < authors.length; i++) { // builds relations object
-        if (!whitelist.includes(authors[i].author))
-            continue;
-        if (!whitelist.includes(authors[i - 1].author))
-            continue;
+    for (let i = 1; i < authors.length; i++) {// builds relations object
+        if (!whitelist.includes(authors[i].author)) continue;
+        if (!whitelist.includes(authors[i-1].author)) continue;
         if (relations[authors[i].author] == undefined) {
             relations[authors[i].author] = {};
-            relations[authors[i].author][authors[i - 1].author] = 1;
-        }
-        else if (relations[authors[i].author][authors[i - 1].author] == undefined) {
-            relations[authors[i].author][authors[i - 1].author] = 1;
-        }
-        else
-            relations[authors[i].author][authors[i - 1].author]++;
+            relations[authors[i].author][authors[i-1].author] = 1;
+        } else if (relations[authors[i].author][authors[i-1].author] == undefined) {
+            relations[authors[i].author][authors[i-1].author] = 1;
+        } else relations[authors[i].author][authors[i-1].author]++;
     }
-    for (let replier in relations) { // flattens relations object into array in chart data
+    for (let replier in relations) {// flattens relations object into array in chart data
         for (let repliee in relations[replier]) {
             repliesDependency.series[0].data.push([
                 replier,
