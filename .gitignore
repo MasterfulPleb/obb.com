@@ -1,8 +1,11 @@
 # Dependencies
 node_modules/
 
+# locally hosted highcharts
 public/highcharts/
 
+# typescript output files
 built/
 
+# just some old files i might want to look at again
 old/
