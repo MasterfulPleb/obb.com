@@ -583,4 +583,6 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
         timeline.series[1].data.push([day.time, day.comments]);
         timeline.series[2].data.push([day.time, day.commenters]);
     }
+    charts.timeline = timeline;
+    console.log('timeline loaded');
 }
