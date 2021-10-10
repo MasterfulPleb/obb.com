@@ -557,8 +557,8 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
         commenters:number
     }[] = [];
     // generates chart data for each day
-    var currTime = 0;
-    var nextTime = 1625630400000;
+    var currTime = 1625630400000;
+    var nextTime = 1625716800000;
     var authors:string[] = [];
     for (let i=0, d=0, l=authorStamps.length; i<l; i++) {
         if (authorStamps[i].timestamp * 1000 < nextTime) {
