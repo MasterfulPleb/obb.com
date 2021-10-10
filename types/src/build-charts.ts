@@ -449,6 +449,9 @@ var timeline = {
     xAxis: {
         type: 'datetime',
         minTickInterval: 24 * 36e5,
+        labels: {
+            align: 'left'
+        },
         /*plotBands: [{
             from:        color the background when certain %s are reached
         }]*/
@@ -541,7 +544,7 @@ var timeline = {
             type: 'area',
             name: 'Contributors',
             id: 'contributors',
-            step: 'left',
+            step: 'right',
             tooltip: {
                 xDateFormat: '%B %e'
             },
