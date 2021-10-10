@@ -560,6 +560,7 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
     var currTime = 1625630400000;
     var nextTime = 1625716800000;
     var authors:string[] = [];
+    var commentCount = 0;
     for (let i=0, d=0, l=authorStamps.length; i<l; i++) {
         if (authorStamps[i].timestamp * 1000 < nextTime) {
             if (!authors.some(a => a == authorStamps[i].author)) {
@@ -569,13 +570,22 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
             days.push({
                 time: currTime,
                 comments: dailyComments[d].value,
-                percent: dailyComments[d].value / 37061,
+                percent: (commentCount += dailyComments[d].value) / 37061,
                 commenters: authors.length
             });
             authors = [];
             currTime = nextTime;
             nextTime += 86400000;
             d++;
+            i--;
+        }
+        if (i = l-1) {
+            days.push({
+                time: currTime,
+                comments: dailyComments[d].value,
+                percent: (commentCount += dailyComments[d].value) / 37061,
+                commenters: authors.length
+            });
         }
     }
     for (let day of days) {
