@@ -570,7 +570,7 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
             days.push({
                 time: currTime,
                 comments: dailyComments[d].value,
-                percent: (commentCount += dailyComments[d].value) / 37061,
+                percent: (commentCount += dailyComments[d].value)*100 / 37061,
                 commenters: authors.length
             });
             authors = [];
