@@ -397,7 +397,7 @@ var repliesDependency = {
         data: [],
         type: 'dependencywheel',
         dataLabels: {
-            color: '#797268',
+            color: '#999999',
             textPath: {
                 enabled: true,
                 attributes: {
@@ -568,6 +568,7 @@ var timeline = {
             type: 'area',
             name: 'Comments',
             id: 'comments',
+            color: '#90ed7d',
             tooltip: {
                 xDateFormat: '%B %e'
             },
@@ -578,6 +579,7 @@ var timeline = {
             name: 'Contributors',
             id: 'contributors',
             step: 'right',
+            color: '#434348',
             tooltip: {
                 xDateFormat: '%B %e'
             },
