@@ -504,13 +504,13 @@ var timeline = {
             max: 1600,
             labels: {
                 style: {
-                    color: '#90ed7d'
+                    color: '#434348'
                 }
             },
             title: {
                 text: 'Comments per day',
                 style: {
-                    color: '#90ed7d'
+                    color: '#434348'
                 }
             },
             gridLineWidth: 0
@@ -519,13 +519,13 @@ var timeline = {
             max: 240,
             labels: {
                 style: {
-                    color: '#434348'
+                    color: '#90ed7d'
                 }
             },
             title: {
                 text: 'Contributors',
                 style: {
-                    color: '#434348'
+                    color: '#90ed7d'
                 }
             },
             opposite: true,
@@ -568,7 +568,6 @@ var timeline = {
             type: 'area',
             name: 'Comments',
             id: 'comments',
-            color: '#90ed7d',
             tooltip: {
                 xDateFormat: '%B %e'
             },
@@ -579,7 +578,6 @@ var timeline = {
             name: 'Contributors',
             id: 'contributors',
             step: 'right',
-            color: '#434348',
             tooltip: {
                 xDateFormat: '%B %e'
             },
