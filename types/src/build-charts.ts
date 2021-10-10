@@ -53,15 +53,15 @@ var commentsPie = {
     },
     title: {
         text: 'Comments per user',
-        style: { 'color': "#797268" }
+        style: { 'color': "#999999" }
     },
     subtitle: {
         text: "Try tapping/clicking 'less than 300, 100, etc.'",
-        style: { 'color': "#797268" }
+        style: { 'color': "#999999" }
     },
     caption: {
         text: 'This chart is interactive!',
-        style: { 'color': "#797268" }
+        style: { 'color': "#999999" }
     },
     series: [{
         name: 'Comments',
@@ -194,15 +194,15 @@ var commentsHeat = {
     },
     title: {
         text: 'Comments per day',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     subtitle: {
         text: 'Try tapping/clicking a square',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     caption: {
         text: 'This chart is interactive!',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     xAxis: {
         title: { text: 'Weeks' },
@@ -250,7 +250,7 @@ var commentsHeat = {
     drilldown: {
         activeAxisLabelStyle: {
             cursor: 'undefined',
-            color: '#797268',
+            color: '#999999',
             fontWeight: 'undefined',
             textDecoration: 'undefined'
         },
@@ -336,7 +336,7 @@ var lettersColumn = {
     },
     title: {
         text: '# of letters/numbers used',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     legend: {
         enabled: false
@@ -385,11 +385,11 @@ var repliesDependency = {
     },
     title: {
         text: 'Replies between top 22',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     subtitle: {
         text: 'Dependency wheel showing # of times each user with over 200 comments replied to eachother',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     series: [{
         name: 'Comments from → to',
@@ -444,7 +444,7 @@ var timeline = {
     },
     title: {
         text: 'Timeline',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     xAxis: {
         type: 'datetime',
@@ -504,13 +504,13 @@ var timeline = {
             max: 1600,
             labels: {
                 style: {
-                    color: '#434348'
+                    color: '#90ed7d'
                 }
             },
             title: {
                 text: 'Comments per day',
                 style: {
-                    color: '#434348'
+                    color: '#90ed7d'
                 }
             },
             gridLineWidth: 0
@@ -519,13 +519,13 @@ var timeline = {
             max: 240,
             labels: {
                 style: {
-                    color: '#90ed7d'
+                    color: '#434348'
                 }
             },
             title: {
                 text: 'Contributors',
                 style: {
-                    color: '#90ed7d'
+                    color: '#434348'
                 }
             },
             opposite: true,
