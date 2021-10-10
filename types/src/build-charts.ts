@@ -579,7 +579,7 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
             d++;
             i--;
         }
-        if (i = l-1) {
+        if (i == l-1) {
             days.push({
                 time: currTime,
                 comments: dailyComments[d].value,
