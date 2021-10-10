@@ -19,6 +19,7 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
+    "highcharts": "^9.2.2",
     "mariadb": "^2.5.4",
     "pug": "^3.0.2",
     "serve-favicon": "^2.5.0",

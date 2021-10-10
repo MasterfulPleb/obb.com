@@ -29,7 +29,7 @@ app.use(helmet());
 app.use(compression());
 app.use(favicon('./public/images/favicon.ico'));
 app.use('/public', express.static('public'));
-//app.use('/public/scripts/charts.js', express.static('built/charts.js'));
+app.use('/public/highcharts', express.static('node_modules/highcharts'));
 
 app.get('/', (_req, res) => res.send(preRender.index));
 app.get('/charts(#*)?', (_req, res) => res.send(preRender.charts));
