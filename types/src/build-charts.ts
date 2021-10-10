@@ -452,9 +452,42 @@ var timeline = {
         labels: {
             align: 'left'
         },
-        /*plotBands: [{
-            from:        color the background when certain %s are reached
-        }]*/
+        plotBands: [
+            {
+                from: 1625630400000,
+                to: 1627012800000,
+                color: 'rgba(0, 227, 255, 0.07)',
+                label: {
+                    text: '<em>The Beginning</em><br> First third',
+                    style: {
+                        color: '#999999'
+                    },
+                    y: 30
+                }
+            }, {
+                from: 1627012800000,
+                to: 1630900800000,
+                color: 'rgba(255, 169, 0, 0.07)',
+                label: {
+                    text: '<em>The Dark Times</em><br> Middle third',
+                    style: {
+                        color: '#999999'
+                    },
+                    y: 30
+                }
+            }, {
+                from: 1630900800000,
+                to: 1632801600000,
+                color: 'rgba(25, 255, 15, 0.07)',
+                label: {
+                    text: '<em>The Final Push</em><br> Last third',
+                    style: {
+                        color: '#999999'
+                    },
+                    y: 30
+                }
+            }, 
+        ]
     },
     yAxis: [
         {
@@ -573,7 +606,7 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
             days.push({
                 time: currTime,
                 comments: dailyComments[d].value,
-                percent: (commentCount += dailyComments[d].value)*100 / 37061,
+                percent: Math.floor((commentCount += dailyComments[d].value)*10000 / 37061) / 100,
                 commenters: authors.length
             });
             authors = [];
