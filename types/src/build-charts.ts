@@ -27,10 +27,10 @@ type DBdata = {
 const charts = {
     build: function(pool: mariadb.Pool, data: Data) {
         pool.query('SELECT timestamp, author FROM comments;')
-            .then(authorStamp => {
-                buildCommentsHeat(authorStamp)
-                    .then(days => buildTimeline(days, authorStamp))
-                buildRepliesDependency(authorStamp, data)
+            .then(authorStamps => {
+                buildCommentsHeat(authorStamps)
+                    .then(days => buildTimeline(days, authorStamps))
+                buildRepliesDependency(authorStamps, data)
             });
         pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
             .then(letters => buildLettersColumn(letters));
@@ -289,9 +289,9 @@ async function buildCommentsHeat(stamps: DBdata) {
             i--;
         }
     }
-    // finishes configuring drilldown & builds top level series
+    // finishes configuring drilldown, generates coordinates & builds top level series
     let dataTemplate: [number, number, 0][] = [];
-    for (let x=0, y=0; y < 24; x==59 ? x=0 & y++ : x++ ) {
+    for (let x=0, y=0; y<24; x==59 ? x=0 & y++ : x++ ) {
         dataTemplate.push([x, y, 0]);
     }
     for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
@@ -300,7 +300,8 @@ async function buildCommentsHeat(stamps: DBdata) {
         for (let time of drilldownSeries[i].stamps) {
             let hours = time.getHours();
             let minutes = time.getMinutes();
-            let index = drilldownSeries[i].data.findIndex(arr => arr[0] == minutes ? arr[1] == hours ? true : false : false);
+            let index = drilldownSeries[i].data.findIndex(arr =>
+                    arr[0] == minutes ? arr[1] == hours ? true : false : false);
             drilldownSeries[i].data[index][2]++;
         }
         ///////////////////// try removing empty datapoints in drilldown? //////////////////////////
@@ -527,6 +528,7 @@ var timeline = {
             },
             data: []
         }, {
+            yAxis: 1,
             type: 'area',
             name: 'Comments',
             id: 'comments',
@@ -535,9 +537,11 @@ var timeline = {
             },
             data: []
         }, {
+            yAxis: 2,
             type: 'area',
-            name: 'Contributors in last week',
+            name: 'Contributors',
             id: 'contributors',
+            step: 'left',
             tooltip: {
                 xDateFormat: '%B %e'
             },
@@ -545,6 +549,38 @@ var timeline = {
         }
     ]
 };
-function buildTimeline(days: {value: number}[], authorStamp: DBdata) {
-    console.log('building timeline')
+function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
+    var days:{
+        time:number,
+        comments:number,
+        percent:number,
+        commenters:number
+    }[] = [];
+    // generates chart data for each day
+    var currTime = 0;
+    var nextTime = 1625630400000;
+    var authors:string[] = [];
+    for (let i=0, d=0, l=authorStamps.length; i<l; i++) {
+        if (authorStamps[i].timestamp * 1000 < nextTime) {
+            if (!authors.some(a => a == authorStamps[i].author)) {
+                authors.push(authorStamps[i].author)
+            }
+        } else {
+            days.push({
+                time: currTime,
+                comments: dailyComments[d].value,
+                percent: dailyComments[d].value / 37061,
+                commenters: authors.length
+            });
+            authors = [];
+            currTime = nextTime;
+            nextTime += 86400000;
+            d++;
+        }
+    }
+    for (let day of days) {
+        timeline.series[0].data.push([day.time, day.percent]);
+        timeline.series[1].data.push([day.time, day.comments]);
+        timeline.series[2].data.push([day.time, day.commenters]);
+    }
 }
