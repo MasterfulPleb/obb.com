@@ -467,7 +467,7 @@ var timeline = {
             }, {
                 from: 1627012800000,
                 to: 1630900800000,
-                color: 'rgba(255, 169, 0, 0.07)',
+                color: 'rgba(255, 120, 0, 0.07)',
                 label: {
                     text: '<em>The Dark Times</em><br> Middle third',
                     style: {
