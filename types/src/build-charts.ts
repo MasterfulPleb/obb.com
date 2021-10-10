@@ -440,6 +440,7 @@ function buildRepliesDependency(authors: DBdata, data: Data) {
 
 var timeline = {
     chart: {
+        zoomType: 'x',
         backgroundColor: '#282828'
     },
     title: {
