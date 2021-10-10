@@ -501,6 +501,9 @@ var timeline = {
         }
     ],
     plotOptions: {
+        area: {
+            threshold: null
+        },
         series: {
             marker: {
                 enabled: false,
