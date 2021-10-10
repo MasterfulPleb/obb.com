@@ -480,7 +480,7 @@ var timeline = {
             gridLineWidth: 0
         }, {
             allowDecimals: false,
-            max: 300,// change this to a more realistic number
+            max: 240,
             labels: {
                 style: {
                     color: '#90ed7d'
@@ -583,7 +583,7 @@ function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
             days.push({
                 time: currTime,
                 comments: dailyComments[d].value,
-                percent: (commentCount += dailyComments[d].value) / 37061,
+                percent: (commentCount += dailyComments[d].value)*100 / 37061,
                 commenters: authors.length
             });
         }
