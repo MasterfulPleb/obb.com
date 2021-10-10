@@ -26,19 +26,22 @@ type DBdata = {
 
 const charts = {
     build: function(pool: mariadb.Pool, data: Data) {
-        pool.query('SELECT timestamp FROM comments;')
-        .then(stamps => buildCommentsHeat(stamps));
+        pool.query('SELECT timestamp, author FROM comments;')
+            .then(authorStamp => {
+                buildCommentsHeat(authorStamp)
+                    .then(days => buildTimeline(days, authorStamp))
+                buildRepliesDependency(authorStamp, data)
+            });
         pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
-        .then(letters => buildLettersColumn(letters));
-        pool.query('SELECT author FROM comments;')
-        .then(authors => buildRepliesDependency(authors, data));
+            .then(letters => buildLettersColumn(letters));
         buildCommentsPie(data);
         // new charts go here
     },
     commentsPie,
     commentsHeat,
     lettersColumn,
-    repliesDependency
+    repliesDependency,
+    timeline
 };
 
 
@@ -254,7 +257,7 @@ var commentsHeat = {
         series: []
     }
 };
-function buildCommentsHeat(stamps: DBdata) {
+async function buildCommentsHeat(stamps: DBdata) {
     let topData: {
         x: number,
         y: number,
@@ -316,6 +319,13 @@ function buildCommentsHeat(stamps: DBdata) {
     commentsHeat.series[0].data = topData;
     charts.commentsHeat = commentsHeat;
     console.log('commentsHeat loaded');
+    let dailyData = JSON.parse(JSON.stringify(commentsHeat.series[0].data));
+    for (let day of dailyData) {
+        delete day.x;
+        delete day.y;
+        delete day.drilldown;
+    }
+    return dailyData;
 }
 
 var lettersColumn = {
@@ -425,4 +435,116 @@ function buildRepliesDependency(authors: DBdata, data: Data) {
     }
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
+}
+
+var timeline = {
+    chart: {
+        backgroundColor: '#282828'
+    },
+    title: {
+        text: 'Timeline',
+        style: { color: '#797268' }
+    },
+    xAxis: {
+        type: 'datetime',
+        minTickInterval: 24 * 36e5,
+        /*plotBands: [{
+            from:        color the background when certain %s are reached
+        }]*/
+    },
+    yAxis: [
+        {
+            max: 100,
+            labels: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            gridLineColor: 'rgba(0, 0, 0, 0.07)'
+        }, {
+            allowDecimals: false,
+            max: 1600,
+            labels: {
+                style: {
+                    color: '#434348'
+                }
+            },
+            title: {
+                text: 'Comments per day',
+                style: {
+                    color: '#434348'
+                }
+            },
+            gridLineWidth: 0
+        }, {
+            allowDecimals: false,
+            max: 300,// change this to a more realistic number
+            labels: {
+                style: {
+                    color: '#90ed7d'
+                }
+            },
+            title: {
+                text: 'Contributors',
+                style: {
+                    color: '#90ed7d'
+                }
+            },
+            opposite: true,
+            gridLineWidth: 0
+        }
+    ],
+    plotOptions: {
+        series: {
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2
+            },
+            fillOpacity: 0.5
+        },
+        flags: {
+            tooltip: {
+                xDateformat: '%B %e'
+            },
+            accessibility:  {
+                point: {
+                    valueDescriptionFormat: '{xDescription}. {point.title}: {point.text}.'
+                }
+            }
+        }
+    },
+    series: [
+        {
+            type: 'spline',
+            name: 'Completion',
+            id: 'completion',
+            dashStyle: 'dash',
+            tooltip: {
+                xDateFormat: '%B %e',
+                valueSuffix: ' %'
+            },
+            data: []
+        }, {
+            type: 'area',
+            name: 'Comments',
+            id: 'comments',
+            tooltip: {
+                xDateFormat: '%B %e'
+            },
+            data: []
+        }, {
+            type: 'area',
+            name: 'Contributors in last week',
+            id: 'contributors',
+            tooltip: {
+                xDateFormat: '%B %e'
+            },
+            data: []
+        }
+    ]
+};
+function buildTimeline(days: {value: number}[], authorStamp: DBdata) {
+    console.log('building timeline')
 }
