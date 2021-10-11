@@ -73,6 +73,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
+// changes darkmode on/off - defaults to on - sets cookie
 function changeMode(dark = true, setCook = true) {
     if (setCook) setCookie('darkmode', dark, 365);
     if (!dark) {
@@ -97,9 +98,9 @@ function hashDirect(newHash = '') {
     if (hash == '') {
         hashDirect('#commentsPie')
     } else if (hash == '#commentsHeat') {
-        fetchChart('commentsHeat', (data) => {
-            if (!darkmode) data.colorAxis[0].stops[0][1] = '#faebd7';
-            data.chart.events = {
+        getChart('commentsHeat', (chartData) => {
+            if (!darkmode) chartData.colorAxis[0].stops[0][1] = '#faebd7';
+            chartData.chart.events = {
                 drilldown: function (e) {
                     var chart = this;
                     chart.yAxis[0].update({
@@ -128,18 +129,62 @@ function hashDirect(newHash = '') {
                 }
             };
         });
+    } else if (hash == '#timeline') {
+        getChart('timeline', (chartData) => {
+            chartData.series.push({
+                type: 'flags',
+                name: 'Events',
+                onSeries: 'completion',
+                color: '#333333',
+                fillColor: 'rgba(255,255,255,0.8)',
+                showInLegend: false,
+                data: [{
+                    x: 1628913600000,
+                    title: 'Chat started',
+                    text: 'u/motobrowniano opened a chat on reddit for people still contributing'
+                }, {
+                    x: 1629777600000,
+                    title: 'Help found',
+                    text: 'u/motobrowniano made a post on r/bee_irl that got a few more people to join the cause'
+                }, {
+                    x: 1630382400000,
+                    title: 'Leaderboard',
+                    text: 'u/Digital_Sparrow posts the first leaderboard'
+                }, {
+                    x: 1631246400000,
+                    title: 'Website',
+                    text: 'u/Krosis creates the first version of this website, containing only a leaderboard'
+                }, {
+                    x: 1631592000000,
+                    title: 'Leaderboard',
+                    text: 'u/Digital_Sparrow makes his final leaderboard post'
+                }, {
+                    x: 1631592000000,
+                    title: 'Website',
+                    text: "Website adds a 'live progress' section to show progress/position in the script"
+                }, {
+                    x: 1632110400000,
+                    title: 'Website',
+                    text: "Website adds live updating to 'live progress' section for even quicker commenting"
+                }, {
+                    x: 1632196800000,
+                    title: 'Charts',
+                    text: 'First chart is made, a pie chart showing comments per user'
+                }]
+            })
+        })
     } else {
-        fetchChart(hash.slice(1));
+        getChart(hash.slice(1));
     }
 }
-function fetchChart(/**@type {String}*/chartid, mods = () => {}) {
+function getChart(/**@type {String}*/chartid, mods = () => {}) {
     fetch(baseURL + '/charts/' + chartid)
       .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (!darkmode) data.chart.backgroundColor = '#faebd7';
-        mods(data);
-        lastChart = data;
-        chart = Highcharts.chart('chart', data);
+      .then(chartData => {
+        console.log(chartData);
+        if (!darkmode) chartData.chart.backgroundColor = '#faebd7';
+        mods(chartData);
+        lastChart = chartData;
+        chart = Highcharts.chart('chart', chartData);
       });
 }
