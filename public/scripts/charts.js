@@ -138,6 +138,7 @@ function hashDirect(newHash = '') {
                 color: '#999999',
                 fillColor: 'rgba(255,255,255,0.8)',
                 showInLegend: false,
+                tooltip: { xDateFormat: '%B %e' },
                 data: [{
                     x: 1628913600000,
                     title: 'Chat started',
@@ -178,40 +179,42 @@ function hashDirect(newHash = '') {
                     x: 1632196800000,
                     title: 'Charts',
                     text: 'First chart is made, a pie chart showing comments per user'
-                }]// fix the tooltipssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                }]
             }, {
                 type: 'flags',
                 name: 'Milestones',
                 color: '#999999',
                 shape: 'circlepin',
+                showInLegend: false,
+                tooltip: { xDateFormat: '%B %e' },
                 data: [{
                     x: 1625976000000,
                     title: '5,000',
-                    text: '5000 total comments'
+                    text: '5,000 total comments'
                 }, {
                     x: 1626580800000,
                     title: '10,000',
-                    text: '10000 total comments'
+                    text: '10,000 total comments'
                 }, {
                     x: 1627790400000,
                     title: '15,000',
-                    text: '15000 total comments'
+                    text: '15,000 total comments'
                 }, {
                     x: 1629604800000,
                     title: '20,000',
-                    text: '20000 total comments'
+                    text: '20,000 total comments'
                 }, {
                     x: 1630987200000,
                     title: '25,000',
-                    text: '25000 total comments'
+                    text: '25,000 total comments'
                 }, {
                     x: 1631764800000,
                     title: '30,000',
-                    text: '30000 total comments'
+                    text: '30,000 total comments'
                 }, {
                     x: 1632628800000,
                     title: '35,000',
-                    text: '35000 total comments'
+                    text: '35,000 total comments'
                 }]
             })
         });
