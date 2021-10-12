@@ -140,6 +140,7 @@ function hashDirect(newHash = '') {
                 showInLegend: false,
                 tooltip: { xDateFormat: '%B %e' },
                 stackDistance: 40,
+                y: 60,
                 data: [{
                     x: 1628913600000,
                     title: 'Chat started',
@@ -188,6 +189,7 @@ function hashDirect(newHash = '') {
                 shape: 'circlepin',
                 showInLegend: false,
                 tooltip: { xDateFormat: '%B %e' },
+                y: -15,
                 data: [{
                     x: 1625976000000,
                     title: '5,000',
