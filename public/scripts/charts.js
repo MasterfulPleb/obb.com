@@ -135,7 +135,7 @@ function hashDirect(newHash = '') {
                 type: 'flags',
                 name: 'Events',
                 onSeries: 'completion',
-                color: '#333333',
+                color: '#999999',
                 fillColor: 'rgba(255,255,255,0.8)',
                 showInLegend: false,
                 data: [{
@@ -153,7 +153,7 @@ function hashDirect(newHash = '') {
                 }, {
                     x: 1631246400000,
                     title: 'Website',
-                    text: 'u/Krosis creates the first version of this website, containing only a leaderboard'
+                    text: 'u/Krosis27 creates the first version of this website, containing only a leaderboard'
                 }, {
                     x: 1631592000000,
                     title: 'Leaderboard',

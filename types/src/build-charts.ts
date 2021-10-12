@@ -305,6 +305,9 @@ async function buildCommentsHeat(stamps: DBdata) {
             drilldownSeries[i].data[index][2]++;
         }
         ///////////////////// try removing empty datapoints in drilldown? //////////////////////////
+        drilldownSeries[i].data.forEach((point, index, arr) => {
+            if (point[2] == 0) arr.splice(index, 1);
+        });
         // builds top level series from drilldown series
         topData.push({
             x: x,
