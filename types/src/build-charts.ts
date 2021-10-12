@@ -383,7 +383,7 @@ var repliesDependency = {
         backgroundColor: '#282828'
     },
     title: {
-        text: 'Replies between top 22',
+        text: 'Replies between top 22 contributors',
         style: { color: '#999999' }
     },
     subtitle: {
@@ -397,12 +397,12 @@ var repliesDependency = {
         type: 'dependencywheel',
         dataLabels: {
             color: '#999999',
-            textPath: {
+            /*textPath: {
                 enabled: true,
                 attributes: {
                     dy: 5
                 }
-            },
+            },*/
             distance: 10
         },
         size: '95%'
@@ -442,7 +442,11 @@ var timeline = {
         backgroundColor: '#282828'
     },
     title: {
-        text: 'Timeline',
+        text: 'Timeline of writing the Bee Movie script on r/AskOuija',
+        style: { color: '#999999' }
+    },
+    subtitle: {
+        text: 'day-by-day breakdown of activity over 84 days',
         style: { color: '#999999' }
     },
     legend: {

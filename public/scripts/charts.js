@@ -139,23 +139,23 @@ function hashDirect(newHash = '') {
                 fillColor: 'rgba(255,255,255,0.8)',
                 showInLegend: false,
                 tooltip: { xDateFormat: '%B %e' },
-                stackDistance: 40,
-                y: 60,
+                stackDistance: 20,
+                y: -60,
                 data: [{
                     x: 1628913600000,
-                    title: 'Chat started',
+                    title: 'Chat created',
                     text: 'u/motobrowniano opens a chat on Reddit for people still contributing'
                 }, {
                     x: 1629777600000,
                     title: 'Help found',
-                    text: 'u/motobrowniano makes a post on r/bee_irl and a few more people to join the cause'
+                    text: 'u/motobrowniano makes a post on r/bee_irl and a few more people join the cause'
                 }, {
                     x: 1629950400000,
                     title: 'Help found',
                     text: 'u/The_GreenPinky7 finds a past attempt at writing the script ouija-style and a few of those contributors join the cause'
                 }, {
                     x: 1630123200000,
-                    title: 'Discord',
+                    title: 'Discord created',
                     text: 'u/Moose_Hole starts a discord server as an alternative to Reddit chat'
                 }, {
                     x: 1630382400000,
@@ -189,7 +189,7 @@ function hashDirect(newHash = '') {
                 shape: 'circlepin',
                 showInLegend: false,
                 tooltip: { xDateFormat: '%B %e' },
-                y: -15,
+                y: -25,
                 data: [{
                     x: 1625976000000,
                     title: '5,000',
