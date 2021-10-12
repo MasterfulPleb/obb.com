@@ -304,10 +304,6 @@ async function buildCommentsHeat(stamps: DBdata) {
                     arr[0] == minutes ? arr[1] == hours ? true : false : false);
             drilldownSeries[i].data[index][2]++;
         }
-        ///////////////////// try removing empty datapoints in drilldown? //////////////////////////
-        drilldownSeries[i].data.forEach((point, index, arr) => {
-            if (point[2] == 0) arr.splice(index, 1);
-        });
         // builds top level series from drilldown series
         topData.push({
             x: x,
@@ -449,12 +445,13 @@ var timeline = {
         text: 'Timeline',
         style: { color: '#999999' }
     },
+    legend: {
+        itemStyle: { color: '#999999' }
+    },
     xAxis: {
         type: 'datetime',
         minTickInterval: 24 * 36e5,
-        labels: {
-            align: 'left'
-        },
+        labels: { align: 'left' },
         plotBands: [
             {
                 from: 1625630400000,
@@ -495,25 +492,20 @@ var timeline = {
     yAxis: [
         {
             max: 100,
-            labels: {
-                enabled: false
-            },
-            title: {
-                text: ''
-            },
+            labels: { enabled: false },
+            title: { text: '' },
             gridLineColor: 'rgba(0, 0, 0, 0.07)'
         }, {
             allowDecimals: false,
             max: 1600,
             labels: {
-                style: {
-                    color: '#434348'
-                }
+                style: { color: '#434348' }
             },
             title: {
                 text: 'Comments per day',
                 style: {
-                    color: '#434348'
+                    color: '#434348',
+                    fontSize: '1.2em'
                 }
             },
             gridLineWidth: 0
@@ -521,14 +513,13 @@ var timeline = {
             allowDecimals: false,
             max: 240,
             labels: {
-                style: {
-                    color: '#90ed7d'
-                }
+                style: { color: '#90ed7d' }
             },
             title: {
-                text: 'Contributors',
+                text: 'Contributors per day',
                 style: {
-                    color: '#90ed7d'
+                    color: '#90ed7d',
+                    fontSize: '1.2em'
                 }
             },
             opposite: true,
@@ -545,9 +536,7 @@ var timeline = {
             fillOpacity: 0.5
         },
         flags: {
-            tooltip: {
-                xDateformat: '%B %e'
-            },
+            tooltip: { xDateformat: '%B %e' },
             accessibility:  {
                 point: {
                     valueDescriptionFormat: '{xDescription}. {point.title}: {point.text}.'
@@ -571,9 +560,7 @@ var timeline = {
             type: 'area',
             name: 'Comments',
             id: 'comments',
-            tooltip: {
-                xDateFormat: '%B %e'
-            },
+            tooltip: { xDateFormat: '%B %e' },
             data: []
         }, {
             yAxis: 2,
@@ -581,9 +568,7 @@ var timeline = {
             name: 'Contributors',
             id: 'contributors',
             step: 'right',
-            tooltip: {
-                xDateFormat: '%B %e'
-            },
+            tooltip: { xDateFormat: '%B %e' },
             data: []
         }
     ]
