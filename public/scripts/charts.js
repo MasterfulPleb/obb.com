@@ -139,6 +139,7 @@ function hashDirect(newHash = '') {
                 fillColor: 'rgba(255,255,255,0.8)',
                 showInLegend: false,
                 tooltip: { xDateFormat: '%B %e' },
+                stackDistance: 40,
                 data: [{
                     x: 1628913600000,
                     title: 'Chat started',
