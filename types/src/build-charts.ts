@@ -494,17 +494,17 @@ var timeline = {
             max: 100,
             labels: { enabled: false },
             title: { text: '' },
-            gridLineColor: 'rgba(0, 0, 0, 0.07)'
+            gridLineColor: 'rgba(0, 0, 0, 0.2)'
         }, {
             allowDecimals: false,
             max: 1600,
             labels: {
-                style: { color: '#434348' }
+                style: { color: '#5e5e64' }
             },
             title: {
                 text: 'Comments per day',
                 style: {
-                    color: '#434348',
+                    color: '#5e5e64',
                     fontSize: '1.2em'
                 }
             },
@@ -513,12 +513,12 @@ var timeline = {
             allowDecimals: false,
             max: 240,
             labels: {
-                style: { color: '#90ed7d' }
+                style: { color: '#67e34e' }
             },
             title: {
                 text: 'Contributors per day',
                 style: {
-                    color: '#90ed7d',
+                    color: '#67e34e',
                     fontSize: '1.2em'
                 }
             },
