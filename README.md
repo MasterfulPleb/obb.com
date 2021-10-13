@@ -9,7 +9,7 @@ The data comes from a mariadb populated via a couple scrapers i built -
   https://github.com/MasterfulPleb/bee-movie-comment-scraper
   & https://github.com/MasterfulPleb/bee-movie-comment-updater
 
-The typescript is completely unnecessary i just wanted to give it a shot
+The typescript is completely unnecessary i just wanted to try it out a bit
 
 The server is in liveobb.js
 
