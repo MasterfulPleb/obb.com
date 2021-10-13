@@ -46,4 +46,4 @@ app.get('/old.newest', (_req, res) => {
 });
 app.get('*', (_req, res) => res.redirect('/'));
 
-app.listen(3001);
+app.listen(3000);

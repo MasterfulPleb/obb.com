@@ -553,6 +553,7 @@ var timeline = {
     },
     series: [
         {
+            yAxis: 0,
             type: 'spline',
             name: 'Completion',
             id: 'completion',

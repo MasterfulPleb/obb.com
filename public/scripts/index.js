@@ -1,5 +1,7 @@
 'use strict';
 
+const baseURL = new URL(window.location.href).origin;
+
 // finishes setting up the page
 document.addEventListener('DOMContentLoaded', () => {
     // checks cookies and sets darkmode/view accordingly
@@ -141,10 +143,13 @@ function changeMode(darkmode = true, setCook = true) {
 function resizeBeeCloud() {
     const cloud = document.getElementById('bee-cloud');
     if (window.visualViewport.width < 900) {
-        cloud.src = '/public/images/smolestbeecloud.png';
+        if (cloud.src != baseURL + '/public/images/smolestbeecloud.png')
+            cloud.src = '/public/images/smolestbeecloud.png';
     } else if (window.visualViewport.width < 1920) {
-        cloud.src = '/public/images/smolbeecloud.png';
+        if (cloud.src != baseURL + '/public/images/smolbeecloud.png')
+            cloud.src = '/public/images/smolbeecloud.png';
     } else {
-        cloud.src = '/public/images/beecloud.png';
+        if (cloud.src != baseURL + '/public/images/beecloud.png')
+            cloud.src = '/public/images/beecloud.png';
     }
 }

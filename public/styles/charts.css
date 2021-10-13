@@ -39,13 +39,16 @@
     #menu-btn {
         display: flex;
     }
+    #menu-btn span {
+        font-size: 1em;
+    }
     #nav-space {
         display: none;
     }
     #nav-menu {
         flex-wrap: wrap;
         align-content: center;
-        font-size: 1.2rem;
+        font-size: 1.9rem;
     }
     #nav-items {
         flex-direction: column;
