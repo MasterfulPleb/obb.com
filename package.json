@@ -9,7 +9,7 @@
     "build": "npx tsc",
     "build-live": "npx tsc && npm run minify-js && npm run minify-css",
     "minify-js": "npx terser -c -m -o public/scripts/index.min.js -- public/scripts/index.js && npx terser -c -m -o public/scripts/charts.min.js -- public/scripts/charts.js",
-    "minify-css": "npx cleancss -O 2 -o public/styles/index.min.css public/styles/index.css && npx cleancss -O 2 -o public/styles/shared.min.css public/styles/shared.css"
+    "minify-css": "npx cleancss -O 2 -o public/styles/index.min.css public/styles/index.css && npx cleancss -O 2 -o public/styles/shared.min.css public/styles/shared.css && npx cleancss -O 2 -o public/styles/charts.min.css public/styles/charts.css"
   },
   "author": "MasterfulPleb",
   "license": "ISC",
