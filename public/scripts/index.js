@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
             changeView('leaderboard');
         }
     } else changeView(view, false);
-    const navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
+        const navItems = document.getElementById('nav-items-wrap');
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });

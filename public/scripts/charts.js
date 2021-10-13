@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // listeners & stuff for navigation menu
-    const navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
+        const navItems = document.getElementById('nav-items-wrap');
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
@@ -89,6 +89,7 @@ function changeMode(dark = true, setCook = true) {
 
 //fetches proper chart based on hash and performs modifications
 function hashDirect(newHash = '') {
+    document.getElementById('nav-items-wrap').className = 'hide';
     var hash;
     if (newHash == '') hash = new URL(window.location.href).hash;
     else {
