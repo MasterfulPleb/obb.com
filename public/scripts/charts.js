@@ -130,7 +130,7 @@ function hashDirect(newHash = '') {
             };
         });
     } else if (hash == '#timeline') {
-        getChart('timeline', (chartData) => {
+        getChart('timeline'/*, (chartData) => {
             chartData.series.push({
                 type: 'flags',
                 name: 'Events',
@@ -220,7 +220,7 @@ function hashDirect(newHash = '') {
                     text: '35,000 total comments'
                 }]
             })
-        });
+        }*/);
     } else {
         getChart(hash.slice(1));
     }
