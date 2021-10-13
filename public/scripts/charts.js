@@ -23,14 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // listeners & stuff for navigation menu
-    const navItems = document.getElementById('nav-items-wrap');
     document.getElementById('menu-btn').addEventListener('click', () => {
+        const navItems = document.getElementById('nav-items-wrap');
         if (navItems.className == 'show') navItems.className = 'hide';
         else navItems.className = 'show';
     });
     document.getElementById('nav-comments-user').addEventListener('click', () => hashDirect('#commentsPie'));
     document.getElementById('nav-comments-day').addEventListener('click', () => hashDirect('#commentsHeat'));
     document.getElementById('nav-letters-used').addEventListener('click', () => hashDirect('#lettersColumn'));
+    document.getElementById('nav-timeline').addEventListener('click', () => hashDirect('#timeline'));
     document.getElementById('nav-replies-dependency').addEventListener('click', () => hashDirect('#repliesDependency'));
 
     // checks URL hash to see if certain chart requested
@@ -72,6 +73,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
+// changes darkmode on/off - defaults to on - sets cookie
 function changeMode(dark = true, setCook = true) {
     if (setCook) setCookie('darkmode', dark, 365);
     if (!dark) {
@@ -87,6 +89,7 @@ function changeMode(dark = true, setCook = true) {
 
 //fetches proper chart based on hash and performs modifications
 function hashDirect(newHash = '') {
+    document.getElementById('nav-items-wrap').className = 'hide';
     var hash;
     if (newHash == '') hash = new URL(window.location.href).hash;
     else {
@@ -94,11 +97,11 @@ function hashDirect(newHash = '') {
         hash = newHash;
     }
     if (hash == '') {
-        hashDirect('#commentsPie')
+        hashDirect('#timeline')
     } else if (hash == '#commentsHeat') {
-        fetchChart('commentsHeat', (data) => {
-            if (!darkmode) data.colorAxis[0].stops[0][1] = '#faebd7';
-            data.chart.events = {
+        getChart('commentsHeat', (chartData) => {
+            if (!darkmode) chartData.colorAxis[0].stops[0][1] = '#faebd7';
+            chartData.chart.events = {
                 drilldown: function (e) {
                     var chart = this;
                     chart.yAxis[0].update({
@@ -128,17 +131,17 @@ function hashDirect(newHash = '') {
             };
         });
     } else {
-        fetchChart(hash.slice(1));
+        getChart(hash.slice(1));
     }
 }
-function fetchChart(/**@type {String}*/chartid, mods = () => {}) {
+function getChart(/**@type {String}*/chartid, mods = () => {}) {
     fetch(baseURL + '/charts/' + chartid)
       .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (!darkmode) data.chart.backgroundColor = '#faebd7';
-        mods(data);
-        lastChart = data;
-        chart = Highcharts.chart('chart', data);
+      .then(chartData => {
+        console.log(chartData);
+        if (!darkmode) chartData.chart.backgroundColor = '#faebd7';
+        mods(chartData);
+        lastChart = chartData;
+        chart = Highcharts.chart('chart', chartData);
       });
 }

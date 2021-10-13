@@ -2,11 +2,12 @@ doctype html
 html
     head
         title= 'ouijabeederboard charts'
-        //meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel="stylesheet", href="/public/styles/shared.min.css")
-        script(src='/public/highcharts/highcharts.js')
+        link(rel="stylesheet", href="/public/styles/shared.css")
+        link(rel="stylesheet", href="/public/styles/charts.css")
+        script(src='/public/highcharts/highstock.js')
         script(src='/public/highcharts/modules/exporting.js')
         script(src='/public/highcharts/modules/export-data.js')
+        script(src='/public/highcharts/modules/accessibility.js')
         script(src='/public/highcharts/modules/drilldown.js')
         script(src='/public/highcharts/modules/heatmap.js')
         script(src='/public/highcharts/modules/sankey.js')
@@ -31,6 +32,8 @@ html
                         span Letters used
                     li#nav-replies-dependency
                         span Top commenters relation
+                    li#nav-timeline
+                        span Timeline
                     li#nav-darkmode.toggle
                         span Nightmode
                         label.switch

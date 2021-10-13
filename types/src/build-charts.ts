@@ -26,19 +26,21 @@ type DBdata = {
 
 const charts = {
     build: function(pool: mariadb.Pool, data: Data) {
-        pool.query('SELECT timestamp FROM comments;')
-        .then(stamps => buildCommentsHeat(stamps));
+        pool.query('SELECT timestamp, author FROM comments;')
+            .then(authorStamps => {
+                buildCommentsHeat(authorStamps)
+                    .then(days => buildTimeline(days, authorStamps))
+                buildRepliesDependency(authorStamps, data)
+            });
         pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
-        .then(letters => buildLettersColumn(letters));
-        pool.query('SELECT author FROM comments;')
-        .then(authors => buildRepliesDependency(authors, data));
+            .then(letters => buildLettersColumn(letters));
         buildCommentsPie(data);
-        // new charts go here
     },
     commentsPie,
     commentsHeat,
     lettersColumn,
-    repliesDependency
+    repliesDependency,
+    timeline
 };
 
 
@@ -50,15 +52,15 @@ var commentsPie = {
     },
     title: {
         text: 'Comments per user',
-        style: { 'color': "#797268" }
+        style: { 'color': "#999999" }
     },
     subtitle: {
         text: "Try tapping/clicking 'less than 300, 100, etc.'",
-        style: { 'color': "#797268" }
+        style: { 'color': "#999999" }
     },
     caption: {
         text: 'This chart is interactive!',
-        style: { 'color': "#797268" }
+        style: { 'color': "#999999" }
     },
     series: [{
         name: 'Comments',
@@ -191,15 +193,15 @@ var commentsHeat = {
     },
     title: {
         text: 'Comments per day',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     subtitle: {
         text: 'Try tapping/clicking a square',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     caption: {
         text: 'This chart is interactive!',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     xAxis: {
         title: { text: 'Weeks' },
@@ -247,14 +249,14 @@ var commentsHeat = {
     drilldown: {
         activeAxisLabelStyle: {
             cursor: 'undefined',
-            color: '#797268',
+            color: '#999999',
             fontWeight: 'undefined',
             textDecoration: 'undefined'
         },
         series: []
     }
 };
-function buildCommentsHeat(stamps: DBdata) {
+async function buildCommentsHeat(stamps: DBdata) {
     let topData: {
         x: number,
         y: number,
@@ -286,9 +288,9 @@ function buildCommentsHeat(stamps: DBdata) {
             i--;
         }
     }
-    // finishes configuring drilldown & builds top level series
+    // finishes configuring drilldown, generates coordinates & builds top level series
     let dataTemplate: [number, number, 0][] = [];
-    for (let x=0, y=0; y < 24; x==59 ? x=0 & y++ : x++ ) {
+    for (let x=0, y=0; y<24; x==59 ? x=0 & y++ : x++ ) {
         dataTemplate.push([x, y, 0]);
     }
     for (let i=0, x=0, y=3; i < drilldownSeries.length; i++, y==6 ? y=0 & x++ : y++) {
@@ -297,10 +299,10 @@ function buildCommentsHeat(stamps: DBdata) {
         for (let time of drilldownSeries[i].stamps) {
             let hours = time.getHours();
             let minutes = time.getMinutes();
-            let index = drilldownSeries[i].data.findIndex(arr => arr[0] == minutes ? arr[1] == hours ? true : false : false);
+            let index = drilldownSeries[i].data.findIndex(arr =>
+                    arr[0] == minutes ? arr[1] == hours ? true : false : false);
             drilldownSeries[i].data[index][2]++;
         }
-        ///////////////////// try removing empty datapoints in drilldown? //////////////////////////
         // builds top level series from drilldown series
         topData.push({
             x: x,
@@ -316,6 +318,13 @@ function buildCommentsHeat(stamps: DBdata) {
     commentsHeat.series[0].data = topData;
     charts.commentsHeat = commentsHeat;
     console.log('commentsHeat loaded');
+    let dailyData = JSON.parse(JSON.stringify(commentsHeat.series[0].data));
+    for (let day of dailyData) {
+        delete day.x;
+        delete day.y;
+        delete day.drilldown;
+    }
+    return dailyData;
 }
 
 var lettersColumn = {
@@ -325,7 +334,7 @@ var lettersColumn = {
     },
     title: {
         text: '# of letters/numbers used',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     legend: {
         enabled: false
@@ -373,12 +382,12 @@ var repliesDependency = {
         backgroundColor: '#282828'
     },
     title: {
-        text: 'Replies between top 22',
-        style: { color: '#797268' }
+        text: 'Replies between top 22 contributors',
+        style: { color: '#999999' }
     },
     subtitle: {
         text: 'Dependency wheel showing # of times each user with over 200 comments replied to eachother',
-        style: { color: '#797268' }
+        style: { color: '#999999' }
     },
     series: [{
         name: 'Comments from → to',
@@ -386,7 +395,7 @@ var repliesDependency = {
         data: [],
         type: 'dependencywheel',
         dataLabels: {
-            color: '#797268',
+            color: '#999999',
             textPath: {
                 enabled: true,
                 attributes: {
@@ -425,4 +434,288 @@ function buildRepliesDependency(authors: DBdata, data: Data) {
     }
     charts.repliesDependency = repliesDependency;
     console.log('repliesDependency loaded');
+}
+
+var timeline = {
+    chart: {
+        backgroundColor: '#282828'
+    },
+    title: {
+        text: 'Timeline of writing the Bee Movie script on r/AskOuija',
+        style: { color: '#999999' }
+    },
+    subtitle: {
+        text: 'Day-by-day breakdown of activity over 84 days',
+        style: { color: '#999999' }
+    },
+    caption: {
+        text: 'Hover over a flag for more detailed information',
+        style: { 'color': "#999999" }
+    },
+    legend: {
+        itemStyle: { color: '#999999' }
+    },
+    xAxis: {
+        type: 'datetime',
+        minTickInterval: 24 * 36e5,
+        labels: { align: 'left' },
+        plotBands: [
+            {
+                from: 1625630400000,
+                to: 1627012800000,
+                color: 'rgba(0, 227, 255, 0.07)',
+                label: {
+                    text: '<em>The Beginning</em><br> First third',
+                    style: {
+                        color: '#999999'
+                    },
+                    y: 30
+                }
+            }, {
+                from: 1627012800000,
+                to: 1630900800000,
+                color: 'rgba(255, 120, 0, 0.07)',
+                label: {
+                    text: '<em>The Dark Times</em><br> Middle third',
+                    style: {
+                        color: '#999999'
+                    },
+                    y: 30
+                }
+            }, {
+                from: 1630900800000,
+                to: 1632801600000,
+                color: 'rgba(25, 255, 15, 0.07)',
+                label: {
+                    text: '<em>The Final Push</em><br> Last third',
+                    style: {
+                        color: '#999999'
+                    },
+                    y: 30
+                }
+            }, 
+        ]
+    },
+    yAxis: [
+        {
+            max: 100,
+            labels: { enabled: false },
+            title: { text: '' },
+            gridLineColor: 'rgba(0, 0, 0, 0.2)'
+        }, {
+            allowDecimals: false,
+            max: 1600,
+            labels: {
+                style: { color: '#5e5e64' }
+            },
+            title: {
+                text: 'Comments per day',
+                style: {
+                    color: '#5e5e64',
+                    fontSize: '1.2em'
+                }
+            },
+            gridLineWidth: 0
+        }, {
+            allowDecimals: false,
+            max: 240,
+            labels: {
+                style: { color: '#67e34e' }
+            },
+            title: {
+                text: 'Contributors per day',
+                style: {
+                    color: '#67e34e',
+                    fontSize: '1.2em'
+                }
+            },
+            opposite: true,
+            gridLineWidth: 0
+        }
+    ],
+    plotOptions: {
+        series: {
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2
+            },
+            fillOpacity: 0.5
+        },
+        flags: {
+            tooltip: { xDateformat: '%B %e' },
+            accessibility:  {
+                point: {
+                    valueDescriptionFormat: '{xDescription}. {point.title}: {point.text}.'
+                }
+            }
+        }
+    },
+    series: [
+        {
+            type: 'spline',
+            name: 'Completion',
+            id: 'completion',
+            dashStyle: 'dash',
+            tooltip: {
+                xDateFormat: '%B %e',
+                valueSuffix: ' %'
+            },
+            data: []
+        }, {
+            yAxis: 1,
+            type: 'area',
+            name: 'Comments',
+            id: 'comments',
+            tooltip: { xDateFormat: '%B %e' },
+            data: []
+        }, {
+            yAxis: 2,
+            type: 'area',
+            name: 'Contributors',
+            id: 'contributors',
+            step: 'right',
+            tooltip: { xDateFormat: '%B %e' },
+            data: []
+        }, {
+            type: 'flags',
+            name: 'Events',
+            onSeries: 'completion',
+            color: '#999999',
+            fillColor: 'rgba(255,255,255,0.8)',
+            showInLegend: false,
+            tooltip: { xDateFormat: '%B %e' },
+            stackDistance: 20,
+            y: -60,
+            data: [{
+                x: 1628913600000,
+                title: 'Chat created',
+                text: 'u/motobrowniano opens a chat on Reddit for people still contributing'
+            }, {
+                x: 1629777600000,
+                title: 'Help found',
+                text: 'u/motobrowniano makes a post on r/bee_irl and a few more people join the cause'
+            }, {
+                x: 1629950400000,
+                title: 'Help found',
+                text: 'u/The_GreenPinky7 finds a past attempt at writing the script ouija-style and a few of those contributors join the cause'
+            }, {
+                x: 1630123200000,
+                title: 'Discord created',
+                text: 'u/Moose_Hole starts a discord server as an alternative to Reddit chat'
+            }, {
+                x: 1630382400000,
+                title: 'Leaderboard',
+                text: 'u/Digital_Sparrow posts the first leaderboard'
+            }, {
+                x: 1631246400000,
+                title: 'Website',
+                text: 'u/Krosis27 creates the first version of this website, containing only a leaderboard'
+            }, {
+                x: 1631592000000,
+                title: 'Leaderboard',
+                text: 'u/Digital_Sparrow makes his final leaderboard post'
+            }, {
+                x: 1631592000000,
+                title: 'Website',
+                text: "Website adds a 'live progress' section to show progress/position in the script"
+            }, {
+                x: 1632110400000,
+                title: 'Website',
+                text: "Website adds live updating to 'live progress' section for even quicker commenting"
+            }, {
+                x: 1632196800000,
+                title: 'Charts',
+                text: 'First chart is made, a pie chart showing comments per user'
+            }]
+        }, {
+            type: 'flags',
+            name: 'Milestones',
+            color: '#999999',
+            fillColor: 'rgba(255,255,255,0.8)',
+            shape: 'circlepin',
+            showInLegend: false,
+            tooltip: { xDateFormat: '%B %e' },
+            y: -25,
+            data: [{
+                x: 1625976000000,
+                title: '5,000',
+                text: '5,000 total comments'
+            }, {
+                x: 1626580800000,
+                title: '10,000',
+                text: '10,000 total comments'
+            }, {
+                x: 1627790400000,
+                title: '15,000',
+                text: '15,000 total comments'
+            }, {
+                x: 1629604800000,
+                title: '20,000',
+                text: '20,000 total comments'
+            }, {
+                x: 1630987200000,
+                title: '25,000',
+                text: '25,000 total comments'
+            }, {
+                x: 1631764800000,
+                title: '30,000',
+                text: '30,000 total comments'
+            }, {
+                x: 1632628800000,
+                title: '35,000',
+                text: '35,000 total comments'
+            }]
+        }
+    ]
+};
+function buildTimeline(dailyComments: {value: number}[], authorStamps: DBdata) {
+    var days:{
+        time:number,
+        comments:number,
+        percent:number,
+        commenters:number
+    }[] = [];
+    // generates chart data for each day
+    var currTime = 1625630400000;
+    var nextTime = 1625716800000;
+    var authors:string[] = [];
+    var commentCount = 0;
+    for (let i=0, d=0, l=authorStamps.length; i<l; i++) {
+        if (authorStamps[i].timestamp * 1000 < nextTime) {
+            if (!authors.some(a => a == authorStamps[i].author)) {
+                authors.push(authorStamps[i].author)
+            }
+        } else {
+            days.push({
+                time: currTime,
+                comments: dailyComments[d].value,
+                percent: Math.floor((commentCount += dailyComments[d].value)*10000 / 37061) / 100,
+                commenters: authors.length
+            });
+            authors = [];
+            currTime = nextTime;
+            nextTime += 86400000;
+            d++;
+            i--;
+        }
+        if (i == l-1) {
+            days.push({
+                time: currTime,
+                comments: dailyComments[d].value,
+                percent: (commentCount += dailyComments[d].value)*100 / 37061,
+                commenters: authors.length
+            });
+        }
+    }
+    for (let day of days) {
+        // @ts-ignore
+        timeline.series[0].data.push([day.time, day.percent]);
+        // @ts-ignore
+        timeline.series[1].data.push([day.time, day.comments]);
+        // @ts-ignore
+        timeline.series[2].data.push([day.time, day.commenters]);
+    }
+    charts.timeline = timeline;
+    console.log('timeline loaded');
 }

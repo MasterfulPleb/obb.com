@@ -29,7 +29,7 @@ app.use(helmet());
 app.use(compression());
 app.use(favicon('./public/images/favicon.ico'));
 app.use('/public', express.static('public'));
-//app.use('/public/scripts/charts.js', express.static('built/charts.js'));
+app.use('/public/highcharts', express.static('node_modules/highcharts'));
 
 app.get('/', (_req, res) => res.send(preRender.index));
 app.get('/charts(#*)?', (_req, res) => res.send(preRender.charts));
@@ -37,6 +37,7 @@ app.get('/charts/commentsPie', (_req, res) => res.send(charts.commentsPie));
 app.get('/charts/commentsHeat', (_req, res) => res.send(charts.commentsHeat));
 app.get('/charts/lettersColumn', (_req, res) => res.send(charts.lettersColumn));
 app.get('/charts/repliesDependency', (_req, res) => res.send(charts.repliesDependency));
+app.get('/charts/timeline', (_req, res) => res.send(charts.timeline));
 app.get('/newest', (_req, res) => {
     res.redirect('https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/hemsuuz/?context=3');
 });
