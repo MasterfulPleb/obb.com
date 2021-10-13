@@ -24,7 +24,7 @@ html
                     li#nav-dashboard
                         span Dashboard
                     li#nav-charts.link
-                        a(href='/charts') Charts
+                        a(href='/charts#timeline') Charts
                     li#nav-darkmode.toggle
                         span Nightmode
                         label.switch
@@ -60,13 +60,31 @@ html
                             span#percent24 0
                             span %
                     #stats.show
-                        //p Total comments: 37061
-                        //p 
-                        p If you'd like a custom style on the leaderboard, message 
+                        p Comments: 
+                            b 37,061
+                        p Words: 
+                            b 13,767
+                        p Days: 
+                            b 84
+                        p Contributors: 
+                            b 385
+                        p Most comments in one day: 
+                            b 1,566
+                        p Most comments in one minute: 
+                            b 11
+                        p Most used character: 
+                            b E 
+                            i (4,395 times)
+                        p Least used character: 
+                            b 6 
+                            i (1 time)
+                        p  
+                        p Don't forget to check out the charts!
+                        p
+                            i If you'd like a custom style on the leaderboard, message 
                             a(href='https://www.reddit.com/user/Krosis27') u/Krosis27
-                            span  with your request
-                        p More stats coming soon!
-                        a(href='/public/images/beecloud.svg')
+                            i  with your request
+                        a(href='/public/images/beecloud.svg', target='_blank')
                             img#bee-cloud(src='')
                     #text-wall.show
                         span#written.written= written
