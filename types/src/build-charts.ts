@@ -35,7 +35,6 @@ const charts = {
         pool.query('SELECT body, COUNT(*) AS "letters" FROM comments GROUP BY body;')
             .then(letters => buildLettersColumn(letters));
         buildCommentsPie(data);
-        // new charts go here
     },
     commentsPie,
     commentsHeat,
@@ -446,8 +445,12 @@ var timeline = {
         style: { color: '#999999' }
     },
     subtitle: {
-        text: 'day-by-day breakdown of activity over 84 days',
+        text: 'Day-by-day breakdown of activity over 84 days',
         style: { color: '#999999' }
+    },
+    caption: {
+        text: 'Hover over a flag for more detailed information',
+        style: { 'color': "#999999" }
     },
     legend: {
         itemStyle: { color: '#999999' }
@@ -629,6 +632,7 @@ var timeline = {
             type: 'flags',
             name: 'Milestones',
             color: '#999999',
+            fillColor: 'rgba(255,255,255,0.8)',
             shape: 'circlepin',
             showInLegend: false,
             tooltip: { xDateFormat: '%B %e' },

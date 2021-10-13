@@ -157,9 +157,3 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
-
-/* the charts css because its only one line lmao */
-#chart {
-    height: 100%
-}
