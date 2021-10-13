@@ -397,6 +397,7 @@ var repliesDependency = {
         type: 'dependencywheel',
         dataLabels: {
             color: '#999999',
+            overflow: 'allow',
             /*textPath: {
                 enabled: true,
                 attributes: {
