@@ -14,3 +14,5 @@ The typescript is completely unnecessary i just wanted to try it out a bit
 The server is in liveobb.js
 
 the charts are built by the ts module found at types/src/build-charts.ts
+
+it's barely typescript, just js with a couple extra pieces
