@@ -398,12 +398,12 @@ var repliesDependency = {
         dataLabels: {
             color: '#999999',
             overflow: 'allow',
-            /*textPath: {
+            textPath: {
                 enabled: true,
                 attributes: {
                     dy: 5
                 }
-            },*/
+            },
             distance: 10
         },
         size: '95%'
